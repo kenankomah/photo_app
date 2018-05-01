@@ -4,10 +4,10 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 
 
-class BookDetail extends Component {
+class ImageDetail extends Component {
   render(){
-    if(!this.props.books){
-      return <div>Select a book to get started.</div>
+    if(!this.props.images){
+      return <div>Select a image to get started.</div>
     }
 
     return (
@@ -17,8 +17,8 @@ class BookDetail extends Component {
          </Link>
           <div className="row">
             <div height="50px;" className="span4"></div>
-            <div className="span4"><img className="center-block"  width="70%" src={this.props.books.title} /></div>
-            <div className="span4 text-center" id="date">Date added:{this.props.books.pages}</div>
+            <div className="span4"><img className="center-block"  width="70%" src={this.props.images.title} /></div>
+            <div className="span4 text-center" id="date">Date added:{this.props.images.pages}</div>
           </div>
       </div>
 
@@ -28,8 +28,8 @@ class BookDetail extends Component {
 
 function mapStateToProps(state) {
   return {
-    books: state.activeBook
+    images: state.activeImage
   };
 }
 
-export default connect(mapStateToProps)(BookDetail);
+export default connect(mapStateToProps)(ImageDetail);

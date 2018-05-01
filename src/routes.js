@@ -2,8 +2,8 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 
 import App from './components/app';
-import BookDetail from './containers/book-detail';
-import BookList from './containers/book-list';
+import ImageDetail from './containers/image-detail';
+import ImageList from './containers/image-list';
 
 //import PostsShow from './components/posts_show';
 
@@ -11,8 +11,8 @@ import BookList from './containers/book-list';
 //  <Route path="greet" component={Greeting} /> // gets passed to App as this.props.children
 export default (
   <Route path="/" component={App}> //any child elements are passed to App as this.props.children
-    <IndexRoute component={BookList} />
-    <Route path="list" component={BookDetail} />
+    <IndexRoute component={ImageList} />
+    <Route path="list" component={ImageDetail} />
   </Route>
 );
 
