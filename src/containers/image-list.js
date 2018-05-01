@@ -9,21 +9,11 @@ class ImageList extends Component {
     return this.props.images.map((image) => {
      return (
 
-    /*   <Link to="list" key={image.link} >
-        <li
-          key={image.link}
-          onClick={() => this.props.selectImage(image)}
-          className="list-group-item">
-          {image.link}
-        </li>
-       </Link>
 
-*/
-
-       <div key={image.link} className="col-xs-6 col-sm-3">
+       <div key={image.src} className="col-xs-6 col-sm-3">
           <Link to="list"
              onClick={() => this.props.selectImage(image)}>
-             <img width="100%" src={image.link} />
+             <img width="100%" src={image.src} />
           </Link>
        </div>
 
