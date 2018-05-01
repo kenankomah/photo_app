@@ -17,8 +17,8 @@ class ImageDetail extends Component {
          </Link>
           <div className="row">
             <div height="50px;" className="span4"></div>
-            <div className="span4"><img className="center-block"  width="70%" src={this.props.images.title} /></div>
-            <div className="span4 text-center" id="date">Date added:{this.props.images.pages}</div>
+            <div className="span4"><img className="center-block"  width="70%" src={this.props.images.link} /></div>
+            <div className="span4 text-center" id="date">Date added:{this.props.images.dates}</div>
           </div>
       </div>
 
