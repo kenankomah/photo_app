@@ -24,7 +24,7 @@ function returnArray(state = [], action){
 }
 
 function ActiveUser(state = [], action){
-   console.log(action)
+  // console.log(action)
    if(action.type === 'USER_DATA'){
      return action.payload;
    }

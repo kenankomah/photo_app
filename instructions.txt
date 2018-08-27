@@ -1,1 +1,0 @@
-cd into server directory and run "npm run dev"
