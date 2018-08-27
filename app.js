@@ -31,7 +31,10 @@ function deleteImageFile(fileTodelete){
   });
 }
 
-const port=8000;
+
+const port = process.env.PORT || 8000;
+
+app.listen(process)
 
 mongoose.connect(keys.mongodb.dbURI);
 
