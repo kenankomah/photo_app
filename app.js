@@ -32,7 +32,7 @@ function deleteImageFile(fileTodelete){
 }
 
 //const port=8000;
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 5000;
 
 //var db = "mongo.db://localhost/example";
 

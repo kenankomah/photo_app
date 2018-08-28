@@ -27475,7 +27475,7 @@
 	  }, {
 	    key: 'redirect',
 	    value: function redirect() {
-	      window.location.assign('http://localhost:8000/upload_image');
+	      window.location.assign('http://localhost:5000/upload_image');
 	    }
 	  }, {
 	    key: 'render',
@@ -27604,7 +27604,7 @@
 	});
 
 	exports.default = function () {
-		var request = fetch('http://localhost:8000/books', { credentials: 'include' }).then(function (res) {
+		var request = fetch('http://localhost:5000/books', { credentials: 'include' }).then(function (res) {
 			return res.json();
 		});
 		return { payload: request };
@@ -27623,10 +27623,10 @@
 	exports.default = function () {
 	  //  window.location.assign('http://localhost:8000/auth/login');
 	  //debugger;
-	  var request = fetch('http://localhost:8000/mongoid', { credentials: 'include' }).then(function (res) {
+	  var request = fetch('http://localhost:5000/mongoid', { credentials: 'include' }).then(function (res) {
 	    return res.json();
 	  }).catch(function (error) {
-	    return window.location.assign('http://localhost:8000/auth/login');
+	    return window.location.assign('http://localhost:5000/auth/login');
 	  });
 	  return { payload: request };
 	};
@@ -27681,7 +27681,7 @@
 	          })
 	        };
 
-	        return fetch('http://localhost:8000/book/' + id, options).then(function (res) {
+	        return fetch('http://localhost:5000/book/' + id, options).then(function (res) {
 	          return res.json();
 	        }).then(function (res) {
 	          return console.log(res);
