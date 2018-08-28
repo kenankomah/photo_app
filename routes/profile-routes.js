@@ -6,7 +6,6 @@ const authCheck = (req, res, next) => {
     res.redirect('/auth/login');
   }else {
     //if logged in
-    console.log('user recognised');
     next();
   }
 };

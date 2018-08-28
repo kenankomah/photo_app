@@ -31,10 +31,10 @@ function deleteImageFile(fileTodelete){
   });
 }
 
-
+//const port=8000;
 const port = process.env.PORT || 8000;
 
-app.listen(process)
+//var db = "mongo.db://localhost/example";
 
 mongoose.connect(keys.mongodb.dbURI);
 
@@ -42,7 +42,6 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
     extended:true
 }));
-
 
 
 app.use(function(req, res, next) {
@@ -54,7 +53,25 @@ app.use(function(req, res, next) {
   next();
 });
 
+/*app.get('/',function(req,res){
+    res.send('happy to be here')
+});*/
 
+
+/*app.get('/books', function(req, res){
+  //  console.log('getting all books');
+    Book.find({})
+    .exec(function(err, books){
+       if(err){
+         res.send('error has occured') ;
+       }else{
+         console.log(req.user);
+        //  console.log(books);
+          res.json(books);
+       }
+    })
+});
+*/
 app.get('/books/:id',function(req, res){
     console.log('getting one book');
     Book.findOne({
@@ -71,7 +88,22 @@ app.get('/books/:id',function(req, res){
 });
 
 
+/*app.post('/book', function(req, res){
+  var newBook = new Book();
 
+  newBook.src = req.body.src;
+  newBook.dates = req.body.dates;
+
+  newBook.save(function(err, book){
+    if(err) {
+        res.send('error saving book');
+    }else{
+        console.log(book);
+        res.send(book);
+    }
+  });
+});
+*/
 app.post('/book2', function(req, res){
   Book.create(req.body, function(err, book){
     if(err){
@@ -119,7 +151,7 @@ app.delete('/book/:id', function(req, res){
 //Set Storage Engine
 const storage = multer.diskStorage({
   //  destination:'./public/uploads/',
-    destination:'../client/images/',
+    destination:'./client/images/',
     filename: function(req, file, cb){
        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
     }
@@ -175,7 +207,11 @@ app.use(passport.session());
 
 
 
-
+//connect to mongodb
+/*mongoose.connect(keys.mongodb.dbURI, () =>{
+  console.log('connected to mongodb');
+});
+*/
 //set up routes
 app.use('/auth', authRoutes);
 app.use('/profile', profileRoutes);
@@ -203,10 +239,14 @@ app.get('/books', function(req, res){
 });
 
 //create home route
+// app.get('/', (req, res)=>{
+//   res.render('home',{user:req.user});
+// });
+
+
 app.get('/home', (req, res)=>{
   res.render('home',{user:req.user});
 });
-
 
 // Prevents issue with mime type
 app.use(express.static('./client/'));  
