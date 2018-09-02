@@ -4,10 +4,15 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const Book = require('./models/book-model');
 const keys = require('./config/keys');
-const multer = require('multer');
+
 const ejs = require('ejs');
 const path = require('path');
 const fs = require("fs");
+
+const aws = require('aws-sdk');
+const multer = require('multer');
+const multerS3 = require('multer-s3');
+
 
 const authRoutes = require('./routes/auth-routes');
 const profileRoutes = require('./routes/profile-routes');
@@ -15,21 +20,21 @@ const passportSetup = require('./config/passport-setup');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
 
-function deleteImageFile(fileTodelete){
-  try {
-      fs.unlinkSync("");
-  } catch (err) {
-      console.log(err);
-  }
-  console.log(fileTodelete);
-  fs.unlink("./client/images/" + fileTodelete, function(err){
-    if(err){
-      console.log(err);
-    }else{
-      console.log("image removed");
-    }
-  });
-}
+// function deleteImageFile(fileTodelete){
+//   try {
+//       fs.unlinkSync("");
+//   } catch (err) {
+//       console.log(err);
+//   }
+//   console.log(fileTodelete);
+//   fs.unlink("./client/images/" + fileTodelete, function(err){
+//     if(err){
+//       console.log(err);
+//     }else{
+//       console.log("image removed");
+//     }
+//   });
+// }
 
 //const port=8000;
 const port = process.env.PORT || 5000;
@@ -73,7 +78,7 @@ app.use(function(req, res, next) {
 });
 */
 app.get('/books/:id',function(req, res){
-    console.log('getting one book');
+   // console.log('getting one book');
     Book.findOne({
         _id:req.params.id
     })
@@ -109,7 +114,7 @@ app.post('/book2', function(req, res){
     if(err){
        res.send('error saving book');
     } else{
-      console.log(book);
+     // console.log(book);
       res.send(book);
     }
   });
@@ -123,13 +128,98 @@ app.put('/book/:id', function(req, res){
     {upsert:true},
     function(err, newBook){
       if(err){
-        console.log('error occured');
+       // console.log('error occured');
       }else{
-        console.log(newBook);
+       // console.log(newBook);
         res.status(204);
       }
     });
 });
+
+
+
+/**************************************** image upload code ******************************************/
+
+
+
+
+// //Set Storage Engine
+// const storage = multer.diskStorage({
+//   //  destination:'./public/uploads/',
+//     destination:'./client/images/',
+//     filename: function(req, file, cb){
+//        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+//     }
+// });
+
+// //Init upload
+// const upload = multer({
+//     storage: storage,
+//     limits:{fileSize:1000000},
+//     fileFilter: function(req, file, cb){
+//         checkFileType(file, cb);
+//     }
+// }).single('myImage');
+
+//Check File Type
+// function checkFileType(file, cb){
+//     //Allowed extensions
+//     const filetypes = /jpeg|jpg|png|gif/;
+//     //Check extensions
+//     const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+//     //Check mime
+//     const mimetype = filetypes.test(file.mimetype);
+
+//     if(mimetype && extname){
+//         return cb(null, true)
+//     }else {
+//         cb('Error: Images Only!');
+//     }
+// }
+
+const config = require('./config/keys');
+
+aws.config.update({
+  secretAccessKey: config.AWS_SECRET_ACCESS,
+  accessKeyId: config.AWS_ACCESS_KEY,
+  region: 'us-east-2'
+});
+
+
+const s3 = new aws.S3();
+
+const fileFilter = (req, file, cb) => {
+  //Allowed extensions
+  const filetypes = /jpeg|jpg|png|gif/;
+  //Check extensions
+  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+  //Check mime
+  const mimetype = filetypes.test(file.mimetype);
+
+  if(mimetype && extname){
+      return cb(null, true)
+  }else {
+      cb('Error: Images Only!');
+  }
+}
+
+const upload = multer({
+  fileFilter,
+  limits:{fileSize:10000000},
+  storage: multerS3({
+    s3,
+    bucket: 'image-gallery1',
+    acl: 'public-read',
+    metadata: function (req, file, cb) {
+      cb(null, {fieldName: 'TESTING_META_DATA!'});
+    },
+    key: function (req, file, cb) {
+      //cb(null, Date.now().toString() + '.jpg');
+      cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    }
+  })
+}).single('myImage');
+
 
 app.delete('/book/:id', function(req, res){
   Book.findOneAndRemove({
@@ -138,55 +228,30 @@ app.delete('/book/:id', function(req, res){
     if(err){
       res.send('error deleting')
     }else{
-    //  console.log(book);
-      const imageName = book.src.replace("/images/","");
-      deleteImageFile(imageName);
-      res.send(book);
+     console.log(book.src);
+     var key = book.src.split('.com/')[1];
+
+     var params = {
+          Bucket: "image-gallery1", 
+          Key: key
+        };
+        s3.deleteObject(params, function(err, data) {
+          if (err) console.log(err, err.stack); // an error occurred
+          else     console.log(data);           // successful response
+          
+        });
+
     }
   });
 });
 
-/**************************************** image upload code ******************************************/
 
-//Set Storage Engine
-const storage = multer.diskStorage({
-  //  destination:'./public/uploads/',
-    destination:'./client/images/',
-    filename: function(req, file, cb){
-       cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-    }
-});
-
-//Init upload
-const upload = multer({
-    storage: storage,
-    limits:{fileSize:1000000},
-    fileFilter: function(req, file, cb){
-        checkFileType(file, cb);
-    }
-}).single('myImage');
-
-//Check File Type
-function checkFileType(file, cb){
-    //Allowed extensions
-    const filetypes = /jpeg|jpg|png|gif/;
-    //Check extensions
-    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-    //Check mime
-    const mimetype = filetypes.test(file.mimetype);
-
-    if(mimetype && extname){
-        return cb(null, true)
-    }else {
-        cb('Error: Images Only!');
-    }
-}
 
 // EJS
 app.set('view engine', 'ejs');
 
 //Public Folder
-app.use(express.static('./public'));
+//app.use(express.static('./public'));
 
 
 
@@ -238,6 +303,9 @@ app.get('/books', function(req, res){
     })
 });
 
+
+
+
 //create home route
 // app.get('/', (req, res)=>{
 //   res.render('home',{user:req.user});
@@ -259,8 +327,8 @@ app.get('/', function (req, res) {
 
 app.get('/upload_image', (req, res)=>{
   if(req.user){
-    const mongodbId = "http://localhost:8080/?userId=" + req.user.id;
-    const redirectLink = "window.location.href='" + mongodbId +"'";
+    // const mongodbId = "http://localhost:8080/?userId=" + req.user.id;
+    // const redirectLink = "window.location.href='" + mongodbId +"'";
     res.render('index',{userId:req.user});
   }else{
     res.redirect('/auth/login');
@@ -269,8 +337,8 @@ app.get('/upload_image', (req, res)=>{
 
 
 app.post('/upload', (req, res) =>{
-  const mongodbId = "http://localhost:8080/?userId=" + req.user.id;
-  const redirectLink = "window.location.href='" + mongodbId +"'";
+  // const mongodbId = "http://localhost:8080/?userId=" + req.user.id;
+  // const redirectLink = "window.location.href='" + mongodbId +"'";
    upload(req, res, (err) => {
        if(err){
            res.render('index', {
@@ -279,14 +347,14 @@ app.post('/upload', (req, res) =>{
             });
        } else {
           //console.log(req.file);
-          console.log(req.user); 
+         // console.log(req.user); 
            if(req.file === undefined){
               res.render('index', {
                   msg: 'Error: No file selected!',
                   userId:req.user
               });
            }else{
-            console.log(req.user); 
+           // console.log(req.user); 
                res.render('index', {
                    msg: 'Image uploaded',
                    userId:req.user
@@ -294,17 +362,16 @@ app.post('/upload', (req, res) =>{
                // code below adds new image data to mongoose
                const dateTime = new Date();
                const newBook = new Book();
-               newBook.src = `/images/${req.file.filename}`;
+               //newBook.src = `/images/${req.file.filename}`;
+               newBook.src = req.file.location;
                newBook.dates = dateTime.toLocaleString();
                newBook.mongoId = req.user.id
                newBook.save();
-              // console.log(req.user.id);
+               //console.log(req.file);
            }
        }
    });
 });
-
-
 
 
 app.listen(port, function(){

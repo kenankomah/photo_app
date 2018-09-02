@@ -14,20 +14,20 @@ class ImageDetail extends Component {
           })
         }
 
-        return fetch('http://localhost:8000/book/'+ id, options)
+        return fetch('http://localhost:5000/book/'+ id, options)
         .then(res => res.json())
         .then(res => console.log(res))
         .catch(error => console.log(error))
 
       }
-      window.location.assign('http://localhost:8080/');
+      window.location.assign('/');
       newPost();
   }
 
   render(){
     console.log(this.props);
     if(!this.props.image){
-      window.location.assign('http://localhost:8080/');
+      window.location.assign('/');
     }
 
 

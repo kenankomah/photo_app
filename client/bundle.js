@@ -27475,7 +27475,7 @@
 	  }, {
 	    key: 'redirect',
 	    value: function redirect() {
-	      window.location.assign('http://localhost:5000/upload_image');
+	      window.location.assign('/upload_image');
 	    }
 	  }, {
 	    key: 'render',
@@ -27689,7 +27689,7 @@
 	          return console.log(error);
 	        });
 	      };
-	      window.location.assign('http://localhost:8080/');
+	      window.location.assign('/');
 	      newPost();
 	    }
 	  }, {
@@ -27699,7 +27699,7 @@
 
 	      console.log(this.props);
 	      if (!this.props.image) {
-	        window.location.assign('http://localhost:8080/');
+	        window.location.assign('/');
 	      }
 
 	      return _react2.default.createElement(
