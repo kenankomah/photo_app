@@ -7,7 +7,7 @@ import ImageList from './containers/image-list';
 
 //import PostsShow from './components/posts_show';
 
-
+console.log(ImageDetail);
 //  <Route path="greet" component={Greeting} /> // gets passed to App as this.props.children
 export default (
   <Route path="/" component={App}> //any child elements are passed to App as this.props.children

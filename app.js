@@ -336,6 +336,11 @@ app.get('/upload_image', (req, res)=>{
 });
 
 
+app.get('/list', (req, res)=>{
+  res.redirect('/');
+})
+
+
 app.post('/upload', (req, res) =>{
   // const mongodbId = "http://localhost:8080/?userId=" + req.user.id;
   // const redirectLink = "window.location.href='" + mongodbId +"'";

@@ -27316,8 +27316,9 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	//import PostsShow from './components/posts_show';
-
-
+  
+  
+console.log(_imageDetail2);
 	//  <Route path="greet" component={Greeting} /> // gets passed to App as this.props.children
 	//any child elements are passed to App as this.props.children
 	exports.default = _react2.default.createElement(
