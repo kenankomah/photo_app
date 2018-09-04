@@ -175,8 +175,8 @@ app.put('/book/:id', function(req, res){
 //const config = require('./config/keys');
 
 aws.config.update({
-  secretAccessKey: process.env.S3_KEY,
-  accessKeyId: process.env.S3_SECRET,
+  secretAccessKey:process.env.S3_SECRET,
+  accessKeyId:process.env.S3_KEY 
   region: 'us-east-2'
 });
 
