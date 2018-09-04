@@ -12,6 +12,6 @@ module.exports={
   session:{
     cookieKey:'niemandkanndaserraten'
   },
-  AWS_SECRET_ACCESS:'JB+5+thUU9qZjbMDpNv1IzBtcAYm9z+3paXV7uZW',
-  AWS_ACCESS_KEY:'AKIAJZJR6CEBTU2CDJWQ'
+  AWS_SECRET_ACCESS:'',
+  AWS_ACCESS_KEY:''
 };
