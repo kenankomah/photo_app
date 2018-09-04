@@ -3,7 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const Book = require('./models/book-model');
-const keys = require('./config/keys');
+//const keys = require('./config/keys');
 
 const ejs = require('ejs');
 const path = require('path');
@@ -39,9 +39,9 @@ const passport = require('passport');
 //const port=8000;
 const port = process.env.PORT || 5000;
 
-//var db = "mongo.db://localhost/example";
+//mongoose.connect(keys.session.cookieKey);
 
-mongoose.connect(keys.mongodb.dbURI);
+mongoose.connect(process.env.MONGODB_URI);
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
@@ -95,10 +95,8 @@ app.get('/books/:id',function(req, res){
 
 /*app.post('/book', function(req, res){
   var newBook = new Book();
-
   newBook.src = req.body.src;
   newBook.dates = req.body.dates;
-
   newBook.save(function(err, book){
     if(err) {
         res.send('error saving book');
@@ -177,13 +175,19 @@ app.put('/book/:id', function(req, res){
 //     }
 // }
 
-const config = require('./config/keys');
+//const config = require('./config/keys');
 
 aws.config.update({
-  secretAccessKey: config.AWS_SECRET_ACCESS,
-  accessKeyId: config.AWS_ACCESS_KEY,
+  secretAccessKey: process.env.S3_KEY,
+  accessKeyId: process.env.S3_SECRET,
   region: 'us-east-2'
 });
+
+// aws.config.update({
+//     secretAccessKey: keys.AWS_SECRET_ACCESS,
+//     accessKeyId: keys.AWS_ACCESS_KEY,
+//     region: 'us-east-2'
+// });
 
 
 const s3 = new aws.S3();
@@ -263,7 +267,8 @@ app.set('view engine', 'ejs');
 //encerypts cookie and sets it's lifespan
 app.use(cookieSession({
   maxAge:24*60*60*1000,
-  keys:[keys.session.cookieKey]
+  keys:[process.env.cookieKey]
+  //keys.session.cookieKey
 }));
 
 //initialize passport

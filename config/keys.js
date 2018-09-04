@@ -7,11 +7,10 @@ module.exports={
   },
   mongodb:{
     dbURI:'mongodb://kenankomah:quantum12@ds133630.mlab.com:33630/kankomah'
-    // dbURI:'mongodb://heroku_8zh1rdd6:<dbpassword>@ds133632.mlab.com:33632/heroku_8zh1rdd6'
   },
   session:{
     cookieKey:'niemandkanndaserraten'
   },
-  AWS_SECRET_ACCESS:'',
-  AWS_ACCESS_KEY:''
+  AWS_SECRET_ACCESS:'d1wTeLpdfb6S50gQnGKUWw7U7lIo9jvUngZRblan',
+  AWS_ACCESS_KEY:'AKIAIGHQHQ5KRYWCT4AA'
 };
