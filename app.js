@@ -58,9 +58,6 @@ app.use(function(req, res, next) {
   next();
 });
 
-/*app.get('/',function(req,res){
-    res.send('happy to be here')
-});*/
 
 
 /*app.get('/books', function(req, res){
