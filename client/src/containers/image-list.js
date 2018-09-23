@@ -5,10 +5,11 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import ImagesReducer from '../reducers/reducer_images';
 import IdExport from '../reducers/id_export';
+import Upload from './upload';
 IdExport();
   //window.location.assign('http://localhost:8000/auth/login');
 
-  // debugger;
+   //debugger;
 class ImageList extends Component {
 //debugger;
    renderList(){
@@ -33,6 +34,10 @@ class ImageList extends Component {
   redirect(){
     window.location.assign('http://localhost:8000/upload_image');
   }
+
+  loggout(){
+    localStorage.removeItem('loggedIn');
+  } 
 
   render(){
   //  console.log(this.props.activeUser)
@@ -76,6 +81,11 @@ class ImageList extends Component {
 
       <div className="container">
         <h1>Gallery</h1>
+        <span></span>
+        <Upload />
+        <Link to="test">test</Link> <br/>
+        <Link to="upload">upload</Link>
+        <h2> <a onClick={this.loggout} href="http://localhost:5000/auth/logout">Log out</a> </h2>
         <button onClick={this.redirect} className="btn">Click here to upload new pic</button>
         <div className="row grid">
           {this.renderList()}

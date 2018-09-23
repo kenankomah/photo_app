@@ -26,12 +26,9 @@ const newPost = post => {
 newPost(post);
 */
 
-
-
-
-
 export default function(){
    const request = fetch('http://localhost:5000/books',{ credentials: 'include' })
-      .then(res => res.json())
+			.then(res => res.json()).catch(error => console.log())
+		//	console.log({payload:request});
      return {payload:request}
 }

@@ -3,7 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const Book = require('./models/book-model');
-//const keys = require('./config/keys');
+const keys = require('./config/keys');
 
 const ejs = require('ejs');
 const path = require('path');
@@ -39,9 +39,9 @@ const passport = require('passport');
 //const port=8000;
 const port = process.env.PORT || 5000;
 
-//mongoose.connect(keys.session.cookieKey);
+mongoose.connect(keys.mongodb.dbURI);
 
-mongoose.connect(process.env.MONGODB_URI);
+//mongoose.connect(process.env.MONGODB_URI);
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
@@ -174,17 +174,17 @@ app.put('/book/:id', function(req, res){
 
 //const config = require('./config/keys');
 
-aws.config.update({
-  secretAccessKey:process.env.S3_SECRET,
-  accessKeyId:process.env.S3_KEY,
-  region: 'us-east-2'
-});
-
 // aws.config.update({
-//     secretAccessKey: keys.AWS_SECRET_ACCESS,
-//     accessKeyId: keys.AWS_ACCESS_KEY,
-//     region: 'us-east-2'
+//   secretAccessKey:process.env.S3_SECRET,
+//   accessKeyId:process.env.S3_KEY,
+//   region: 'us-east-2'
 // });
+
+aws.config.update({
+    secretAccessKey: keys.AWS_SECRET_ACCESS,
+    accessKeyId: keys.AWS_ACCESS_KEY,
+    region: 'us-east-2'
+});
 
 
 const s3 = new aws.S3();
@@ -229,19 +229,18 @@ app.delete('/book/:id', function(req, res){
     if(err){
       res.send('error deleting')
     }else{
-     console.log(book.src);
-     var key = book.src.split('.com/')[1];
+      console.log(book.src);
+      var key = book.src.split('.com/')[1];
 
-     var params = {
+      var params = {
           Bucket: "image-gallery1", 
           Key: key
-        };
-        s3.deleteObject(params, function(err, data) {
-          if (err) console.log(err, err.stack); // an error occurred
-          else     console.log(data);           // successful response
-          
-        });
+      };
 
+      s3.deleteObject(params, function(err, data) {
+        if (err) console.log(err, err.stack); // an error occurred
+        else     console.log(data);           // successful response      
+      });
     }
   });
 });
@@ -264,8 +263,8 @@ app.set('view engine', 'ejs');
 //encerypts cookie and sets it's lifespan
 app.use(cookieSession({
   maxAge:24*60*60*1000,
-  keys:[process.env.cookieKey]
-  //keys.session.cookieKey
+ // keys:[process.env.cookieKey]
+  keys:[keys.session.cookieKey]
 }));
 
 //initialize passport
@@ -308,17 +307,23 @@ app.get('/books', function(req, res){
 
 
 
-//create home route
-// app.get('/', (req, res)=>{
-//   res.render('home',{user:req.user});
-// });
-
 
 app.get('/home', (req, res)=>{
   res.render('home',{user:req.user});
 });
 
-// Prevents issue with mime type
+
+
+//create home route
+app.get('/', (req, res)=>{
+  res.render('home',{user:req.user});
+   // res.send("<h1> Page not found </h1>");
+});
+
+
+
+
+//Prevents issue with mime type
 app.use(express.static('./client/'));  
 
 //resolve is used as a security feature when navigating the files
@@ -372,7 +377,7 @@ app.post('/upload', (req, res) =>{
                //newBook.src = `/images/${req.file.filename}`;
                newBook.src = req.file.location;
                newBook.dates = dateTime.toLocaleString();
-               newBook.mongoId = req.user.id
+               newBook.mongoId = req.user.id;
                newBook.save();
                //console.log(req.file);
            }

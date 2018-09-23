@@ -59,3 +59,20 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps)(ImageDetail);
+
+// import React, { Component } from 'react';
+
+// class Login extends Component {  
+//     render(){  
+//         return (
+//             <div className="container">
+//                 <h1>Gallery</h1>
+//                 <button className="btn"> 
+//                     <a href="http://localhost:5000/auth/google">image list</a>
+//                 </button>
+//             </div>
+//         )
+//     }
+// }
+
+// export default Login;
