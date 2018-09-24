@@ -206,7 +206,7 @@ const fileFilter = (req, file, cb) => {
 
 const upload = multer({
   fileFilter,
-  limits:{fileSize:10000000},
+  limits:{fileSize:8000000},
   storage: multerS3({
     s3,
     bucket: 'image-gallery1',
@@ -353,24 +353,21 @@ app.post('/upload', (req, res) =>{
   // const redirectLink = "window.location.href='" + mongodbId +"'";
    upload(req, res, (err) => {
        if(err){
-           res.render('index', {
+           res.send({
                msg: err,
                userId:req.user               
             });
        } else {
-          //console.log(req.file);
-         // console.log(req.user); 
-           if(req.file === undefined){
-              res.render('index', {
+            if(req.file === undefined){
+              res.send({
                   msg: 'Error: No file selected!',
                   userId:req.user
               });
-           }else{
-           // console.log(req.user); 
-               res.render('index', {
-                   msg: 'Image uploaded',
-                   userId:req.user
-               });
+            }else{
+                res.send({
+                msg: 'Image uploaded',
+                userId:req.user
+              });
                // code below adds new image data to mongoose
                const dateTime = new Date();
                const newBook = new Book();

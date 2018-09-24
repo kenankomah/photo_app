@@ -43,9 +43,16 @@ class FileUpload extends Component {
         })
         .then(res => {
            // console.log(res);
+           if(res.data.msg.code === "LIMIT_FILE_SIZE"){
+            document.querySelector('span').innerHTML = "8mb size limit!";
+           }else if(res.data.msg === "Error: Images Only!"){
+            document.querySelector('span').innerHTML = "The file is not an image!";
+           }else{
             document.querySelector('span').innerHTML = "Done!";
+           }
             this.filerClearer();
-            //console.log(this.state.selectedFile);
+           // console.log(this.state.selectedFile);
+           console.log(res.data.msg);
         }).catch(error => console.log(error));
     } else{
       document.querySelector('span').innerHTML = "select an image before uploading";      
