@@ -26998,7 +26998,7 @@
 	            ' ',
 	            _react2.default.createElement(
 	              'a',
-	              { onClick: this.loggout, href: 'http://localhost:5000/auth/logout' },
+	              { onClick: this.loggout, href: '/auth/logout' },
 	              'Log out'
 	            ),
 	            ' '
@@ -27082,7 +27082,7 @@
 	});
 
 	exports.default = function () {
-		var request = fetch('http://localhost:5000/books', { credentials: 'include' }).then(function (res) {
+		var request = fetch('/books', { credentials: 'include' }).then(function (res) {
 			return res.json();
 		}).catch(function (error) {
 			return console.log();
@@ -27102,7 +27102,7 @@
 	});
 
 	exports.default = function () {
-	  var request = fetch('http://localhost:5000/mongoid', { credentials: 'include' }).then(function (res) {
+	  var request = fetch('/mongoid', { credentials: 'include' }).then(function (res) {
 	    return res.json();
 	  }).catch(function (error) {
 	    return (/*window.location.assign('http://localhost:5000/auth/login')*/console.log(error)
@@ -27181,7 +27181,7 @@
 
 	        var fd = new FormData();
 	        fd.append('myImage', _this.state.selectedFile, _this.state.selectedFile.name);
-	        _axios2.default.post('http://localhost:5000/upload', fd, {
+	        _axios2.default.post('/upload', fd, {
 	          onUploadProgress: function onUploadProgress(progressEvent) {
 	            // console.log('Upload progress: ' + ((progressEvent.loaded * 100)/progressEvent.total) + '%');
 	          },
@@ -28846,7 +28846,7 @@
 	          })
 	        };
 
-	        return fetch('http://localhost:5000/book/' + id, options).then(function (res) {
+	        return fetch('/book/' + id, options).then(function (res) {
 	          return res.json();
 	        }).then(function (res) {
 	          return console.log(res);
