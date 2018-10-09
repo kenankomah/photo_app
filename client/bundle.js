@@ -144,7 +144,7 @@
 	    ' ',
 	    _react2.default.createElement(
 	      'a',
-	      { href: 'http://localhost:5000/auth/google' },
+	      { href: '/auth/google' },
 	      'Log in'
 	    ),
 	    ' '
