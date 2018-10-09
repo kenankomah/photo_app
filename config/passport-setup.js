@@ -19,11 +19,11 @@ passport.use(
   new GoogleStrategy({
      //options for the google strat
      callbackURL:'/auth/google/redirect',
-    //  clientID:process.env.clientID,
-    //  clientSecret:process.env.clientSecret
+     clientID:process.env.clientID,
+     clientSecret:process.env.clientSecret
 
-     clientID:keys.google.clientID,
-     clientSecret:keys.google.clientSecret
+    //  clientID:keys.google.clientID,
+    //  clientSecret:keys.google.clientSecret
 
   }, (accessToken, refreshToken, profile, done) => {
     //console.log(profile);
