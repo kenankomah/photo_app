@@ -26729,7 +26729,7 @@
 
 	var _app2 = _interopRequireDefault(_app);
 
-	var _imageDetail = __webpack_require__(259);
+	var _imageDetail = __webpack_require__(286);
 
 	var _imageDetail2 = _interopRequireDefault(_imageDetail);
 
@@ -26737,7 +26737,7 @@
 
 	var _imageList2 = _interopRequireDefault(_imageList);
 
-	var _upload = __webpack_require__(260);
+	var _upload = __webpack_require__(259);
 
 	var _upload2 = _interopRequireDefault(_upload);
 
@@ -26794,7 +26794,7 @@
 
 	var _imageList2 = _interopRequireDefault(_imageList);
 
-	var _imageDetail = __webpack_require__(259);
+	var _imageDetail = __webpack_require__(286);
 
 	var _imageDetail2 = _interopRequireDefault(_imageDetail);
 
@@ -26865,7 +26865,7 @@
 
 	var _id_export2 = _interopRequireDefault(_id_export);
 
-	var _upload = __webpack_require__(260);
+	var _upload = __webpack_require__(259);
 
 	var _upload2 = _interopRequireDefault(_upload);
 
@@ -26978,6 +26978,7 @@
 	            null,
 	            'Gallery'
 	          ),
+	          _react2.default.createElement('span', null),
 	          _react2.default.createElement(_upload2.default, null),
 	          _react2.default.createElement(
 	            _reactRouter.Link,
@@ -27084,7 +27085,7 @@
 		var request = fetch('http://localhost:5000/books', { credentials: 'include' }).then(function (res) {
 			return res.json();
 		}).catch(function (error) {
-			return console.log(error);
+			return console.log();
 		});
 		//	console.log({payload:request});
 		return { payload: request };
@@ -27126,157 +27127,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRedux = __webpack_require__(160);
-
-	var _redux = __webpack_require__(166);
-
-	var _reactRouter = __webpack_require__(198);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var ImageDetail = function (_Component) {
-	  _inherits(ImageDetail, _Component);
-
-	  function ImageDetail() {
-	    _classCallCheck(this, ImageDetail);
-
-	    return _possibleConstructorReturn(this, (ImageDetail.__proto__ || Object.getPrototypeOf(ImageDetail)).apply(this, arguments));
-	  }
-
-	  _createClass(ImageDetail, [{
-	    key: 'deleteImage',
-	    value: function deleteImage(id) {
-	      var newPost = function newPost() {
-	        var options = {
-	          method: 'DELETE',
-	          headers: new Headers({
-	            'Content-Type': 'application/json'
-	          })
-	        };
-
-	        return fetch('http://localhost:5000/book/' + id, options).then(function (res) {
-	          return res.json();
-	        }).then(function (res) {
-	          return console.log(res);
-	        }).catch(function (error) {
-	          return console.log(error);
-	        });
-	      };
-	      window.location.assign('/');
-	      newPost();
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _this2 = this;
-
-	      console.log(this.props);
-	      if (!this.props.image) {
-	        window.location.assign('/');
-	      }
-
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'container details' },
-	        _react2.default.createElement(
-	          _reactRouter.Link,
-	          { to: '/' },
-	          _react2.default.createElement(
-	            'button',
-	            { className: 'center-block btn btn-primary' },
-	            ' Back to gallery'
-	          )
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'row' },
-	          _react2.default.createElement('div', { height: '50px;', className: 'span4' }),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'span4' },
-	            _react2.default.createElement('img', { className: 'center-block', width: '70%', src: this.props.image.src })
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'span4 text-center', id: 'date' },
-	            'Date added:',
-	            this.props.image.dates
-	          ),
-	          _react2.default.createElement(
-	            'button',
-	            { onClick: function onClick() {
-	                return _this2.deleteImage(_this2.props.image.id);
-	              }, className: 'btn text-center' },
-	            'Click here to delete the picture'
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            null,
-	            ' ',
-	            _react2.default.createElement('img', { src: this.props.activeUser.thumbnail }),
-	            ' ',
-	            _react2.default.createElement('br', null),
-	            ' ',
-	            this.props.activeUser.username
-	          )
-	        )
-	      );
-	    }
-	  }]);
-
-	  return ImageDetail;
-	}(_react.Component);
-
-	function mapStateToProps(state) {
-	  //console.log(state);
-	  return {
-	    image: state.activeImage,
-	    activeUser: state.activeUser
-	  };
-	}
-
-	exports.default = (0, _reactRedux.connect)(mapStateToProps)(ImageDetail);
-
-	// import React, { Component } from 'react';
-
-	// class Login extends Component {  
-	//     render(){  
-	//         return (
-	//             <div className="container">
-	//                 <h1>Gallery</h1>
-	//                 <button className="btn"> 
-	//                     <a href="http://localhost:5000/auth/google">image list</a>
-	//                 </button>
-	//             </div>
-	//         )
-	//     }
-	// }
-
-	// export default Login;
-
-/***/ }),
-/* 260 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _axios = __webpack_require__(261);
+	var _axios = __webpack_require__(260);
 
 	var _axios2 = _interopRequireDefault(_axios);
 
@@ -27307,21 +27158,51 @@
 	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = FileUpload.__proto__ || Object.getPrototypeOf(FileUpload)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
 	      selectedFile: null
 	    }, _this.fileSelectorHandler = function (event) {
+	      //console.log(event.target.files[0]);
+	      document.querySelector('span').innerHTML = event.target.files[0].name + ' selected';
 	      _this.setState({
 	        selectedFile: event.target.files[0]
 	      });
+	    }, _this.filerClearer = function () {
+	      _this.setState({
+	        selectedFile: ""
+	      });
 	    }, _this.fileUploadHandler = function () {
+
 	      if (_this.state.selectedFile) {
+
+	        document.querySelector('span').innerHTML = "";
+	        var img = document.createElement('img');
+	        var text = document.createTextNode("Uploading ");
+	        img.setAttribute('src', 'https://image-gallery1.s3.eu-west-2.amazonaws.com/myImage-1537648204973.gif');
+	        img.setAttribute('style', 'width:30px;');
+	        document.querySelector('span').appendChild(text);
+	        document.querySelector('span').appendChild(img);
+
 	        var fd = new FormData();
 	        fd.append('myImage', _this.state.selectedFile, _this.state.selectedFile.name);
 	        _axios2.default.post('http://localhost:5000/upload', fd, {
 	          onUploadProgress: function onUploadProgress(progressEvent) {
-	            console.log('Upload progress: ' + progressEvent.loaded * 100 / progressEvent.total + '%');
+	            // console.log('Upload progress: ' + ((progressEvent.loaded * 100)/progressEvent.total) + '%');
 	          },
 	          withCredentials: true
 	        }).then(function (res) {
-	          console.log(res);
+	          // console.log(res);
+	          if (res.data.msg.code === "LIMIT_FILE_SIZE") {
+	            document.querySelector('span').innerHTML = "8mb size limit!";
+	          } else if (res.data.msg === "Error: Images Only!") {
+	            document.querySelector('span').innerHTML = "The file is not an image!";
+	          } else {
+	            document.querySelector('span').innerHTML = "Done!";
+	          }
+	          _this.filerClearer();
+	          // console.log(this.state.selectedFile);
+	          console.log(res.data.msg);
+	        }).catch(function (error) {
+	          return console.log(error);
 	        });
+	      } else {
+	        document.querySelector('span').innerHTML = "select an image before uploading";
 	      }
 	    }, _temp), _possibleConstructorReturn(_this, _ret);
 	  }
@@ -27334,7 +27215,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'App' },
-	        _react2.default.createElement('input', {
+	        _react2.default.createElement('input', { id: 'fileSelector',
 	          style: { display: 'none' },
 	          type: 'file',
 	          onChange: this.fileSelectorHandler,
@@ -27346,11 +27227,11 @@
 	          { onClick: function onClick() {
 	              return _this2.fileInput.click();
 	            } },
-	          'Pick File'
+	          'Select an image'
 	        ),
 	        _react2.default.createElement(
 	          'button',
-	          { onClick: this.fileUploadHandler },
+	          { id: 'uploader', onClick: this.fileUploadHandler },
 	          'Upload'
 	        ),
 	        _react2.default.createElement('br', null),
@@ -27369,21 +27250,21 @@
 	exports.default = FileUpload;
 
 /***/ }),
-/* 261 */
+/* 260 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(262);
+	module.exports = __webpack_require__(261);
 
 /***/ }),
-/* 262 */
+/* 261 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(263);
-	var bind = __webpack_require__(264);
-	var Axios = __webpack_require__(266);
-	var defaults = __webpack_require__(267);
+	var utils = __webpack_require__(262);
+	var bind = __webpack_require__(263);
+	var Axios = __webpack_require__(265);
+	var defaults = __webpack_require__(266);
 
 	/**
 	 * Create an instance of Axios
@@ -27416,15 +27297,15 @@
 	};
 
 	// Expose Cancel & CancelToken
-	axios.Cancel = __webpack_require__(284);
-	axios.CancelToken = __webpack_require__(285);
-	axios.isCancel = __webpack_require__(281);
+	axios.Cancel = __webpack_require__(283);
+	axios.CancelToken = __webpack_require__(284);
+	axios.isCancel = __webpack_require__(280);
 
 	// Expose all/spread
 	axios.all = function all(promises) {
 	  return Promise.all(promises);
 	};
-	axios.spread = __webpack_require__(286);
+	axios.spread = __webpack_require__(285);
 
 	module.exports = axios;
 
@@ -27433,13 +27314,13 @@
 
 
 /***/ }),
-/* 263 */
+/* 262 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var bind = __webpack_require__(264);
-	var isBuffer = __webpack_require__(265);
+	var bind = __webpack_require__(263);
+	var isBuffer = __webpack_require__(264);
 
 	/*global toString:true*/
 
@@ -27742,7 +27623,7 @@
 
 
 /***/ }),
-/* 264 */
+/* 263 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -27759,7 +27640,7 @@
 
 
 /***/ }),
-/* 265 */
+/* 264 */
 /***/ (function(module, exports) {
 
 	/*!
@@ -27786,15 +27667,15 @@
 
 
 /***/ }),
-/* 266 */
+/* 265 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var defaults = __webpack_require__(267);
-	var utils = __webpack_require__(263);
-	var InterceptorManager = __webpack_require__(278);
-	var dispatchRequest = __webpack_require__(279);
+	var defaults = __webpack_require__(266);
+	var utils = __webpack_require__(262);
+	var InterceptorManager = __webpack_require__(277);
+	var dispatchRequest = __webpack_require__(278);
 
 	/**
 	 * Create a new instance of Axios
@@ -27871,13 +27752,13 @@
 
 
 /***/ }),
-/* 267 */
+/* 266 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var utils = __webpack_require__(263);
-	var normalizeHeaderName = __webpack_require__(268);
+	var utils = __webpack_require__(262);
+	var normalizeHeaderName = __webpack_require__(267);
 
 	var DEFAULT_CONTENT_TYPE = {
 	  'Content-Type': 'application/x-www-form-urlencoded'
@@ -27893,10 +27774,10 @@
 	  var adapter;
 	  if (typeof XMLHttpRequest !== 'undefined') {
 	    // For browsers use XHR adapter
-	    adapter = __webpack_require__(269);
+	    adapter = __webpack_require__(268);
 	  } else if (typeof process !== 'undefined') {
 	    // For node use HTTP adapter
-	    adapter = __webpack_require__(269);
+	    adapter = __webpack_require__(268);
 	  }
 	  return adapter;
 	}
@@ -27974,12 +27855,12 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
-/* 268 */
+/* 267 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(263);
+	var utils = __webpack_require__(262);
 
 	module.exports = function normalizeHeaderName(headers, normalizedName) {
 	  utils.forEach(headers, function processHeader(value, name) {
@@ -27992,18 +27873,18 @@
 
 
 /***/ }),
-/* 269 */
+/* 268 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var utils = __webpack_require__(263);
-	var settle = __webpack_require__(270);
-	var buildURL = __webpack_require__(273);
-	var parseHeaders = __webpack_require__(274);
-	var isURLSameOrigin = __webpack_require__(275);
-	var createError = __webpack_require__(271);
-	var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(276);
+	var utils = __webpack_require__(262);
+	var settle = __webpack_require__(269);
+	var buildURL = __webpack_require__(272);
+	var parseHeaders = __webpack_require__(273);
+	var isURLSameOrigin = __webpack_require__(274);
+	var createError = __webpack_require__(270);
+	var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(275);
 
 	module.exports = function xhrAdapter(config) {
 	  return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -28100,7 +27981,7 @@
 	    // This is only done if running in a standard browser environment.
 	    // Specifically not if we're in a web worker, or react-native.
 	    if (utils.isStandardBrowserEnv()) {
-	      var cookies = __webpack_require__(277);
+	      var cookies = __webpack_require__(276);
 
 	      // Add xsrf header
 	      var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -28179,12 +28060,12 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
-/* 270 */
+/* 269 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var createError = __webpack_require__(271);
+	var createError = __webpack_require__(270);
 
 	/**
 	 * Resolve or reject a Promise based on response status.
@@ -28211,12 +28092,12 @@
 
 
 /***/ }),
-/* 271 */
+/* 270 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var enhanceError = __webpack_require__(272);
+	var enhanceError = __webpack_require__(271);
 
 	/**
 	 * Create an Error with the specified message, config, error code, request and response.
@@ -28235,7 +28116,7 @@
 
 
 /***/ }),
-/* 272 */
+/* 271 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -28262,12 +28143,12 @@
 
 
 /***/ }),
-/* 273 */
+/* 272 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(263);
+	var utils = __webpack_require__(262);
 
 	function encode(val) {
 	  return encodeURIComponent(val).
@@ -28334,12 +28215,12 @@
 
 
 /***/ }),
-/* 274 */
+/* 273 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(263);
+	var utils = __webpack_require__(262);
 
 	// Headers whose duplicates are ignored by node
 	// c.f. https://nodejs.org/api/http.html#http_message_headers
@@ -28393,12 +28274,12 @@
 
 
 /***/ }),
-/* 275 */
+/* 274 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(263);
+	var utils = __webpack_require__(262);
 
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -28467,7 +28348,7 @@
 
 
 /***/ }),
-/* 276 */
+/* 275 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -28509,12 +28390,12 @@
 
 
 /***/ }),
-/* 277 */
+/* 276 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(263);
+	var utils = __webpack_require__(262);
 
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -28568,12 +28449,12 @@
 
 
 /***/ }),
-/* 278 */
+/* 277 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(263);
+	var utils = __webpack_require__(262);
 
 	function InterceptorManager() {
 	  this.handlers = [];
@@ -28626,17 +28507,17 @@
 
 
 /***/ }),
-/* 279 */
+/* 278 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(263);
-	var transformData = __webpack_require__(280);
-	var isCancel = __webpack_require__(281);
-	var defaults = __webpack_require__(267);
-	var isAbsoluteURL = __webpack_require__(282);
-	var combineURLs = __webpack_require__(283);
+	var utils = __webpack_require__(262);
+	var transformData = __webpack_require__(279);
+	var isCancel = __webpack_require__(280);
+	var defaults = __webpack_require__(266);
+	var isAbsoluteURL = __webpack_require__(281);
+	var combineURLs = __webpack_require__(282);
 
 	/**
 	 * Throws a `Cancel` if cancellation has been requested.
@@ -28718,12 +28599,12 @@
 
 
 /***/ }),
-/* 280 */
+/* 279 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(263);
+	var utils = __webpack_require__(262);
 
 	/**
 	 * Transform the data for a request or a response
@@ -28744,7 +28625,7 @@
 
 
 /***/ }),
-/* 281 */
+/* 280 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -28755,7 +28636,7 @@
 
 
 /***/ }),
-/* 282 */
+/* 281 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -28775,7 +28656,7 @@
 
 
 /***/ }),
-/* 283 */
+/* 282 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -28795,7 +28676,7 @@
 
 
 /***/ }),
-/* 284 */
+/* 283 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -28820,12 +28701,12 @@
 
 
 /***/ }),
-/* 285 */
+/* 284 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Cancel = __webpack_require__(284);
+	var Cancel = __webpack_require__(283);
 
 	/**
 	 * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -28883,7 +28764,7 @@
 
 
 /***/ }),
-/* 286 */
+/* 285 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -28914,6 +28795,156 @@
 	  };
 	};
 
+
+/***/ }),
+/* 286 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(160);
+
+	var _redux = __webpack_require__(166);
+
+	var _reactRouter = __webpack_require__(198);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ImageDetail = function (_Component) {
+	  _inherits(ImageDetail, _Component);
+
+	  function ImageDetail() {
+	    _classCallCheck(this, ImageDetail);
+
+	    return _possibleConstructorReturn(this, (ImageDetail.__proto__ || Object.getPrototypeOf(ImageDetail)).apply(this, arguments));
+	  }
+
+	  _createClass(ImageDetail, [{
+	    key: 'deleteImage',
+	    value: function deleteImage(id) {
+	      var newPost = function newPost() {
+	        var options = {
+	          method: 'DELETE',
+	          headers: new Headers({
+	            'Content-Type': 'application/json'
+	          })
+	        };
+
+	        return fetch('http://localhost:5000/book/' + id, options).then(function (res) {
+	          return res.json();
+	        }).then(function (res) {
+	          return console.log(res);
+	        }).catch(function (error) {
+	          return console.log(error);
+	        });
+	      };
+	      window.location.assign('/');
+	      newPost();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+
+	      console.log(this.props);
+	      if (!this.props.image) {
+	        window.location.assign('/');
+	      }
+
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'container details' },
+	        _react2.default.createElement(
+	          _reactRouter.Link,
+	          { to: '/' },
+	          _react2.default.createElement(
+	            'button',
+	            { className: 'center-block btn btn-primary' },
+	            ' Back to gallery'
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'row' },
+	          _react2.default.createElement('div', { height: '50px;', className: 'span4' }),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'span4' },
+	            _react2.default.createElement('img', { className: 'center-block', width: '70%', src: this.props.image.src })
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'span4 text-center', id: 'date' },
+	            'Date added:',
+	            this.props.image.dates
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: function onClick() {
+	                return _this2.deleteImage(_this2.props.image.id);
+	              }, className: 'btn text-center' },
+	            'Click here to delete the picture'
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            ' ',
+	            _react2.default.createElement('img', { src: this.props.activeUser.thumbnail }),
+	            ' ',
+	            _react2.default.createElement('br', null),
+	            ' ',
+	            this.props.activeUser.username
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return ImageDetail;
+	}(_react.Component);
+
+	function mapStateToProps(state) {
+	  //console.log(state);
+	  return {
+	    image: state.activeImage,
+	    activeUser: state.activeUser
+	  };
+	}
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(ImageDetail);
+
+	// import React, { Component } from 'react';
+
+	// class Login extends Component {  
+	//     render(){  
+	//         return (
+	//             <div className="container">
+	//                 <h1>Gallery</h1>
+	//                 <button className="btn"> 
+	//                     <a href="http://localhost:5000/auth/google">image list</a>
+	//                 </button>
+	//             </div>
+	//         )
+	//     }
+	// }
+
+	// export default Login;
 
 /***/ }),
 /* 287 */

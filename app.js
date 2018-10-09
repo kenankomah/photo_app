@@ -308,17 +308,17 @@ app.get('/books', function(req, res){
 
 
 
-app.get('/home', (req, res)=>{
-  res.render('home',{user:req.user});
-});
+// app.get('/home', (req, res)=>{
+//   res.render('home',{user:req.user});
+// });
 
 
 
-//create home route
-app.get('/', (req, res)=>{
-  res.render('home',{user:req.user});
-   // res.send("<h1> Page not found </h1>");
-});
+// //create home route
+// app.get('/', (req, res)=>{
+//   res.render('home',{user:req.user});
+//    // res.send("<h1> Page not found </h1>");
+// });
 
 
 
