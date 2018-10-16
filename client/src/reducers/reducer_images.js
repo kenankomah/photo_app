@@ -28,7 +28,7 @@ newPost(post);
 
 export default function(){
    const request = fetch('http://localhost:5000/books',{ credentials: 'include' })
-			.then(res => res.json()).catch(error => console.log())
+			.then(res => res.json()).catch(error => {console.log(error);})
 		//	console.log({payload:request});
      return {payload:request}
 }

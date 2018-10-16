@@ -1,6 +1,3 @@
-const dotenv = require('dotenv');
-dotenv.config();
-
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -23,9 +20,6 @@ const passportSetup = require('./config/passport-setup');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
 
-
-
-
 // function deleteImageFile(fileTodelete){
 //   try {
 //       fs.unlinkSync("");
@@ -45,8 +39,9 @@ const passport = require('passport');
 //const port=8000;
 const port = process.env.PORT || 5000;
 
-//mongoose.connect(keys.mongodb.dbURI);
-mongoose.connect(process.env.MONGODB_URI);
+//var db = "mongo.db://localhost/example";
+
+mongoose.connect(keys.mongodb.dbURI);
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
@@ -63,6 +58,9 @@ app.use(function(req, res, next) {
   next();
 });
 
+/*app.get('/',function(req,res){
+    res.send('happy to be here')
+});*/
 
 
 /*app.get('/books', function(req, res){
@@ -97,8 +95,10 @@ app.get('/books/:id',function(req, res){
 
 /*app.post('/book', function(req, res){
   var newBook = new Book();
+
   newBook.src = req.body.src;
   newBook.dates = req.body.dates;
+
   newBook.save(function(err, book){
     if(err) {
         res.send('error saving book');
@@ -177,19 +177,13 @@ app.put('/book/:id', function(req, res){
 //     }
 // }
 
-//const config = require('./config/keys');
+const config = require('./config/keys');
 
 aws.config.update({
-  secretAccessKey:process.env.S3_SECRET,
-  accessKeyId:process.env.S3_KEY,
+  secretAccessKey: config.AWS_SECRET_ACCESS,
+  accessKeyId: config.AWS_ACCESS_KEY,
   region: 'us-east-2'
 });
-
-// aws.config.update({
-//     secretAccessKey: keys.AWS_SECRET_ACCESS,
-//     accessKeyId: keys.AWS_ACCESS_KEY,
-//     region: 'us-east-2'
-// });
 
 
 const s3 = new aws.S3();
@@ -211,7 +205,7 @@ const fileFilter = (req, file, cb) => {
 
 const upload = multer({
   fileFilter,
-  limits:{fileSize:8000000},
+  limits:{fileSize:10000000},
   storage: multerS3({
     s3,
     bucket: 'image-gallery1',
@@ -234,18 +228,19 @@ app.delete('/book/:id', function(req, res){
     if(err){
       res.send('error deleting')
     }else{
-      console.log(book.src);
-      var key = book.src.split('.com/')[1];
+     console.log(book.src);
+     var key = book.src.split('.com/')[1];
 
-      var params = {
+     var params = {
           Bucket: "image-gallery1", 
           Key: key
-      };
+        };
+        s3.deleteObject(params, function(err, data) {
+          if (err) console.log(err, err.stack); // an error occurred
+          else     console.log(data);           // successful response
+          
+        });
 
-      s3.deleteObject(params, function(err, data) {
-        if (err) console.log(err, err.stack); // an error occurred
-        else     console.log(data);           // successful response      
-      });
     }
   });
 });
@@ -256,7 +251,7 @@ app.delete('/book/:id', function(req, res){
 app.set('view engine', 'ejs');
 
 //Public Folder
-//app.use(express.static('./public'));
+app.use(express.static('./public'));
 
 
 
@@ -268,8 +263,7 @@ app.set('view engine', 'ejs');
 //encerypts cookie and sets it's lifespan
 app.use(cookieSession({
   maxAge:24*60*60*1000,
-  keys:[process.env.cookieKey]
-  //keys:[keys.session.cookieKey]
+  keys:[keys.session.cookieKey]
 }));
 
 //initialize passport
@@ -312,23 +306,17 @@ app.get('/books', function(req, res){
 
 
 
-
-app.get('/home', (req, res)=>{
-  res.render('home',{user:req.user});
-});
-
-
-
 //create home route
 app.get('/', (req, res)=>{
   res.render('home',{user:req.user});
-   // res.send("<h1> Page not found </h1>");
 });
 
 
+// app.get('/home', (req, res)=>{
+//   res.render('home',{user:req.user});
+// });
 
-
-//Prevents issue with mime type
+// // Prevents issue with mime type
 // app.use(express.static('./client/'));  
 
 // //resolve is used as a security feature when navigating the files
@@ -348,38 +336,36 @@ app.get('/upload_image', (req, res)=>{
 });
 
 
-app.get('/list', (req, res)=>{
-  res.redirect('/');
-})
-
-
 app.post('/upload', (req, res) =>{
   // const mongodbId = "http://localhost:8080/?userId=" + req.user.id;
   // const redirectLink = "window.location.href='" + mongodbId +"'";
    upload(req, res, (err) => {
        if(err){
-           res.send({
+           res.render('index', {
                msg: err,
                userId:req.user               
             });
        } else {
-            if(req.file === undefined){
-              res.send({
+          //console.log(req.file);
+         // console.log(req.user); 
+           if(req.file === undefined){
+              res.render('index', {
                   msg: 'Error: No file selected!',
                   userId:req.user
               });
-            }else{
-                res.send({
-                msg: 'Image uploaded',
-                userId:req.user
-              });
+           }else{
+           // console.log(req.user); 
+               res.render('index', {
+                   msg: 'Image uploaded',
+                   userId:req.user
+               });
                // code below adds new image data to mongoose
                const dateTime = new Date();
                const newBook = new Book();
                //newBook.src = `/images/${req.file.filename}`;
                newBook.src = req.file.location;
                newBook.dates = dateTime.toLocaleString();
-               newBook.mongoId = req.user.id;
+               newBook.mongoId = req.user.id
                newBook.save();
                //console.log(req.file);
            }
