@@ -27085,7 +27085,7 @@
 		var request = fetch('/books', { credentials: 'include' }).then(function (res) {
 			return res.json();
 		}).catch(function (error) {
-			return console.log();
+			console.log(error);
 		});
 		//	console.log({payload:request});
 		return { payload: request };
@@ -27102,12 +27102,17 @@
 	});
 
 	exports.default = function () {
-	  var request = fetch('/mongoid', { credentials: 'include' }).then(function (res) {
+	  var request = fetch('/mongoid', { credentials: 'include' })
+	  // const request = fetch('/mongoid',{ credentials: 'include' })
+	  .then(function (res) {
 	    return res.json();
 	  }).catch(function (error) {
-	    return (/*window.location.assign('http://localhost:5000/auth/login')*/console.log(error)
-	    );
+	    console.log(error);
+	    if (error.message !== "Unexpected end of JSON input") {
+	      window.location.reload();
+	    }
 	  });
+
 	  return { payload: request };
 	};
 
@@ -27182,6 +27187,7 @@
 	        var fd = new FormData();
 	        fd.append('myImage', _this.state.selectedFile, _this.state.selectedFile.name);
 	        _axios2.default.post('/upload', fd, {
+	          //axios.post('/upload',fd,{
 	          onUploadProgress: function onUploadProgress(progressEvent) {
 	            // console.log('Upload progress: ' + ((progressEvent.loaded * 100)/progressEvent.total) + '%');
 	          },
@@ -28844,9 +28850,9 @@
 	          headers: new Headers({
 	            'Content-Type': 'application/json'
 	          })
-	        };
 
-	        return fetch('/book/' + id, options).then(function (res) {
+	          //return fetch('/book/'+ id, options)
+	        };return fetch('/book/' + id, options).then(function (res) {
 	          return res.json();
 	        }).then(function (res) {
 	          return console.log(res);

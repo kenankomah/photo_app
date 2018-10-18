@@ -36,6 +36,7 @@ class FileUpload extends Component {
         const fd = new FormData();
         fd.append('myImage', this.state.selectedFile, this.state.selectedFile.name);
         axios.post('http://localhost:5000/upload',fd,{
+        //axios.post('/upload',fd,{
             onUploadProgress: progressEvent => {
                // console.log('Upload progress: ' + ((progressEvent.loaded * 100)/progressEvent.total) + '%');
             },

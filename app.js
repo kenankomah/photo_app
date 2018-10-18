@@ -313,28 +313,28 @@ app.get('/books', function(req, res){
 
 
 
-app.get('/home', (req, res)=>{
-  res.render('home',{user:req.user});
-});
+// app.get('/home', (req, res)=>{
+//   res.render('home',{user:req.user});
+// });
 
 
 
-//create home route
-app.get('/', (req, res)=>{
-  res.render('home',{user:req.user});
-   // res.send("<h1> Page not found </h1>");
-});
+// //create home route
+// app.get('/', (req, res)=>{
+//   res.render('home',{user:req.user});
+//    // res.send("<h1> Page not found </h1>");
+// });
 
 
 
 
 //Prevents issue with mime type
-// app.use(express.static('./client/'));  
+app.use(express.static('./client/'));  
 
-// //resolve is used as a security feature when navigating the files
-// app.get('/', function (req, res) {
-//   res.sendfile(path.resolve("./client/index.html"));
-// });
+//resolve is used as a security feature when navigating the files
+app.get('/', function (req, res) {
+  res.sendfile(path.resolve("./client/index.html"));
+});
 
 
 app.get('/upload_image', (req, res)=>{

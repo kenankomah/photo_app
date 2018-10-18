@@ -14,6 +14,7 @@ class ImageDetail extends Component {
           })
         }
 
+        //return fetch('/book/'+ id, options)
         return fetch('http://localhost:5000/book/'+ id, options)
         .then(res => res.json())
         .then(res => console.log(res))
