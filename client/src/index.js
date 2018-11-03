@@ -57,7 +57,11 @@ ImagesReducer().payload
     const loader = <h1> Loading... </h1>
     ReactDOM.render(loader, document.querySelector('.container'));   
   }else{
-    const element = <button className="btn"> <a href="http://localhost:5000/auth/google">Log in</a> </button>;
+    const element = <div>
+        <button className="btn"> <a href="http://localhost:5000/auth/google">Sign in with Google</a> </button> <br></br><br></br>
+        <button className="btn"> <a href="http://localhost:5000/auth/facebook">Sign in with Facebook</a> </button><br></br><br></br>
+        <button className="btn"> <a href="http://localhost:5000/auth/twitter">Sign in with Twitter</a> </button>
+    </div>;
     ReactDOM.render(element, document.querySelector('.container'));
   }
 

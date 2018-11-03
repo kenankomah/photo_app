@@ -139,15 +139,46 @@
 	  _reactDom2.default.render(loader, document.querySelector('.container'));
 	} else {
 	  var element = _react2.default.createElement(
-	    'button',
-	    { className: 'btn' },
-	    ' ',
+	    'div',
+	    null,
 	    _react2.default.createElement(
-	      'a',
-	      { href: '/auth/google' },
-	      'Log in'
+	      'button',
+	      { className: 'btn' },
+	      ' ',
+	      _react2.default.createElement(
+	        'a',
+	        { href: 'http://localhost:5000/auth/google' },
+	        'Sign in with Google'
+	      ),
+	      ' '
 	    ),
-	    ' '
+	    ' ',
+	    _react2.default.createElement('br', null),
+	    _react2.default.createElement('br', null),
+	    _react2.default.createElement(
+	      'button',
+	      { className: 'btn' },
+	      ' ',
+	      _react2.default.createElement(
+	        'a',
+	        { href: 'http://localhost:5000/auth/facebook' },
+	        'Sign in with Facebook'
+	      ),
+	      ' '
+	    ),
+	    _react2.default.createElement('br', null),
+	    _react2.default.createElement('br', null),
+	    _react2.default.createElement(
+	      'button',
+	      { className: 'btn' },
+	      ' ',
+	      _react2.default.createElement(
+	        'a',
+	        { href: 'http://localhost:5000/auth/twitter' },
+	        'Sign in with Twitter'
+	      ),
+	      ' '
+	    )
 	  );
 	  _reactDom2.default.render(element, document.querySelector('.container'));
 	}
@@ -26998,7 +27029,7 @@
 	            ' ',
 	            _react2.default.createElement(
 	              'a',
-	              { onClick: this.loggout, href: '/auth/logout' },
+	              { onClick: this.loggout, href: 'http://localhost:5000/auth/logout' },
 	              'Log out'
 	            ),
 	            ' '
@@ -27082,7 +27113,8 @@
 	});
 
 	exports.default = function () {
-		var request = fetch('/books', { credentials: 'include' }).then(function (res) {
+		// const request = fetch('/books',{ credentials: 'include' })
+		var request = fetch('http://localhost:5000/books', { credentials: 'include' }).then(function (res) {
 			return res.json();
 		}).catch(function (error) {
 			console.log(error);
@@ -27102,14 +27134,14 @@
 	});
 
 	exports.default = function () {
-	  var request = fetch('/mongoid', { credentials: 'include' })
+	  var request = fetch('http://localhost:5000/mongoid', { credentials: 'include' })
 	  // const request = fetch('/mongoid',{ credentials: 'include' })
 	  .then(function (res) {
 	    return res.json();
 	  }).catch(function (error) {
 	    console.log(error);
-	    if (error.message !== "Unexpected end of JSON input") {
-	      window.location.reload();
+	    if (error.message !== "Unexpected end of JSON input" || error.message !== "ERR_CONNECTION_REFUSED") {
+	      // window.location.reload();      
 	    }
 	  });
 
@@ -27186,7 +27218,7 @@
 
 	        var fd = new FormData();
 	        fd.append('myImage', _this.state.selectedFile, _this.state.selectedFile.name);
-	        _axios2.default.post('/upload', fd, {
+	        _axios2.default.post('http://localhost:5000/upload', fd, {
 	          //axios.post('/upload',fd,{
 	          onUploadProgress: function onUploadProgress(progressEvent) {
 	            // console.log('Upload progress: ' + ((progressEvent.loaded * 100)/progressEvent.total) + '%');
@@ -28852,7 +28884,7 @@
 	          })
 
 	          //return fetch('/book/'+ id, options)
-	        };return fetch('/book/' + id, options).then(function (res) {
+	        };return fetch('http://localhost:5000/book/' + id, options).then(function (res) {
 	          return res.json();
 	        }).then(function (res) {
 	          return console.log(res);

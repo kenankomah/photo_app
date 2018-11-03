@@ -6,7 +6,6 @@ const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const Book = require('./models/book-model');
-//const keys = require('./config/keys');
 
 const ejs = require('ejs');
 const path = require('path');
@@ -20,6 +19,8 @@ const multerS3 = require('multer-s3');
 const authRoutes = require('./routes/auth-routes');
 const profileRoutes = require('./routes/profile-routes');
 const passportSetup = require('./config/passport-setup');
+const passportSetup_fb = require('./config/passport-setup-fb');
+const passportSetup_twitter = require('./config/passport-setup-twitter');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
 
@@ -265,11 +266,10 @@ app.set('view engine', 'ejs');
 //set up view engine
 //app.set('view engine','ejs');
 
-//encerypts cookie and sets it's lifespan
+//encrypts cookie and sets it's lifespan
 app.use(cookieSession({
   maxAge:24*60*60*1000,
   keys:[process.env.cookieKey]
-  //keys:[keys.session.cookieKey]
 }));
 
 //initialize passport
@@ -313,25 +313,21 @@ app.get('/books', function(req, res){
 
 
 
-// app.get('/home', (req, res)=>{
-//   res.render('home',{user:req.user});
-// });
 
 
 
-// //create home route
+
+/*create home route*/
 // app.get('/', (req, res)=>{
 //   res.render('home',{user:req.user});
 //    // res.send("<h1> Page not found </h1>");
 // });
 
 
-
-
-//Prevents issue with mime type
+/*Prevents issue with mime type*/
 app.use(express.static('./client/'));  
 
-//resolve is used as a security feature when navigating the files
+/*resolve is used as a security feature when navigating the files*/
 app.get('/', function (req, res) {
   res.sendfile(path.resolve("./client/index.html"));
 });
@@ -386,6 +382,15 @@ app.post('/upload', (req, res) =>{
        }
    });
 });
+
+//redirects to the home page when any error is detected
+app.use(function (err, req, res, next) {
+  console.error(err.stack)
+  if(err){
+    res.redirect('/');
+  }
+  //res.status(500).send('Something broke!')
+})
 
 
 app.listen(port, function(){

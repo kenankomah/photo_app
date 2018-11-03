@@ -1,8 +1,7 @@
 const dotenv = require('dotenv');
 dotenv.config();
 const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20');
-//const keys = require('./keys');
+const TwitterStrategy = require('passport-twitter');
 const User = require('../models/user-models');
 
 passport.serializeUser((user, done)=>{
@@ -19,11 +18,11 @@ passport.deserializeUser((id, done)=>{
 
 
 passport.use(
-  new GoogleStrategy({
+  new TwitterStrategy({
      //options for the google strat
-     callbackURL:'/auth/google/redirect',
-     clientID:process.env.clientID,
-     clientSecret:process.env.clientSecret
+     callbackURL:'/auth/twitter/redirect',
+     consumerKey:process.env.TWITTER_CONSUMER_KEY,
+     consumerSecret:process.env.TWITTER_CONSUMER_SECRET
   }, (accessToken, refreshToken, profile, done) => {
     //console.log(profile);
     //passport callback function
@@ -38,7 +37,7 @@ passport.use(
         new User({
           username:profile.displayName,
           googleId:profile.id,
-          thumbnail:profile._json.image.url
+          thumbnail:profile.photos[0].value
         }).save().then((newUser) => {
           console.log('new user created:' + newUser);
           done(null, newUser);

@@ -8,8 +8,8 @@ export default function(){
    const request = fetch('http://localhost:5000/mongoid',{ credentials: 'include' })
  // const request = fetch('/mongoid',{ credentials: 'include' })
   .then(res => res.json()).catch(error => { console.log(error)
-    if(error.message !== "Unexpected end of JSON input"){
-      window.location.reload();      
+    if(error.message !== "Unexpected end of JSON input" || error.message !== "ERR_CONNECTION_REFUSED"){
+     // window.location.reload();      
     } 
   })
    
