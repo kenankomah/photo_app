@@ -386,9 +386,9 @@ app.post('/upload', (req, res) =>{
 //redirects to the home page when any error is detected
 app.use(function (err, req, res, next) {
   console.error(err.stack)
-  if(err){
+ /* if(err){
     res.redirect('/');
-  }
+  }*/
   //res.status(500).send('Something broke!')
 })
 
