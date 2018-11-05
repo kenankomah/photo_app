@@ -21,6 +21,7 @@ const profileRoutes = require('./routes/profile-routes');
 const passportSetup = require('./config/passport-setup');
 const passportSetup_fb = require('./config/passport-setup-fb');
 const passportSetup_twitter = require('./config/passport-setup-twitter');
+const passportSetup_github = require('./config/passport-setup-github');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
 
@@ -386,9 +387,9 @@ app.post('/upload', (req, res) =>{
 //redirects to the home page when any error is detected
 app.use(function (err, req, res, next) {
   console.error(err.stack)
- /* if(err){
+  if(err){
     res.redirect('/');
-  }*/
+  }
   //res.status(500).send('Something broke!')
 })
 

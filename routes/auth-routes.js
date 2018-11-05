@@ -45,12 +45,20 @@ router.get('/facebook/redirect', passport.authenticate('facebook'),(req, res) =>
 // auth with twitter
 router.get('/twitter', passport.authenticate('twitter'));
 
-// callback route for google to redirect to
+// callback route for twitter to redirect to
 router.get('/twitter/redirect', passport.authenticate('twitter'),(req, res) => {
    res.redirect('/');
 });
 
 
+
+// auth with GitHub
+router.get('/github', passport.authenticate('github'));
+
+// callback route for GitHub to redirect to
+router.get('/github/redirect', passport.authenticate('github'),(req, res) => {
+   res.redirect('/');
+});
 
 
 

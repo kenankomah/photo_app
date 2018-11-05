@@ -161,8 +161,8 @@
 	      ' ',
 	      _react2.default.createElement(
 	        'a',
-	        { href: '/auth/facebook' },
-	        'Sign in with Facebook'
+	        { href: '/auth/github' },
+	        'Sign in with GitHub'
 	      ),
 	      ' '
 	    ),

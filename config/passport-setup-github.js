@@ -1,7 +1,7 @@
 const dotenv = require('dotenv');
 dotenv.config();
 const passport = require('passport');
-const FacebookStrategy = require('passport-facebook');
+const GoogleStrategy = require('passport-github');
 //const keys = require('./keys');
 const User = require('../models/user-models');
 
@@ -19,35 +19,31 @@ passport.deserializeUser((id, done)=>{
 
 
 passport.use(
-  new FacebookStrategy({
-     //options for the facebook strat
-     callbackURL:'https://localhost:5000/auth/facebook/redirect',
-     clientID:process.env.FACEBOOK_APP_ID,
-     clientSecret:process.env.FACEBOOK_APP_SECRET,
-     profileFields: ['id', 'displayName', 'picture.width(200).height(200)']
+  new GoogleStrategy({
+     //options for the github strat
+     callbackURL:'/auth/github/redirect',
+     clientID:process.env.Client_ID,
+     clientSecret:process.env.Client_Secret
   }, (accessToken, refreshToken, profile, done) => {
     //console.log(profile);
     //passport callback function
     //check if user already exists in database
     User.findOne({googleId:profile.id}).then((currentUser)=>{
-     // console.log(profile);
       if(currentUser){
         //already have the user
         //console.log('user is:' + currentUser);
         done(null, currentUser);
       }else {
-        //console.log(profile);
         //if not create user in our db
         new User({
-          username:profile.displayName,
+          username:profile.username,
           googleId:profile.id,
-          thumbnail:profile.photos[0].value      
+          thumbnail:profile.photos[0].value
         }).save().then((newUser) => {
-          //console.log('new user created:' + newUser);
+          console.log('new user created:' + newUser);
           done(null, newUser);
         });
       }
     });
   })
 );
-
