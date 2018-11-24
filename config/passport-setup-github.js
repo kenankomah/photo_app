@@ -25,19 +25,18 @@ passport.use(
      clientID:process.env.Client_ID,
      clientSecret:process.env.Client_Secret
   }, (accessToken, refreshToken, profile, done) => {
-    //console.log(profile);
     //passport callback function
     //check if user already exists in database
-    User.findOne({googleId:profile.id}).then((currentUser)=>{
+    User.findOne({userId:profile.id}).then((currentUser)=>{
       if(currentUser){
         //already have the user
-        //console.log('user is:' + currentUser);
+        console.log('user is:' + currentUser);
         done(null, currentUser);
       }else {
         //if not create user in our db
         new User({
           username:profile.username,
-          googleId:profile.id,
+          userId:profile.id,
           thumbnail:profile.photos[0].value
         }).save().then((newUser) => {
           console.log('new user created:' + newUser);

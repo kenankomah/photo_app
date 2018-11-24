@@ -15,8 +15,8 @@ const newPost = post => {
 		})
   }
 
-	//return fetch('http://localhost:8000/book/5b60c3991b0e644458328a29', options)
-  return fetch('http://localhost:8000/book/', options)
+	//return fetch('http://localhost:8000/imageook/5b60c3991b0e644458328a29', options)
+  return fetch('http://localhost:8000/image/', options)
 	.then(res => res.json())
 	.then(res => console.log(res))
 	.catch(error => console.log(error))
@@ -27,8 +27,8 @@ newPost(post);
 */
 
 export default function(){
-	// const request = fetch('/books',{ credentials: 'include' })
-	 const request = fetch('http://localhost:5000/books',{ credentials: 'include' })
+	// const request = fetch('/images',{ credentials: 'include' })
+	 const request = fetch('http://localhost:5000/images',{ credentials: 'include' })
 			.then(res => res.json()).catch(error => {console.log(error);})
 		//	console.log({payload:request});
      return {payload:request}

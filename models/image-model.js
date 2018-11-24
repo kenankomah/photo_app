@@ -1,7 +1,7 @@
 var mongoose=require('mongoose');
 var Schema=mongoose.Schema;
 
-var BookSchema = new Schema({
+var ImageSchema = new Schema({
     src:String,
     dates:String,
     mongoId:String
@@ -9,4 +9,4 @@ var BookSchema = new Schema({
 
 
 
-module.exports = mongoose.model('images', BookSchema);
+module.exports = mongoose.model('images', ImageSchema);

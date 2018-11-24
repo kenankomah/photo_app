@@ -5,9 +5,8 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const Book = require('./models/book-model');
+const Image = require('./models/image-model');
 
-const ejs = require('ejs');
 const path = require('path');
 const fs = require("fs");
 
@@ -17,37 +16,17 @@ const multerS3 = require('multer-s3');
 
 
 const authRoutes = require('./routes/auth-routes');
-const profileRoutes = require('./routes/profile-routes');
 const passportSetup = require('./config/passport-setup');
-const passportSetup_fb = require('./config/passport-setup-fb');
 const passportSetup_twitter = require('./config/passport-setup-twitter');
 const passportSetup_github = require('./config/passport-setup-github');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
 
 
+const port = process.env.PORT || 5000; 
 
+const pageNotFound = "<center style='position:relative; top:30%'> <h1 style='font-size:80px;'>404</h1> <p style='font-size:32px;'>Sorry this page cannot be found.</p> <p style='font-size:32px;'>Click <a href='/' style='text-decoration:none;'><span style='color:blue;'>here</span></a> to go to the home page</p> </center>";
 
-// function deleteImageFile(fileTodelete){
-//   try {
-//       fs.unlinkSync("");
-//   } catch (err) {
-//       console.log(err);
-//   }
-//   console.log(fileTodelete);
-//   fs.unlink("./client/images/" + fileTodelete, function(err){
-//     if(err){
-//       console.log(err);
-//     }else{
-//       console.log("image removed");
-//     }
-//   });
-// }
-
-//const port=8000;
-const port = process.env.PORT || 5000;
-
-//mongoose.connect(keys.mongodb.dbURI);
 mongoose.connect(process.env.MONGODB_URI);
 
 app.use(bodyParser.json())
@@ -66,132 +45,29 @@ app.use(function(req, res, next) {
 });
 
 
-
-/*app.get('/books', function(req, res){
-  //  console.log('getting all books');
-    Book.find({})
-    .exec(function(err, books){
-       if(err){
-         res.send('error has occured') ;
-       }else{
-         console.log(req.user);
-        //  console.log(books);
-          res.json(books);
-       }
-    })
-});
-*/
-app.get('/books/:id',function(req, res){
-   // console.log('getting one book');
-    Book.findOne({
+app.get('/images/:id',function(req, res){
+    console.log('getting one image');
+    //req.params.id gives the id that is sent from the front end
+    Image.findOne({
         _id:req.params.id
     })
-    .exec(function(err, book){
+    .exec(function(err, image){
        if(err){
          res.send('error occured') ;
        }else{
-        //  console.log(book);
-          res.json(book);
+          res.json(image);
        }
     })
 });
 
-
-/*app.post('/book', function(req, res){
-  var newBook = new Book();
-  newBook.src = req.body.src;
-  newBook.dates = req.body.dates;
-  newBook.save(function(err, book){
-    if(err) {
-        res.send('error saving book');
-    }else{
-        console.log(book);
-        res.send(book);
-    }
-  });
-});
-*/
-app.post('/book2', function(req, res){
-  Book.create(req.body, function(err, book){
-    if(err){
-       res.send('error saving book');
-    } else{
-     // console.log(book);
-      res.send(book);
-    }
-  });
-});
-
-app.put('/book/:id', function(req, res){
-  Book.findOneAndUpdate({
-    _id:req.params.id
-  },
-  {$set:{src: req.body.src}},
-    {upsert:true},
-    function(err, newBook){
-      if(err){
-       // console.log('error occured');
-      }else{
-       // console.log(newBook);
-        res.status(204);
-      }
-    });
-});
-
-
-
 /**************************************** image upload code ******************************************/
 
-
-
-
-// //Set Storage Engine
-// const storage = multer.diskStorage({
-//   //  destination:'./public/uploads/',
-//     destination:'./client/images/',
-//     filename: function(req, file, cb){
-//        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-//     }
-// });
-
-// //Init upload
-// const upload = multer({
-//     storage: storage,
-//     limits:{fileSize:1000000},
-//     fileFilter: function(req, file, cb){
-//         checkFileType(file, cb);
-//     }
-// }).single('myImage');
-
-//Check File Type
-// function checkFileType(file, cb){
-//     //Allowed extensions
-//     const filetypes = /jpeg|jpg|png|gif/;
-//     //Check extensions
-//     const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-//     //Check mime
-//     const mimetype = filetypes.test(file.mimetype);
-
-//     if(mimetype && extname){
-//         return cb(null, true)
-//     }else {
-//         cb('Error: Images Only!');
-//     }
-// }
-
-//const config = require('./config/keys');
 
 aws.config.update({
   secretAccessKey:process.env.S3_SECRET,
   accessKeyId:process.env.S3_KEY,
   region: 'us-east-2'
 });
-
-// aws.config.update({
-//     secretAccessKey: keys.AWS_SECRET_ACCESS,
-//     accessKeyId: keys.AWS_ACCESS_KEY,
-//     region: 'us-east-2'
-// });
 
 
 const s3 = new aws.S3();
@@ -221,23 +97,23 @@ const upload = multer({
     metadata: function (req, file, cb) {
       cb(null, {fieldName: 'TESTING_META_DATA!'});
     },
-    key: function (req, file, cb) {
-      //cb(null, Date.now().toString() + '.jpg');
+    key: function (req, file, cb) {      
       cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
     }
   })
 }).single('myImage');
 
 
-app.delete('/book/:id', function(req, res){
-  Book.findOneAndRemove({
+app.delete('/image/:id', function(req, res){
+   //req.params.id gives the id that is sent from the front end
+  Image.findOneAndRemove({
     _id:req.params.id
-  },function(err, book){
+  },function(err, image){
     if(err){
       res.send('error deleting')
     }else{
-      console.log(book.src);
-      var key = book.src.split('.com/')[1];
+      console.log(image.src);
+      var key = image.src.split('.com/')[1];
 
       var params = {
           Bucket: "image-gallery1", 
@@ -254,18 +130,10 @@ app.delete('/book/:id', function(req, res){
 
 
 
-// EJS
-app.set('view engine', 'ejs');
-
-//Public Folder
-//app.use(express.static('./public'));
-
-
-
 /****************************************************************** OAuth Login system code ****************************************************************************/
 
-//set up view engine
-//app.set('view engine','ejs');
+// set up view engine
+
 
 //encrypts cookie and sets it's lifespan
 app.use(cookieSession({
@@ -277,52 +145,31 @@ app.use(cookieSession({
 app.use(passport.initialize());
 app.use(passport.session());
 
-
-
-//connect to mongodb
-/*mongoose.connect(keys.mongodb.dbURI, () =>{
-  console.log('connected to mongodb');
-});
-*/
 //set up routes
 app.use('/auth', authRoutes);
-app.use('/profile', profileRoutes);
 
+// request is made for user profile data e.g profile pic and name
 app.get('/mongoid', (req, res)=>{
   res.send(req.user); 
 });
 
 
-app.get('/books', function(req, res){
-    Book.find({})
-    .exec(function(err, books){
+app.get('/images', function(req, res){
+    Image.find({})
+    .exec(function(err, images){
        if(err){
          res.send('error has occured') ;
        }else{
-         //filters the books array to only those that have a matching user id
+         //filters the images array to only those that have a matching user id
          if(req.user){
-          const filteredBooks = books.filter((el)=>{
+          const filteredImages = images.filter((el)=>{
               return req.user.id === el.mongoId;
           });
-           res.json(filteredBooks);
+           res.json(filteredImages);
          }
        }
     })
 });
-
-
-
-
-
-
-
-
-
-/*create home route*/
-// app.get('/', (req, res)=>{
-//   res.render('home',{user:req.user});
-//    // res.send("<h1> Page not found </h1>");
-// });
 
 
 /*Prevents issue with mime type*/
@@ -334,25 +181,12 @@ app.get('/', function (req, res) {
 });
 
 
-app.get('/upload_image', (req, res)=>{
-  if(req.user){
-    // const mongodbId = "http://localhost:8080/?userId=" + req.user.id;
-    // const redirectLink = "window.location.href='" + mongodbId +"'";
-    res.render('index',{userId:req.user});
-  }else{
-    res.redirect('/auth/login');
-  }
-});
-
-
 app.get('/list', (req, res)=>{
   res.redirect('/');
 })
 
 
 app.post('/upload', (req, res) =>{
-  // const mongodbId = "http://localhost:8080/?userId=" + req.user.id;
-  // const redirectLink = "window.location.href='" + mongodbId +"'";
    upload(req, res, (err) => {
        if(err){
            res.send({
@@ -372,12 +206,12 @@ app.post('/upload', (req, res) =>{
               });
                // code below adds new image data to mongoose
                const dateTime = new Date();
-               const newBook = new Book();
-               //newBook.src = `/images/${req.file.filename}`;
-               newBook.src = req.file.location;
-               newBook.dates = dateTime.toLocaleString();
-               newBook.mongoId = req.user.id;
-               newBook.save();
+               const newImage = new Image();
+               //newImage.src = `/images/${req.file.filename}`;
+               newImage.src = req.file.location;
+               newImage.dates = dateTime.toLocaleString();
+               newImage.mongoId = req.user.id;
+               newImage.save();
                //console.log(req.file);
            }
        }
@@ -391,6 +225,11 @@ app.use(function (err, req, res, next) {
     res.redirect('/');
   }
   //res.status(500).send('Something broke!')
+})
+
+
+app.use(function (req, res, next) {
+  res.status(404).send(pageNotFound);
 })
 
 

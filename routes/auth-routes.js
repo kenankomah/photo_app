@@ -32,12 +32,12 @@ router.get('/google/redirect', passport.authenticate('google'),(req, res) => {
 
 
 // auth with facebook
-router.get('/facebook', passport.authenticate('facebook'));
+//router.get('/facebook', passport.authenticate('facebook'));
 
 // callback route for google to redirect to
-router.get('/facebook/redirect', passport.authenticate('facebook'),(req, res) => {
-   res.redirect('/');
-});
+// router.get('/facebook/redirect', passport.authenticate('facebook'),(req, res) => {
+//    res.redirect('/');
+// });
 
 
 
@@ -59,10 +59,6 @@ router.get('/github', passport.authenticate('github'));
 router.get('/github/redirect', passport.authenticate('github'),(req, res) => {
    res.redirect('/');
 });
-
-
-
-
 
 
 module.exports = router;

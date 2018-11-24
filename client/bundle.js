@@ -27113,8 +27113,8 @@
 	});
 
 	exports.default = function () {
-		// const request = fetch('/books',{ credentials: 'include' })
-		var request = fetch('/books', { credentials: 'include' }).then(function (res) {
+		// const request = fetch('/images',{ credentials: 'include' })
+		var request = fetch('/images', { credentials: 'include' }).then(function (res) {
 			return res.json();
 		}).catch(function (error) {
 			console.log(error);
@@ -27140,9 +27140,9 @@
 	    return res.json();
 	  }).catch(function (error) {
 	    console.log(error);
-	    if (error.message !== "Unexpected end of JSON input" || error.message !== "ERR_CONNECTION_REFUSED") {
-	      // window.location.reload();      
-	    }
+			if(error.message === "Failed to fetch" && (document.querySelector("h1") || document.querySelector(".center-block"))){
+				window.location.reload();      
+			} 
 	  });
 
 	  return { payload: request };
@@ -28883,8 +28883,8 @@
 	            'Content-Type': 'application/json'
 	          })
 
-	          //return fetch('/book/'+ id, options)
-	        };return fetch('/book/' + id, options).then(function (res) {
+	          //return fetch('/image/'+ id, options)
+	        };return fetch('/image/' + id, options).then(function (res) {
 	          return res.json();
 	        }).then(function (res) {
 	          return console.log(res);
