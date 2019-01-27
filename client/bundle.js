@@ -71,6 +71,10 @@
 
 	var _routes2 = _interopRequireDefault(_routes);
 
+	var _logins = __webpack_require__(290);
+
+	var _logins2 = _interopRequireDefault(_logins);
+
 	var _app = __webpack_require__(255);
 
 	var _app2 = _interopRequireDefault(_app);
@@ -79,14 +83,13 @@
 
 	var _reducer_images2 = _interopRequireDefault(_reducer_images);
 
-	var _reducer_active_image = __webpack_require__(288);
+	var _reducer_active_image = __webpack_require__(291);
 
 	var _reducer_active_image2 = _interopRequireDefault(_reducer_active_image);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	// the function below is a reducer
-	//began on 1/04/2018
 	function returnArray() {
 	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 	  var action = arguments[1];
@@ -98,6 +101,9 @@
 	  return state;
 	}
 	//import reducers from './reducers';
+
+
+	//began on 1/04/2018
 
 
 	function ActiveUser() {
@@ -120,13 +126,23 @@
 	      activeImage: _reducer_active_image2.default,
 	      activeUser: ActiveUser
 	    });
+
+	    document.querySelector('body').classList.remove("bg");
+	    document.querySelector('body').classList.remove("over-flow");
+	    document.querySelector('.overlay').classList.remove("overlay");
+
+	    document.querySelector('body').classList.add("gallery-bg");
+	    // document.querySelector("tr span").parentNode.removeChild(document.querySelector("tr span"));
+
 	    //console.log(reducers);
 	    var createStoreWithMiddleware = (0, _redux.applyMiddleware)()(_redux.createStore);
 	    _reactDom2.default.render(_react2.default.createElement(
 	      _reactRedux.Provider,
 	      { store: createStoreWithMiddleware(reducers) },
 	      _react2.default.createElement(_reactRouter.Router, { history: _reactRouter.browserHistory, routes: _routes2.default })
-	    ), document.querySelector('.container'));
+	    ), document.querySelector('.app-container'));
+	    //removes rogue dynamilcally created span causing an error to be thrown
+	    document.querySelector("tr span").parentNode.removeChild(document.querySelector("tr span"));
 	  }
 	});
 
@@ -136,51 +152,15 @@
 	    null,
 	    ' Loading... '
 	  );
-	  _reactDom2.default.render(loader, document.querySelector('.container'));
+	  _reactDom2.default.render(loader, document.querySelector('.app-container'));
 	} else {
-	  var element = _react2.default.createElement(
-	    'div',
-	    null,
-	    _react2.default.createElement(
-	      'button',
-	      { className: 'btn' },
-	      ' ',
-	      _react2.default.createElement(
-	        'a',
-	        { href: '/auth/google' },
-	        'Sign in with Google'
-	      ),
-	      ' '
-	    ),
-	    ' ',
-	    _react2.default.createElement('br', null),
-	    _react2.default.createElement('br', null),
-	    _react2.default.createElement(
-	      'button',
-	      { className: 'btn' },
-	      ' ',
-	      _react2.default.createElement(
-	        'a',
-	        { href: '/auth/github' },
-	        'Sign in with GitHub'
-	      ),
-	      ' '
-	    ),
-	    _react2.default.createElement('br', null),
-	    _react2.default.createElement('br', null),
-	    _react2.default.createElement(
-	      'button',
-	      { className: 'btn' },
-	      ' ',
-	      _react2.default.createElement(
-	        'a',
-	        { href: '/auth/twitter' },
-	        'Sign in with Twitter'
-	      ),
-	      ' '
-	    )
-	  );
-	  _reactDom2.default.render(element, document.querySelector('.container'));
+	  // const element = <div>
+	  //     <button className="btn"> <a href="http://localhost:5000/auth/google">Sign in with Google</a> </button> <br></br><br></br>
+	  //     <button className="btn"> <a href="http://localhost:5000/auth/github">Sign in with GitHub</a> </button><br></br><br></br>
+	  //     <button className="btn"> <a href="http://localhost:5000/auth/twitter">Sign in with Twitter</a> </button>
+	  // </div>;
+
+	  _reactDom2.default.render(_logins2.default, document.querySelector('.app-container'));
 	}
 
 /***/ }),
@@ -26760,7 +26740,7 @@
 
 	var _app2 = _interopRequireDefault(_app);
 
-	var _imageDetail = __webpack_require__(286);
+	var _imageDetail = __webpack_require__(288);
 
 	var _imageDetail2 = _interopRequireDefault(_imageDetail);
 
@@ -26772,7 +26752,7 @@
 
 	var _upload2 = _interopRequireDefault(_upload);
 
-	var _test = __webpack_require__(287);
+	var _test = __webpack_require__(289);
 
 	var _test2 = _interopRequireDefault(_test);
 
@@ -26825,7 +26805,7 @@
 
 	var _imageList2 = _interopRequireDefault(_imageList);
 
-	var _imageDetail = __webpack_require__(286);
+	var _imageDetail = __webpack_require__(288);
 
 	var _imageDetail2 = _interopRequireDefault(_imageDetail);
 
@@ -26900,6 +26880,14 @@
 
 	var _upload2 = _interopRequireDefault(_upload);
 
+	var _profile = __webpack_require__(286);
+
+	var _profile2 = _interopRequireDefault(_profile);
+
+	var _footer = __webpack_require__(287);
+
+	var _footer2 = _interopRequireDefault(_footer);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -26911,9 +26899,6 @@
 
 
 	(0, _id_export2.default)();
-	//window.location.assign('http://localhost:8000/auth/login');
-
-	//debugger;
 
 	var ImageList = function (_Component) {
 	  _inherits(ImageList, _Component);
@@ -26926,8 +26911,6 @@
 
 	  _createClass(ImageList, [{
 	    key: 'renderList',
-
-	    //debugger;
 	    value: function renderList() {
 	      var _this2 = this;
 
@@ -26939,35 +26922,33 @@
 
 	        return _react2.default.createElement(
 	          'div',
-	          { key: image.src, className: 'col-xs-6 col-sm-3' },
+	          { key: image.src, className: 'container-3-box' },
 	          _react2.default.createElement(
 	            _reactRouter.Link,
 	            { to: 'list',
 	              onClick: function onClick() {
 	                return _this2.props.selectImage(select_image);
 	              } },
-	            _react2.default.createElement('img', { width: '100%', src: image.src })
+	            _react2.default.createElement('img', { src: image.src })
 	          )
 	        );
 	      });
 	    }
-	  }, {
-	    key: 'redirect',
-	    value: function redirect() {
-	      window.location.assign('http://localhost:8000/upload_image');
-	    }
-	  }, {
-	    key: 'loggout',
-	    value: function loggout() {
-	      localStorage.removeItem('loggedIn');
-	    }
+
+	    // redirect(){
+	    //   window.location.assign('http://localhost:8000/upload_image');
+	    // }
+
+	    // loggout(){
+	    //   localStorage.removeItem('loggedIn');
+	    // } 
+
 	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this3 = this;
 
-	      //  console.log(this.props.activeUser)
-	      //debugger;
+	      //console.log(this.props.activeUser)  
 	      var test2 = function test2() {
 	        (0, _id_export2.default)().payload.then(function (activeUserInfo) {
 	          var userData = {
@@ -26982,7 +26963,6 @@
 
 	      var test = function test() {
 	        (0, _reducer_images2.default)().payload.then(function (posts) {
-	          //  console.log(posts)
 	          var arr = [];
 	          posts.map(function (el) {
 	            arr.push({ src: el.src, dates: el.dates, id: el._id, mongoId: el.mongoId });
@@ -26997,64 +26977,23 @@
 	        });
 	      };
 	      test();
-	      //  debugger;
-	      return (
-	        //window.location.assign('http://localhost:8000/auth/login');
 
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement('span', null),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'container' },
-	          _react2.default.createElement(
-	            'h1',
-	            null,
-	            'Gallery'
-	          ),
-	          _react2.default.createElement('span', null),
+	          { id: 'nav-bar' },
 	          _react2.default.createElement(_upload2.default, null),
-	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: 'test' },
-	            'test'
-	          ),
-	          ' ',
-	          _react2.default.createElement('br', null),
-	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: 'upload' },
-	            'upload'
-	          ),
-	          _react2.default.createElement(
-	            'h2',
-	            null,
-	            ' ',
-	            _react2.default.createElement(
-	              'a',
-	              { onClick: this.loggout, href: '/auth/logout' },
-	              'Log out'
-	            ),
-	            ' '
-	          ),
-	          _react2.default.createElement(
-	            'button',
-	            { onClick: this.redirect, className: 'btn' },
-	            'Click here to upload new pic'
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'row grid' },
-	            this.renderList()
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            null,
-	            ' ',
-	            _react2.default.createElement('img', { src: this.props.activeUser.thumbnail }),
-	            ' ',
-	            _react2.default.createElement('br', null),
-	            ' ',
-	            this.props.activeUser.username
-	          )
-	        )
+	          _react2.default.createElement(_profile2.default, null)
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'container-3' },
+	          this.renderList()
+	        ),
+	        _react2.default.createElement(_footer2.default, null)
 	      );
 	    }
 	  }]);
@@ -27081,7 +27020,7 @@
 	function mapDispatchToProps(dispatch) {
 	  //second selectImage is the one thatwas imported above.
 	  //Whenever selectImage is called the result should be passed to all of our reducers
-	  //  return bindActionCreators({ selectImage: selectImage, actionArr : actionArr }, dispatch);
+	  //return bindActionCreators({ selectImage: selectImage, actionArr : actionArr }, dispatch);
 	  return {
 	    selectImage: function selectImage(selectImg) {
 	      return dispatch(selectImg);
@@ -27095,8 +27034,6 @@
 	  };
 	}
 	//the dispatch gets the results of the selectImage (i.e. the action) call and spits it back out to all the reducers in the application.
-
-
 	//To promote ImageList from a component to a container - it needs to know about this new dispatch method, selectImage.
 	//To make it available as a prop.
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(ImageList);
@@ -27114,7 +27051,7 @@
 
 	exports.default = function () {
 		// const request = fetch('/images',{ credentials: 'include' })
-		var request = fetch('/images', { credentials: 'include' }).then(function (res) {
+		var request = fetch('http://localhost:5000/images', { credentials: 'include' }).then(function (res) {
 			return res.json();
 		}).catch(function (error) {
 			console.log(error);
@@ -27134,17 +27071,14 @@
 	});
 
 	exports.default = function () {
-	  var request = fetch('/mongoid', { credentials: 'include' })
-	  // const request = fetch('/mongoid',{ credentials: 'include' })
-	  .then(function (res) {
+	  var request = fetch('http://localhost:5000/mongoid', { credentials: 'include' }).then(function (res) {
 	    return res.json();
 	  }).catch(function (error) {
 	    console.log(error);
-			if(error.message === "Failed to fetch" && (document.querySelector("h1") || document.querySelector(".center-block"))){
-				window.location.reload();      
-			} 
+	    if (error.message === "Failed to fetch" && (document.querySelector("h1") || document.querySelector(".center-block"))) {
+	      window.location.reload();
+	    }
 	  });
-
 	  return { payload: request };
 	};
 
@@ -27207,7 +27141,6 @@
 	    }, _this.fileUploadHandler = function () {
 
 	      if (_this.state.selectedFile) {
-
 	        document.querySelector('span').innerHTML = "";
 	        var img = document.createElement('img');
 	        var text = document.createTextNode("Uploading ");
@@ -27218,8 +27151,7 @@
 
 	        var fd = new FormData();
 	        fd.append('myImage', _this.state.selectedFile, _this.state.selectedFile.name);
-	        _axios2.default.post('/upload', fd, {
-	          //axios.post('/upload',fd,{
+	        _axios2.default.post('http://localhost:5000/upload', fd, {
 	          onUploadProgress: function onUploadProgress(progressEvent) {
 	            // console.log('Upload progress: ' + ((progressEvent.loaded * 100)/progressEvent.total) + '%');
 	          },
@@ -27240,7 +27172,7 @@
 	          return console.log(error);
 	        });
 	      } else {
-	        document.querySelector('span').innerHTML = "select an image before uploading";
+	        document.querySelector('span').innerHTML = "Select an image before uploading";
 	      }
 	    }, _temp), _possibleConstructorReturn(_this, _ret);
 	  }
@@ -27252,7 +27184,7 @@
 
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'App' },
+	        null,
 	        _react2.default.createElement('input', { id: 'fileSelector',
 	          style: { display: 'none' },
 	          type: 'file',
@@ -27261,22 +27193,67 @@
 	            return _this2.fileInput = fileInput;
 	          } }),
 	        _react2.default.createElement(
-	          'button',
-	          { onClick: function onClick() {
+	          'table',
+	          { id: 'select_pic', onClick: function onClick() {
 	              return _this2.fileInput.click();
 	            } },
-	          'Select an image'
+	          _react2.default.createElement(
+	            'tbody',
+	            null,
+	            _react2.default.createElement(
+	              'tr',
+	              null,
+	              _react2.default.createElement(
+	                'td',
+	                { style: { textAlign: "center" } },
+	                _react2.default.createElement(
+	                  'svg',
+	                  { className: 'select_pic_icon', x: '0px', y: '0px', viewBox: '0 0 51.167 51.167', 'enable-background': 'new 0 0 1000 1000' },
+	                  _react2.default.createElement('path', { d: 'M34.53,18.54H6.136C2.753,18.54,0,21.427,0,24.976v12.632c0,3.548,2.753,6.435,6.136,6.435H34.53\r c3.383,0,6.136-2.887,6.136-6.435V24.976C40.666,21.427,37.913,18.54,34.53,18.54z M38.554,37.607c0,2.384-1.805,4.323-4.024,4.323\r H6.136c-2.014,0-3.671-1.602-3.963-3.68c1.393-1.184,5.668-4.402,9.591-3.016c3.567,1.263,6.374-0.687,8.849-2.408\r c1.784-1.241,3.469-2.413,5.372-2.538c4.971-0.327,12.45-0.002,12.525,0.001l0.044-0.999C38.554,29.29,38.554,37.607,38.554,37.607\r z M38.554,28.288c-0.574-0.024-7.721-0.322-12.7,0.003c-2.458,0.162-4.453,1.55-6.383,2.893c-2.383,1.656-4.441,3.085-7.039,2.165\r c-4.027-1.428-8.064,0.77-10.319,2.401V24.976c-0.001-2.384,1.804-4.323,4.023-4.323H34.53c2.219,0,4.024,1.938,4.024,4.322\r C38.554,24.975,38.554,28.288,38.554,28.288z M46.001,18.957v19.667c0,0.553-0.447,1-1,1s-1-0.447-1-1V18.957c0-2.206-1.794-4-4-4\r H8.668c-0.553,0-1-0.447-1-1s0.447-1,1-1h31.333C43.31,12.957,46.001,15.648,46.001,18.957z M51.167,13.124v19.667\r c0,0.553-0.447,1-1,1s-1-0.447-1-1V13.124c0-2.206-1.794-4-4-4H13.834c-0.553,0-1-0.447-1-1s0.447-1,1-1h31.333\r C48.476,7.124,51.167,9.815,51.167,13.124z M8.668,22.374c-2.159,0-3.916,1.757-3.916,3.916s1.757,3.916,3.916,3.916\r s3.916-1.757,3.916-3.916S10.827,22.374,8.668,22.374z M8.668,28.206c-1.057,0-1.916-0.859-1.916-1.916s0.859-1.916,1.916-1.916\r c1.057,0,1.916,0.859,1.916,1.916S9.725,28.206,8.668,28.206z' })
+	                )
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'tr',
+	              null,
+	              _react2.default.createElement(
+	                'td',
+	                { className: 'labelled-cell', style: { textAlign: "center" } },
+	                'Select Photo'
+	              )
+	            )
+	          )
 	        ),
 	        _react2.default.createElement(
-	          'button',
-	          { id: 'uploader', onClick: this.fileUploadHandler },
-	          'Upload'
-	        ),
-	        _react2.default.createElement('br', null),
-	        _react2.default.createElement(
-	          _reactRouter.Link,
-	          { to: '/' },
-	          'Home'
+	          'table',
+	          { id: 'upload', onClick: this.fileUploadHandler },
+	          _react2.default.createElement(
+	            'tbody',
+	            null,
+	            _react2.default.createElement(
+	              'tr',
+	              null,
+	              _react2.default.createElement(
+	                'td',
+	                { style: { textAlign: "center" } },
+	                _react2.default.createElement(
+	                  'svg',
+	                  { className: 'upload_icon', viewBox: '0 0 384.97 384.97' },
+	                  _react2.default.createElement('path', { d: 'M372.939,264.641c-6.641,0-12.03,5.39-12.03,12.03v84.212H24.061v-84.212c0-6.641-5.39-12.03-12.03-12.03\r S0,270.031,0,276.671v96.242c0,6.641,5.39,12.03,12.03,12.03h360.909c6.641,0,12.03-5.39,12.03-12.03v-96.242\r C384.97,270.019,379.58,264.641,372.939,264.641z' }),
+	                  _react2.default.createElement('path', { d: 'M117.067,103.507l63.46-62.558v235.71c0,6.641,5.438,12.03,12.151,12.03c6.713,0,12.151-5.39,12.151-12.03V40.95\r l63.46,62.558c4.74,4.704,12.439,4.704,17.179,0c4.74-4.704,4.752-12.319,0-17.011l-84.2-82.997\r c-4.692-4.656-12.584-4.608-17.191,0L99.888,86.496c-4.752,4.704-4.74,12.319,0,17.011\r C104.628,108.211,112.327,108.211,117.067,103.507z' })
+	                )
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'tr',
+	              null,
+	              _react2.default.createElement(
+	                'td',
+	                { className: 'labelled-cell', style: { textAlign: "center" } },
+	                'Upload'
+	              )
+	            )
+	          )
 	        )
 	      );
 	    }
@@ -28841,7 +28818,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -28864,6 +28841,230 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	//const Profile = () => { 
+
+	var Profile = function (_Component) {
+	    _inherits(Profile, _Component);
+
+	    function Profile() {
+	        _classCallCheck(this, Profile);
+
+	        return _possibleConstructorReturn(this, (Profile.__proto__ || Object.getPrototypeOf(Profile)).apply(this, arguments));
+	    }
+
+	    _createClass(Profile, [{
+	        key: 'loggout',
+	        value: function loggout() {
+	            localStorage.removeItem('loggedIn');
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            //selects just the first name
+	            if (this.props.activeUser.username) {
+	                this.props.activeUser.username = this.props.activeUser.username.split(" ")[0];
+	            }
+
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(
+	                    'table',
+	                    { id: 'profile' },
+	                    _react2.default.createElement(
+	                        'tbody',
+	                        null,
+	                        _react2.default.createElement(
+	                            'tr',
+	                            null,
+	                            _react2.default.createElement(
+	                                'td',
+	                                { style: { textAlign: "center" } },
+	                                _react2.default.createElement('img', { id: 'profile-pic', src: this.props.activeUser.thumbnail }),
+	                                ' '
+	                            ),
+	                            ' '
+	                        ),
+	                        _react2.default.createElement(
+	                            'tr',
+	                            null,
+	                            _react2.default.createElement(
+	                                'td',
+	                                { className: 'labelled-cell', style: { textAlign: "center" } },
+	                                this.props.activeUser.username
+	                            ),
+	                            ' '
+	                        )
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'table',
+	                    { id: 'sign_out' },
+	                    _react2.default.createElement(
+	                        'tbody',
+	                        null,
+	                        _react2.default.createElement(
+	                            'tr',
+	                            null,
+	                            _react2.default.createElement(
+	                                'td',
+	                                { style: { textAlign: "center" } },
+	                                _react2.default.createElement(
+	                                    'a',
+	                                    { onClick: this.loggout, href: 'http://localhost:5000/auth/logout' },
+	                                    _react2.default.createElement(
+	                                        'svg',
+	                                        { className: 'sign_out_icon', x: '0px', y: '0px', viewBox: '0 0 1000 1000', 'enable-background': 'new 0 0 1000 1000' },
+	                                        _react2.default.createElement(
+	                                            'g',
+	                                            null,
+	                                            _react2.default.createElement('path', { d: 'M143.6,544.5c0-131.9,71.7-247.1,178.2-308.7v-99.8C164.5,204.8,54.5,361.9,54.5,544.5C54.5,790.6,254,990,500,990s445.5-199.4,445.5-445.5c0-182.7-110-339.8-267.3-408.5v99.8c106.5,61.6,178.2,176.8,178.2,308.7c0,196.8-159.5,356.4-356.4,356.4S143.6,741.4,143.6,544.5z M500,10c-49.2,0-89.1,39.9-89.1,89.1v356.4c0,49.2,39.9,89.1,89.1,89.1c49.2,0,89.1-39.9,89.1-89.1V99.1C589.1,49.9,549.2,10,500,10z' })
+	                                        )
+	                                    )
+	                                )
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'tr',
+	                            null,
+	                            _react2.default.createElement(
+	                                'td',
+	                                { className: 'labelled-cell', style: { textAlign: "center" } },
+	                                'Sign Out'
+	                            )
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return Profile;
+	}(_react.Component);
+
+	//export default Profile;
+
+	function mapStateToProps(state) {
+	    //console.log(state);
+	    return {
+	        activeUser: state.activeUser
+	    };
+	}
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Profile);
+
+/***/ }),
+/* 287 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	if (document.querySelector("footer")) {
+	    document.querySelector("footer").classList.add("footer-position");
+	}
+	//alert("it's working!!")
+
+	var Footer = function Footer() {
+	    return _react2.default.createElement(
+	        "footer",
+	        null,
+	        _react2.default.createElement(
+	            "table",
+	            { id: "footer_icons" },
+	            _react2.default.createElement(
+	                "tbody",
+	                null,
+	                _react2.default.createElement(
+	                    "tr",
+	                    null,
+	                    _react2.default.createElement(
+	                        "td",
+	                        null,
+	                        _react2.default.createElement(
+	                            "a",
+	                            { href: "https://github.com/kenankomah/photo_app" },
+	                            _react2.default.createElement(
+	                                "svg",
+	                                { className: "github_icon", role: "img", viewBox: "0 0 24 24" },
+	                                _react2.default.createElement("path", { d: "M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" })
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        "td",
+	                        null,
+	                        _react2.default.createElement(
+	                            "a",
+	                            { href: "https://www.linkedin.com/in/ken-ankomah-95565117/" },
+	                            _react2.default.createElement(
+	                                "svg",
+	                                { className: "linkedin_icon", height: "67px", id: "Layer_1", style: { enablebackground: "new 0 0 67 67" }, version: "1.1", viewBox: "0 0 67 67", width: "67px" },
+	                                _react2.default.createElement("path", { d: "M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" })
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        )
+	    );
+	};
+
+	exports.default = Footer;
+
+/***/ }),
+/* 288 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(160);
+
+	var _redux = __webpack_require__(166);
+
+	var _reactRouter = __webpack_require__(198);
+
+	var _upload = __webpack_require__(259);
+
+	var _upload2 = _interopRequireDefault(_upload);
+
+	var _profile = __webpack_require__(286);
+
+	var _profile2 = _interopRequireDefault(_profile);
+
+	var _footer = __webpack_require__(287);
+
+	var _footer2 = _interopRequireDefault(_footer);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var count = void 0;
+
 	var ImageDetail = function (_Component) {
 	  _inherits(ImageDetail, _Component);
 
@@ -28884,7 +29085,7 @@
 	          })
 
 	          //return fetch('/image/'+ id, options)
-	        };return fetch('/image/' + id, options).then(function (res) {
+	        };return fetch('http://localhost:5000/image/' + id, options).then(function (res) {
 	          return res.json();
 	        }).then(function (res) {
 	          return console.log(res);
@@ -28896,60 +29097,115 @@
 	      newPost();
 	    }
 	  }, {
+	    key: 'returnIndex',
+	    value: function returnIndex(imageSrc) {
+	      for (var i = 0; i < this.props.images.length; i++) {
+	        if (this.props.images[i].src === imageSrc) {
+	          return i;
+	        }
+	      }
+	    }
+	  }, {
+	    key: 'updateSource',
+	    value: function updateSource(index) {
+	      document.getElementById("detail-img").src = this.props.images[index].src;
+	    }
+	  }, {
+	    key: 'imageSlider',
+	    value: function imageSlider(direction) {
+	      var imageSrc = document.getElementById("detail-img").src;
+	      console.log(this.returnIndex(imageSrc));
+	      var index = this.returnIndex(imageSrc);
+
+	      console.log(this.props.images.length);
+	      if (direction === "next") {
+	        index++;
+	      } else {
+	        //if()
+	        index--;
+	      }
+	      this.updateSource(index);
+	      //document.getElementById("myBtn").disabled = true;
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
 
-	      console.log(this.props);
+	      //console.log(this.props);  
+
 	      if (!this.props.image) {
 	        window.location.assign('/');
 	      }
 
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'container details' },
+	        { id: 'detail-container' },
+	        _react2.default.createElement('div', { className: 'container details', id: 'img_details' }),
+	        _react2.default.createElement(
+	          'div',
+	          { id: 'nav-bar' },
+	          _react2.default.createElement(_upload2.default, null),
+	          _react2.default.createElement(_profile2.default, null)
+	        ),
 	        _react2.default.createElement(
 	          _reactRouter.Link,
 	          { to: '/' },
 	          _react2.default.createElement(
 	            'button',
-	            { className: 'center-block btn btn-primary' },
+	            { className: 'center-block btn btn-primary', id: 'back-home' },
 	            ' Back to gallery'
 	          )
 	        ),
+	        _react2.default.createElement('div', { height: '50px;', className: 'span4' }),
+	        _react2.default.createElement('img', { className: 'center-block', id: 'detail-img', src: this.props.image.src }),
+	        _react2.default.createElement(
+	          'button',
+	          { onClick: function onClick() {
+	              return _this2.imageSlider("next");
+	            } },
+	          ' Next Pic'
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { onClick: function onClick() {
+	              return _this2.imageSlider("previous");
+	            } },
+	          ' Prev Pic'
+	        ),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'row' },
-	          _react2.default.createElement('div', { height: '50px;', className: 'span4' }),
+	          { className: 'span4 text-center', id: 'date' },
+	          'Added ',
 	          _react2.default.createElement(
-	            'div',
-	            { className: 'span4' },
-	            _react2.default.createElement('img', { className: 'center-block', width: '70%', src: this.props.image.src })
+	            'span',
+	            { className: 'time' },
+	            'on'
 	          ),
+	          ':',
+	          this.props.image.dates.split(" ")[0],
+	          ' ',
 	          _react2.default.createElement(
-	            'div',
-	            { className: 'span4 text-center', id: 'date' },
-	            'Date added:',
-	            this.props.image.dates
+	            'span',
+	            { className: 'time' },
+	            'at'
 	          ),
+	          ':',
+	          this.props.image.dates.split(" ")[1],
+	          _react2.default.createElement('br', null),
 	          _react2.default.createElement(
-	            'button',
-	            { onClick: function onClick() {
+	            'svg',
+	            { className: 'icon_bin', onClick: function onClick() {
 	                return _this2.deleteImage(_this2.props.image.id);
-	              }, className: 'btn text-center' },
-	            'Click here to delete the picture'
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            null,
-	            ' ',
-	            _react2.default.createElement('img', { src: this.props.activeUser.thumbnail }),
-	            ' ',
-	            _react2.default.createElement('br', null),
-	            ' ',
-	            this.props.activeUser.username
+	              }, x: '0px', y: '0px',
+	              viewBox: '0 0 512 512', 'enable-background': 'new 0 0 512 512' },
+	            _react2.default.createElement('rect', { x: '166.4', y: '230.4', width: '25.6', height: '204.8' }),
+	            _react2.default.createElement('rect', { x: '243.2', y: '230.4', width: '25.6', height: '204.8' }),
+	            _react2.default.createElement('rect', { x: '320', y: '230.4', width: '25.6', height: '204.8' }),
+	            _react2.default.createElement('path', { d: 'M422.4,51.2H320V25.6C320,11.46,308.54,0,294.4,0h-76.8C203.46,0,192,11.46,192,25.6v25.6H89.6 C75.46,51.2,64,62.66,64,76.8V128c0,14.14,11.46,25.6,25.6,25.6v332.8c0,14.14,11.46,25.6,25.6,25.6h281.6 c14.14,0,25.6-11.46,25.6-25.6V153.6c14.14,0,25.6-11.46,25.6-25.6V76.8C448,62.66,436.54,51.2,422.4,51.2z M217.6,25.6h76.8v25.6 h-76.8V25.6z M396.8,486.4H115.2V153.6h281.6V486.4z M422.4,128H89.6V76.8h332.8V128z' })
 	          )
-	        )
+	        ),
+	        _react2.default.createElement(_footer2.default, null)
 	      );
 	    }
 	  }]);
@@ -28961,31 +29217,14 @@
 	  //console.log(state);
 	  return {
 	    image: state.activeImage,
-	    activeUser: state.activeUser
+	    images: state.images
 	  };
 	}
 
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(ImageDetail);
 
-	// import React, { Component } from 'react';
-
-	// class Login extends Component {  
-	//     render(){  
-	//         return (
-	//             <div className="container">
-	//                 <h1>Gallery</h1>
-	//                 <button className="btn"> 
-	//                     <a href="http://localhost:5000/auth/google">image list</a>
-	//                 </button>
-	//             </div>
-	//         )
-	//     }
-	// }
-
-	// export default Login;
-
 /***/ }),
-/* 287 */
+/* 289 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -29047,7 +29286,84 @@
 	exports.default = Login;
 
 /***/ }),
-/* 288 */
+/* 290 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(198);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var logins = _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement('div', { classNameName: 'overlay' }),
+	    _react2.default.createElement('div', { className: 'bg' }),
+	    _react2.default.createElement(
+	        'div',
+	        { className: 'login-form' },
+	        _react2.default.createElement(
+	            'form',
+	            null,
+	            _react2.default.createElement(
+	                'h2',
+	                { className: 'text-center' },
+	                'Sign in to the Photo Gallery'
+	            ),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'text-center social-btn' },
+	                _react2.default.createElement(
+	                    'a',
+	                    { href: 'http://localhost:5000/auth/google', id: 'google', className: 'btn btn-danger btn-block' },
+	                    _react2.default.createElement('i', { className: 'fa fa-google' }),
+	                    ' Sign in with ',
+	                    _react2.default.createElement(
+	                        'b',
+	                        null,
+	                        'Google'
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'a',
+	                    { href: 'http://localhost:5000/auth/twitter', id: 'twitter', className: 'btn btn-info btn-block' },
+	                    _react2.default.createElement('i', { className: 'fa fa-twitter' }),
+	                    ' Sign in with ',
+	                    _react2.default.createElement(
+	                        'b',
+	                        null,
+	                        'Twitter'
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'a',
+	                    { href: 'http://localhost:5000/auth/github', id: 'github', className: 'btn btn-primary btn-block' },
+	                    _react2.default.createElement('i', { className: 'fa fa-github' }),
+	                    ' Sign in with ',
+	                    _react2.default.createElement(
+	                        'b',
+	                        null,
+	                        'Github'
+	                    )
+	                )
+	            )
+	        )
+	    )
+	);
+
+	exports.default = logins;
+
+/***/ }),
+/* 291 */
 /***/ (function(module, exports) {
 
 	'use strict';

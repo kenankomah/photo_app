@@ -6,9 +6,6 @@ import { Link } from 'react-router';
 import ImagesReducer from '../reducers/reducer_images';
 import IdExport from '../reducers/id_export';
 import Upload from './upload';
-import Profile from './profile';
-import Footer from './footer';
-
 IdExport();
  
 class ImageList extends Component {
@@ -22,23 +19,23 @@ class ImageList extends Component {
       }
 
       return (
-         <div key={image.src} className="container-3-box"> 
-            <Link to="list"
-              onClick={() => this.props.selectImage(select_image)}>
-              <img src={image.src} />
-            </Link>
-         </div>       
+       <div key={image.src} className="col-xs-6 col-sm-3">
+          <Link to="list"
+             onClick={() => this.props.selectImage(select_image)}>
+             <img width="100%" src={image.src} />
+          </Link>
+       </div>
       );
     });
   }
 
-  // redirect(){
-  //   window.location.assign('http://localhost:8000/upload_image');
-  // }
+  redirect(){
+    window.location.assign('http://localhost:8000/upload_image');
+  }
 
-  // loggout(){
-  //   localStorage.removeItem('loggedIn');
-  // } 
+  loggout(){
+    localStorage.removeItem('loggedIn');
+  } 
 
   render(){
   //console.log(this.props.activeUser)  
@@ -74,20 +71,21 @@ class ImageList extends Component {
 
    }
    test();
-  
      return (
-       <div id="home">
+       <div className="container">
+        <h1>Gallery</h1>
         <span></span>
-
-        <div id="nav-bar">
-          <Upload />
-          <Profile />            
-        </div>        
-       
-        <div className="container-3">
+        <Upload />
+        <Link to="test">test</Link> <br/>
+        <Link to="upload">upload</Link>
+        <h2> <a onClick={this.loggout} href="http://localhost:5000/auth/logout">Log out</a> </h2>
+        <button onClick={this.redirect} className="btn">Click here to upload new pic</button>
+        <div className="row grid">
           {this.renderList()}
-        </div> 
-        <Footer />   
+        </div>
+
+        <div> <img src = {this.props.activeUser.thumbnail} /> <br /> {this.props.activeUser.username}</div>
+
       </div>
     )
   }

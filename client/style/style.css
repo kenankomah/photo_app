@@ -1,32 +1,13 @@
-/*td, th, table {
-	vertical-align:middle !important;
-	text-align: center !important;
-}
-
-.input-group {
-	margin:20px 0px;
-}
-
-svg {
-	height: 110px;
-}
-
-td:first-of-type, td:first-of-type > div {
-	height: 200px;
-	width: 250px;
-}
-*/
-
-
 .container{
-	margin-bottom: 50px;
-	margin-top: 50px;
+	/* margin-bottom: 50px;
+	margin-top: 50px; */
+	widows: 150%
 }
 
 #date {
 	margin-top: 15px;
 	text-align: center !important;
-	font-size:0.9rem;
+	font-size: 1.4rem;
 }
 
 .row{
@@ -43,17 +24,98 @@ a:link {
 	height:200px;
 }
 
+#next{
+ left: 70px;
+}
+
+#previous{
+	right:70px;
+}
+
+
+
+
+.slide{
+	position: relative;
+	top: 175px;
+	/* margin: 0 150px 0 150px;	 */
+	height: 40px;
+	width: 40px;
+}
+
+#button-div{	
+	display:flex;
+    justify-content: center; 
+}
 
 a img{	
     transform: scale(1.5);	
 }
 
-.details img{
-	border: 1px #E8E8E8 solid;
-}	 
+path{
+	height: 40px;
+	width: 40px;
+}
+
+svg.slide{
+	width:40px;
+}
 
 
+/* #detail-container{
+	height: 100%;
+} */
+
+.center-block, #date{
+	position: relative;
+	top:200px;
+}
+
+#img_details{
+	width:100% !important;
+	padding: 0px;
+	/* height: 568px; */
+	height: 0px;
+}
+
+.time{
+	font-weight: bold;
+}
+
+.icon_bin{
+	position: relative;
+	height: 25px;
+	width: 25px;
+	top: 30px;
+}
+
+.icon_bin:hover {
+    fill: blue;
+    cursor: pointer;
+} 
+
+#back-home{
+	position: relative;
+	top:175px;
+}
+
+.slide:hover{
+	fill: blue;
+    cursor: pointer;
+}  
 
 
+.inactive{
+	fill: grey;
+}
 
+
+.inactive:hover{
+	fill: grey;   
+	cursor:context-menu; 
+} 
+
+img{
+	user-select: none;
+}
 

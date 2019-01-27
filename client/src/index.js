@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { Router, browserHistory } from 'react-router';
 import routes from './routes';
+import logins from './logins';
 
 import App from './components/app';
 //import reducers from './reducers';
@@ -41,27 +42,39 @@ ImagesReducer().payload
           activeImage: ActiveImage,
           activeUser: ActiveUser
         });
+       
+        document.querySelector('body').classList.remove("bg");
+        document.querySelector('body').classList.remove("over-flow");
+        document.querySelector('.overlay').classList.remove("overlay");
+
+        document.querySelector('body').classList.add("gallery-bg");
+       // document.querySelector("tr span").parentNode.removeChild(document.querySelector("tr span"));
+
         //console.log(reducers);
         const createStoreWithMiddleware = applyMiddleware()(createStore);
         ReactDOM.render(
           <Provider store={createStoreWithMiddleware(reducers)}>
             <Router history={browserHistory} routes={routes} />
           </Provider>
-          , document.querySelector('.container')
+          , document.querySelector('.app-container')
         );
+        //removes rogue dynamilcally created span causing an error to be thrown
+        document.querySelector("tr span").parentNode.removeChild(document.querySelector("tr span"));
       }
     }
   );
 
   if(localStorage.getItem('loggedIn')){
     const loader = <h1> Loading... </h1>
-    ReactDOM.render(loader, document.querySelector('.container'));   
+    ReactDOM.render(loader, document.querySelector('.app-container'));   
   }else{
-    const element = <div>
-        <button className="btn"> <a href="http://localhost:5000/auth/google">Sign in with Google</a> </button> <br></br><br></br>
-        <button className="btn"> <a href="http://localhost:5000/auth/facebook">Sign in with Facebook</a> </button><br></br><br></br>
-        <button className="btn"> <a href="http://localhost:5000/auth/twitter">Sign in with Twitter</a> </button>
-    </div>;
-    ReactDOM.render(element, document.querySelector('.container'));
+    // const element = <div>
+    //     <button className="btn"> <a href="http://localhost:5000/auth/google">Sign in with Google</a> </button> <br></br><br></br>
+    //     <button className="btn"> <a href="http://localhost:5000/auth/github">Sign in with GitHub</a> </button><br></br><br></br>
+    //     <button className="btn"> <a href="http://localhost:5000/auth/twitter">Sign in with Twitter</a> </button>
+    // </div>;
+      
+    ReactDOM.render(logins, document.querySelector('.app-container'));
   }
+ 
 

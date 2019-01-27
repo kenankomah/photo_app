@@ -1,0 +1,141 @@
+body, html {
+	height: 100%;
+}
+
+.over-flow{
+    overflow: hidden;
+}
+
+.login-form form {
+	margin-bottom: 15px;
+	background: #f7f7f7;
+	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+    border-radius: 25px;
+}
+.login-form h2 {
+	margin: 0 0 15px;
+}
+
+.form-control, .btn {
+	min-height: 38px;
+	border-radius: 2px;
+}
+.login-btn {        
+	font-size: 15px;
+	font-weight: bold;
+}
+.or-seperator {
+	margin: 20px 0 10px;
+	text-align: center;
+	border-top: 1px solid #ccc;
+}
+.or-seperator i {
+	padding: 0 10px;
+	background: #f7f7f7;
+	position: relative;
+	top: -11px;
+	z-index: 1;
+}
+.social-btn .btn {
+	margin: 10px 0;
+	font-size: 15px;
+	text-align: left; 
+	line-height: 24px;       
+}
+.social-btn .btn i {
+	float: left;
+	margin: 4px 15px  0 5px;
+	min-width: 15px;
+}
+.input-group-addon .fa{
+	font-size: 18px;
+}
+
+#github{
+	background-color:rgba(0, 0, 0, 0.8);
+	border:grey;
+}
+
+#twitter{
+	background-color:rgba(29, 161, 242, 0.7);
+	border:#1da1f2;
+}
+
+#google{
+	background-color:rgba(255, 0, 0, 0.6);
+	border:rgba(255, 0, 0, 0.6);
+}
+
+#twitter:hover{
+	background-color:rgb(29, 161, 242);
+	border:#1da1f2;
+}	
+
+#google:hover{
+	background-color:rgba(255, 0, 0, 0.75);
+	border:rgba(255, 0, 0, 0.75);
+}
+
+#github:hover{
+	background-color:#000;
+	border:#000;
+}	
+
+
+.login-form{
+	position: relative;
+	width: 500px;
+	margin: 30px auto;
+    top: 437px;  
+    display: block;
+	margin: 0 auto;
+	transform: translate(0, -60%);
+	height: 100%;
+    z-index: 1000;
+}
+
+.bg {
+	background-image: url(../src/pics/photo-1502481851512-e9e2529bfbf9.jpg);        
+	height: 100%;
+	/* Center and scale the image nicely */
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+ }
+
+.overlay {
+	background-color: rgba(0,0,0,0.5);
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;       
+}
+
+ @media(max-width:500px){
+	.login-form {
+		position: relative;
+		width: 310px;
+        top: 350px;         
+    }
+    
+    .h2, h2 {
+        font-size: 20px !important;
+    }
+} 
+
+
+@media(max-width:330px){
+	.login-form {
+		position: relative;
+		width: 260px;
+        top: 280px;        
+    }
+    
+    .h2, h2 {
+        font-size: 20px !important;
+    }
+}
+
+

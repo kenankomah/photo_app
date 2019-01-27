@@ -1,0 +1,400 @@
+body {
+    display: block;
+    margin: 0px;
+    font-family: Raleway, Arial, sans-serif;
+    overflow-x: hidden;    
+} 
+
+
+
+
+html{
+    width: 100%;
+}
+
+@media(min-width:1000px){
+    .container-3{
+        /* border: 0.5px #ccc solid; */
+        display:flex;
+        flex-wrap:wrap;
+        justify-content: center; 
+        width:1000px;
+        /* background-color: beige; */
+    }
+
+    .container-3-box{
+        flex-basis:300px;
+        overflow: hidden;	
+        border: 1px #ccc dotted;
+        max-height: 200px;
+    }
+
+    .container-3 img{
+        transform: scale(1.5);	
+    }
+
+}
+/* @media (max-width:1000px) and (min-height: 300px){ */
+@media screen and (max-width:1000px) {
+    .container-3{
+        /* border: 1px #ccc solid; */
+        display: flex;
+        flex-wrap:wrap;
+         /* flex-direction: column; */
+        flex-basis: 500px;
+        justify-content: center; 
+    }
+
+    .container-3 div{
+        border: 1px #ccc solid;
+        /* padding: 10px; */
+        width:600px;
+    }
+
+    .container-3 img{
+        transform: scale(1);	
+    }
+}     
+
+.container-3 img{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-width: 300px;
+    border: 1px #ccc dotted;         
+}
+
+.container-3{
+    position: relative;
+    margin: 0 auto;
+    top: 200px
+}    
+
+#nav-bar{
+    display: flex;
+    align-items: right;
+    position: fixed;
+    top:0px;
+    width: 101%;
+    height: 100px;
+    border: 1px #ccc solid;
+    z-index: 1000;
+    background-color:rgb(244, 244, 245);
+}
+
+#profile-pic{
+    position: relative;
+    height:62px;
+    border-radius: 50%;
+    border: 3px lightskyblue solid; 
+}
+
+#profile-name{
+    position: relative;
+    margin: 0 auto;
+} 
+
+
+
+/* Icons*/
+
+#sign_out{
+    position: absolute;
+    left:calc(100% - 500px);
+    margin: 0;
+    top: 50%;
+    transform: translate(0, -50%);
+    height: 100%;
+}  
+
+#profile{
+    position: absolute;
+    left:calc(100% - 600px);
+    height: 100%;
+}
+
+#select_pic{
+    position: absolute;
+    left:calc(0% + 400px);
+    margin: 0;
+    top: 50%;                         
+    transform: translate(0, -50%);
+    height: 100%;
+}  
+
+#upload{
+    position: absolute;
+    left:calc(0% + 520px);
+    margin: 0;
+    top: 50%;                         
+    transform: translate(0, -50%);
+    height: 100%;
+}  
+
+.select_pic_icon{
+    height:38px;
+    width:38px;		 
+    fill: black;
+}
+
+.sign_out_icon{
+    height:30px;
+    width:30px;		 
+    fill: black;
+}
+
+.upload_icon{
+    height:28px;
+    width:28px;		 
+    fill: black;
+}
+
+.github_icon{
+    display: block;    
+    height:35px;
+    width:35px;		 	 
+    fill: #505050; 
+    margin: 10px;     
+}
+
+.linkedin_icon{
+    display: block;
+    height:39px;
+    width:39px;		 
+    fill: #505050; 
+    margin: 10px;        
+}
+
+#footer_icons{
+    position: relative;
+    margin: 0 auto;
+    top: 50%;                         
+    transform: translate(0, -50%);
+    height: 100%;
+}
+
+.linkedin_icon:hover{
+    fill: #0077B5;
+} 
+
+.github_icon:hover{        
+    fill: black;      
+}
+
+.labelled-cell{
+    height: 18px;
+    font-size: 14px;  
+    padding-bottom: 5px;   
+}    
+
+footer{
+    position: relative;
+    /* top:260px; */
+    height:110px;
+    width:100.5%;
+    margin: 0 auto;
+    border: 1px #ccc solid;
+    z-index: 1000;
+    background-color:rgb(244, 244, 245);
+}
+
+#home footer{
+    top:260px; 
+}
+
+
+.footer-position{
+    top:573px;
+}
+
+
+
+
+/**for smaller screens*/
+ @media screen and (max-width:1230px) {
+    #select_pic{
+        left:calc(0% + 150px);
+    }  
+
+    #upload{
+        left:calc(0% + 320px);
+    }  
+
+    #sign_out{
+        left:calc(100% - 250px);
+    }  
+
+    #profile{
+        left:calc(100% - 380px);
+    }   
+    
+    #detail-img{
+        width:90%;
+    }
+    
+
+/*
+    .select_pic_icon{
+        height: 60px;
+        width: 60px;
+    }
+
+    .sign_out_icon{
+        height: 50px;
+        width: 50px;
+    }
+
+    .upload_icon{
+        height: 50px;
+        width: 50px;
+    }
+
+    .labelled-cell{
+        font-size: 25px;
+    }  
+
+    #nav-bar{    
+        height: 150px;
+    }
+
+    .github_icon{
+        height:65px;
+        width:65px;	
+    }
+
+    .linkedin_icon{
+        height:71px;
+        width:71px;	             
+    }
+
+    footer{
+        height:110px;
+    }*/
+} 
+
+
+@media screen and (max-width:850px) {
+    #select_pic{
+        left:calc(0% + 30px);
+    }  
+
+    #upload{
+        left:calc(0% + 120px);
+    }  
+
+    #sign_out{
+        left:calc(100% - 100px);
+    }  
+
+    #profile{
+        left:calc(100% - 180px);
+    }    
+
+    .select_pic_icon{
+        height: 30px;
+        width: 30px;
+    }
+
+    .sign_out_icon{
+        height: 25px;
+        width: 25px;
+    }
+
+    .upload_icon{
+        height: 25px;
+        width: 25px;
+    }
+
+    .labelled-cell{
+        font-size: 12px;
+    }  
+
+    #nav-bar{    
+        height: 100px;
+    }
+
+    .github_icon{
+        height:65px;
+        width:65px;	
+    }
+
+    .linkedin_icon{
+        height:71px;
+        width:71px;	             
+    }
+
+    footer{
+        height:140px;
+    }
+}
+
+
+
+
+#sign_out:hover, #profile:hover, #select_pic:hover, #upload:hover{
+/* background-color: rgb(233, 237, 241); */
+    background-color: rgb(225, 230, 236);
+}  
+
+#profile, #sign_out, #select_pic, #upload{
+   text-decoration: overline dashed; 
+   text-decoration-color:#cccccc; 
+} 
+
+.select_pic_icon:hover, .sign_out_icon:hover, .upload_icon:hover {
+    fill: blue;
+    cursor: pointer;
+} 
+
+.gallery-bg {
+    background-image: url(../src/pics/5008.png);        
+    background-position: center;       
+}
+
+#loadup{
+    height: 150px;
+}
+
+
+
+
+
+@media screen and (min-width:1230px) {	
+	#detail-img{
+		border: 1px #E8E8E8 solid;
+		height: 650px;
+    }
+    
+}
+/* .center-block, #date{
+    position: relative;
+    top:200px;
+}  */
+
+@media screen and (max-width:1230px) {
+	#detail-img{
+		border: 1px #E8E8E8 solid;
+	}	 
+
+	#home footer{
+		position: relative;
+		top:409px; 
+    }
+    
+    .center-block, #date{
+        position: relative;
+        top:290px; 
+    }
+
+    #back-home{
+        position: relative;
+        /* top:195px; */
+    }
+}
+
+/* #detail-container footer{
+    position: absolute;
+    top:412px;
+    /* bottom: 0px; 
+}  */
