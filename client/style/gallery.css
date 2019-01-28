@@ -25,7 +25,7 @@ html{
     .container-3-box{
         flex-basis:300px;
         overflow: hidden;	
-        border: 1px #ccc dotted;
+        border: 1px #ccc solid;
         max-height: 200px;
     }
 
@@ -62,7 +62,7 @@ html{
     justify-content: center;
     width: 100%;
     min-width: 300px;
-    border: 1px #ccc dotted;         
+    border: 1px #ccc solid;         
 }
 
 .container-3{
@@ -398,3 +398,20 @@ footer{
     top:412px;
     /* bottom: 0px; 
 }  */
+
+.container-3 img{
+    filter: brightness(70%);
+}
+
+
+.container-3 img:hover {
+    filter: brightness(100%);
+}
+
+#profile-pic{
+    filter:grayscale(100%);
+}
+
+#profile-pic:hover {
+    filter:grayscale(0%);
+}
