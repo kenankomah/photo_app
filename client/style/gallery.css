@@ -362,7 +362,7 @@ footer{
 
 @media screen and (min-width:1230px) {	
 	#detail-img{
-		border: 1px #E8E8E8 solid;
+		/* border: 1px #E8E8E8 solid; */
 		height: 650px;
     }
     
@@ -373,9 +373,9 @@ footer{
 }  */
 
 @media screen and (max-width:1230px) {
-	#detail-img{
+	/* #detail-img{
 		border: 1px #E8E8E8 solid;
-	}	 
+	}	  */
 
 	#home footer{
 		position: relative;
@@ -414,4 +414,13 @@ footer{
 
 #profile-pic:hover {
     filter:grayscale(0%);
+}
+
+#detail-img{
+    filter:drop-shadow(8px 8px 10px gray);
+}
+
+
+#detail-img {
+    border-radius: 10px;
 }
