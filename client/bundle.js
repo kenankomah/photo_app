@@ -26980,7 +26980,7 @@
 
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { id: 'home' },
 	        _react2.default.createElement('span', null),
 	        _react2.default.createElement(
 	          'div',
@@ -27128,9 +27128,26 @@
 
 	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = FileUpload.__proto__ || Object.getPrototypeOf(FileUpload)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
 	      selectedFile: null
+	    }, _this.showMessage = function () {
+	      var el = document.getElementById('message-panel').style;
+	      el.display = "block";
+	      el.opacity = 0;
+	      var pos = void 0;
+
+	      (function fade_in() {
+	        pos = Number(el.opacity);
+	        pos += 0.01;
+	        el.opacity = pos;
+	        var val = Number(el.left.replace("px", ""));
+	        if (pos < 1) {
+	          requestAnimationFrame(fade_in);
+	        }
+	      })();
 	    }, _this.fileSelectorHandler = function (event) {
-	      //console.log(event.target.files[0]);
-	      document.querySelector('span').innerHTML = event.target.files[0].name + ' selected';
+	      var messagePanel = document.getElementById('panel');
+	      _this.showMessage();
+
+	      messagePanel.innerHTML = '<b>' + event.target.files[0].name + '</b>' + ' selected';
 	      _this.setState({
 	        selectedFile: event.target.files[0]
 	      });
@@ -27139,15 +27156,16 @@
 	        selectedFile: ""
 	      });
 	    }, _this.fileUploadHandler = function () {
-
+	      _this.showMessage();
+	      var messagePanel = document.getElementById('panel');
 	      if (_this.state.selectedFile) {
-	        document.querySelector('span').innerHTML = "";
+	        document.getElementById('panel').innerHTML = "";
 	        var img = document.createElement('img');
 	        var text = document.createTextNode("Uploading ");
 	        img.setAttribute('src', 'https://image-gallery1.s3.eu-west-2.amazonaws.com/myImage-1537648204973.gif');
 	        img.setAttribute('style', 'width:30px;');
-	        document.querySelector('span').appendChild(text);
-	        document.querySelector('span').appendChild(img);
+	        messagePanel.appendChild(text);
+	        messagePanel.appendChild(img);
 
 	        var fd = new FormData();
 	        fd.append('myImage', _this.state.selectedFile, _this.state.selectedFile.name);
@@ -27159,11 +27177,11 @@
 	        }).then(function (res) {
 	          // console.log(res);
 	          if (res.data.msg.code === "LIMIT_FILE_SIZE") {
-	            document.querySelector('span').innerHTML = "8mb size limit!";
+	            messagePanel.innerHTML = "8mb size limit!";
 	          } else if (res.data.msg === "Error: Images Only!") {
-	            document.querySelector('span').innerHTML = "The file is not an image!";
+	            messagePanel.innerHTML = "The file is not an image!";
 	          } else {
-	            document.querySelector('span').innerHTML = "Done!";
+	            messagePanel.innerHTML = "Done!";
 	          }
 	          _this.filerClearer();
 	          // console.log(this.state.selectedFile);
@@ -27172,7 +27190,7 @@
 	          return console.log(error);
 	        });
 	      } else {
-	        document.querySelector('span').innerHTML = "Select an image before uploading";
+	        messagePanel.innerHTML = "Select an image before uploading";
 	      }
 	    }, _temp), _possibleConstructorReturn(_this, _ret);
 	  }
@@ -27254,6 +27272,11 @@
 	              )
 	            )
 	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { id: 'message-panel' },
+	          _react2.default.createElement('span', { id: 'panel' })
 	        )
 	      );
 	    }
@@ -29063,8 +29086,6 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var count = void 0;
-
 	var ImageDetail = function (_Component) {
 	  _inherits(ImageDetail, _Component);
 
@@ -29116,23 +29137,48 @@
 	      var imageSrc = document.getElementById("detail-img").src;
 	      console.log(this.returnIndex(imageSrc));
 	      var index = this.returnIndex(imageSrc);
+	      this.props.images.length;
 
-	      console.log(this.props.images.length);
-	      if (direction === "next") {
+	      if (direction === "next" && index !== this.props.images.length - 1) {
 	        index++;
-	      } else {
-	        //if()
+	        this.controlButtons();
+	      } else if (direction === "previous" && index !== 0) {
 	        index--;
+	        this.controlButtons();
 	      }
+
+	      if (index === this.props.images.length - 1) {
+	        document.getElementById("next").classList.add("inactive");
+	      } else if (index === 0) {
+	        document.getElementById("previous").classList.add("inactive");
+	      } else if (document.querySelector(".inactive")) {
+	        document.getElementById("next").classList.remove("inactive");
+	        document.getElementById("previous").classList.remove("inactive");
+	      }
+
 	      this.updateSource(index);
-	      //document.getElementById("myBtn").disabled = true;
+	    }
+	  }, {
+	    key: 'controlButtons',
+	    value: function controlButtons() {
+	      //fade in animation
+	      document.getElementById("detail-img").animate({
+	        opacity: [0, 1], // [ from, to ]
+	        color: ["#fff", "#000"] // [ from, to ]
+	      }, 750);
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      //code below runs when the component is rendered
+	      this.controlButtons();
+	      this.imageSlider();
+	      document.querySelector('footer').style.top = "412px"; //(window.innerHeight - 110)  + "px";
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
-
-	      //console.log(this.props);  
 
 	      if (!this.props.image) {
 	        window.location.assign('/');
@@ -29149,30 +29195,36 @@
 	          _react2.default.createElement(_profile2.default, null)
 	        ),
 	        _react2.default.createElement(
-	          _reactRouter.Link,
-	          { to: '/' },
+	          'div',
+	          { id: 'button-div' },
 	          _react2.default.createElement(
-	            'button',
-	            { className: 'center-block btn btn-primary', id: 'back-home' },
-	            ' Back to gallery'
+	            'svg',
+	            { onClick: function onClick() {
+	                return _this2.imageSlider("previous");
+	              }, id: 'previous', className: 'slide', xmlns: 'http://www.w3.org/2000/svg', x: '0px', y: '0px', viewBox: '0 0 492 492', 'enable-background': 'new 0 0 492 492' },
+	            _react2.default.createElement('path', { d: 'M198.608,246.104L382.664,62.04c5.068-5.056,7.856-11.816,7.856-19.024c0-7.212-2.788-13.968-7.856-19.032l-16.128-16.12 C361.476,2.792,354.712,0,347.504,0s-13.964,2.792-19.028,7.864L109.328,227.008c-5.084,5.08-7.868,11.868-7.848,19.084 c-0.02,7.248,2.76,14.028,7.848,19.112l218.944,218.932c5.064,5.072,11.82,7.864,19.032,7.864c7.208,0,13.964-2.792,19.032-7.864\t\tl16.124-16.12c10.492-10.492,10.492-27.572,0-38.06L198.608,246.104z' })
+	          ),
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: '/' },
+	            _react2.default.createElement(
+	              'button',
+	              { className: 'center-block btn btn-primary', id: 'back-home' },
+	              ' Back to gallery'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'svg',
+	            { onClick: function onClick() {
+	                return _this2.imageSlider("next");
+	              }, id: 'next', className: 'slide', xmlns: 'http://www.w3.org/2000/svg', x: '0px', y: '0px', viewBox: '0 0 492.004 492.004', 'enable-background': 'new 0 0 492.004 492.004' },
+	            _react2.default.createElement('path', { d: 'M382.678,226.804L163.73,7.86C158.666,2.792,151.906,0,144.698,0s-13.968,2.792-19.032,7.86l-16.124,16.12 c-10.492,10.504-10.492,27.576,0,38.064L293.398,245.9l-184.06,184.06c-5.064,5.068-7.86,11.824-7.86,19.028 c0,7.212,2.796,13.968,7.86,19.04l16.124,16.116c5.068,5.068,11.824,7.86,19.032,7.86s13.968-2.792,19.032-7.86L382.678,265 c5.076-5.084,7.864-11.872,7.848-19.088C390.542,238.668,387.754,231.884,382.678,226.804z' })
 	          )
 	        ),
 	        _react2.default.createElement('div', { height: '50px;', className: 'span4' }),
-	        _react2.default.createElement('img', { className: 'center-block', id: 'detail-img', src: this.props.image.src }),
-	        _react2.default.createElement(
-	          'button',
-	          { onClick: function onClick() {
-	              return _this2.imageSlider("next");
-	            } },
-	          ' Next Pic'
-	        ),
-	        _react2.default.createElement(
-	          'button',
-	          { onClick: function onClick() {
-	              return _this2.imageSlider("previous");
-	            } },
-	          ' Prev Pic'
-	        ),
+	        _react2.default.createElement('img', { onload: function onload() {
+	            return _this2.controlButtons();
+	          }, className: 'center-block', id: 'detail-img', src: this.props.image.src }),
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'span4 text-center', id: 'date' },

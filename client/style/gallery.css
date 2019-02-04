@@ -232,45 +232,6 @@ footer{
     #detail-img{
         width:90%;
     }
-    
-
-/*
-    .select_pic_icon{
-        height: 60px;
-        width: 60px;
-    }
-
-    .sign_out_icon{
-        height: 50px;
-        width: 50px;
-    }
-
-    .upload_icon{
-        height: 50px;
-        width: 50px;
-    }
-
-    .labelled-cell{
-        font-size: 25px;
-    }  
-
-    #nav-bar{    
-        height: 150px;
-    }
-
-    .github_icon{
-        height:65px;
-        width:65px;	
-    }
-
-    .linkedin_icon{
-        height:71px;
-        width:71px;	             
-    }
-
-    footer{
-        height:110px;
-    }*/
 } 
 
 
@@ -393,20 +354,10 @@ footer{
     }
 }
 
-/* #detail-container footer{
-    position: absolute;
-    top:412px;
-    /* bottom: 0px; 
-}  */
-
-.container-3 img{
-    filter: brightness(70%);
-}
-
 
 .container-3 img:hover {
-    filter: brightness(100%);
-}
+    filter: brightness(70%);
+} 
 
 #profile-pic{
     filter:grayscale(100%);
@@ -423,4 +374,27 @@ footer{
 
 #detail-img {
     border-radius: 10px;
+}
+
+#message-panel{
+    position: fixed;
+    top:110px;
+    left:10px !important;
+    width:250px;
+    height: 80px;
+    border: black solid 1px;
+    background-color: #edf2f9;
+    opacity: 0;
+    border-radius: 5px;
+    text-align: center;    
+}
+
+#panel{
+    position: relative;
+    top: calc(50% - 10px);
+}
+
+#message-panel img{
+    height:40px;
+    text-align: center;
 }

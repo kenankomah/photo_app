@@ -6,10 +6,28 @@ class FileUpload extends Component {
   state = {
     selectedFile:null
   }
+
+  showMessage = () =>{
+    const el = document.getElementById('message-panel').style; 
+    el.display = "block";
+    el.opacity = 0;
+    let pos;
+
+    (function fade_in() {
+        pos = Number(el.opacity);
+        pos += 0.01;
+        el.opacity = pos;
+        if ( pos < 1) {
+            requestAnimationFrame(fade_in);
+        }  
+    })();    
+  }
   
   fileSelectorHandler = event => {
-    //console.log(event.target.files[0]);
-    document.querySelector('span').innerHTML = event.target.files[0].name + ' selected';
+    const messagePanel = document.getElementById('panel');
+    this.showMessage();
+
+    messagePanel.innerHTML = '<b>' + event.target.files[0].name + '</b>' + ' selected';
     this.setState({
        selectedFile:event.target.files[0]
     })
@@ -22,15 +40,16 @@ class FileUpload extends Component {
   }
   
   fileUploadHandler = () => {
-    
-    if(this.state.selectedFile){       
-        document.querySelector('span').innerHTML = "";
+    this.showMessage(); 
+    const messagePanel = document.getElementById('panel');    
+    if(this.state.selectedFile){ 
+        document.getElementById('panel').innerHTML = "";
         const img = document.createElement('img');
         const text = document.createTextNode("Uploading ");
         img.setAttribute('src','https://image-gallery1.s3.eu-west-2.amazonaws.com/myImage-1537648204973.gif');
         img.setAttribute('style','width:30px;');       
-        document.querySelector('span').appendChild(text);
-        document.querySelector('span').appendChild(img);        
+        messagePanel.appendChild(text);
+        messagePanel.appendChild(img);        
        
         const fd = new FormData();
         fd.append('myImage', this.state.selectedFile, this.state.selectedFile.name);
@@ -43,18 +62,18 @@ class FileUpload extends Component {
         .then(res => {
            // console.log(res);
            if(res.data.msg.code === "LIMIT_FILE_SIZE"){
-            document.querySelector('span').innerHTML = "8mb size limit!";
+            messagePanel.innerHTML = "8mb size limit!";
            }else if(res.data.msg === "Error: Images Only!"){
-            document.querySelector('span').innerHTML = "The file is not an image!";
+            messagePanel.innerHTML = "The file is not an image!";
            }else{
-            document.querySelector('span').innerHTML = "Done!";
+            messagePanel.innerHTML = "Done!";
            }
             this.filerClearer();
            // console.log(this.state.selectedFile);
            console.log(res.data.msg);
         }).catch(error => console.log(error));
     } else{
-      document.querySelector('span').innerHTML = "Select an image before uploading";      
+      messagePanel.innerHTML = "Select an image before uploading";      
     }
   }
 
@@ -108,7 +127,10 @@ class FileUpload extends Component {
         <tr><td className="labelled-cell" style={{textAlign:"center"}}>Upload</td></tr>
         </tbody>
     </table>
-
+      <div id="message-panel">
+         <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/Andromeda_Galaxy_%28with_h-alpha%29.jpg"></img>
+         <span id="panel"></span>
+      </div>  
         
       </div>
       

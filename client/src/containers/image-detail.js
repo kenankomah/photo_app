@@ -142,7 +142,7 @@ class ImageDetail extends Component {
                   h-76.8V25.6z M396.8,486.4H115.2V153.6h281.6V486.4z M422.4,128H89.6V76.8h332.8V128z"/>
             </svg>
           </div>
-        <Footer />
+        <Footer/>
       </div>
     );
   }
