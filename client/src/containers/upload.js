@@ -8,7 +8,7 @@ class FileUpload extends Component {
   }
 
   showMessage = () =>{
-    const el = document.getElementById('message-panel').style; 
+    const el = document.getElementById('preview-panel').style; 
     el.display = "block";
     el.opacity = 0;
     let pos;
@@ -126,12 +126,21 @@ class FileUpload extends Component {
         </svg></td></tr>
         <tr><td className="labelled-cell" style={{textAlign:"center"}}>Upload</td></tr>
         </tbody>
-    </table>
-      <div id="message-panel">
-         <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/Andromeda_Galaxy_%28with_h-alpha%29.jpg"></img>
-         <span id="panel"></span>
-      </div>  
-        
+       </table>
+        <div id="message-panel">  
+          <img className="close_panel" src="../assets/close.png" alt="close"></img>     
+          <span id="panel"></span>
+        </div>  
+        <div id="preview-panel">
+          <img className="close_panel" src="../assets/close.png" alt="close"></img>
+          <table>
+              <tbody>
+                  <tr><td> Selected image preview</td></tr>
+                  <tr><td> <img src="https://i.pinimg.com/736x/cd/90/d9/cd90d9de63fa2c8e5c5e7117e27b5c18--gritty-portrait-photography-studio-photography.jpg"></img></td> </tr> 
+                  <tr><td> <span id="panel">Andromeda.jpg</span></td></tr>
+              </tbody>
+          </table>
+        </div>   
       </div>
       
     );
