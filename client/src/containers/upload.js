@@ -7,8 +7,16 @@ class FileUpload extends Component {
     selectedFile:null
   }
 
-  showMessage = () =>{
-    const el = document.getElementById('preview-panel').style; 
+  showMessage = mode =>{
+    var el;
+    if(mode==="message"){
+       el = document.getElementById('message-panel').style; 
+      document.getElementById('preview-panel').style.display = "none";
+    }else{
+       el = document.getElementById('preview-panel').style; 
+      document.getElementById('message-panel').style.display = "none";
+    }
+    
     el.display = "block";
     el.opacity = 0;
     let pos;
@@ -24,8 +32,8 @@ class FileUpload extends Component {
   }
   
   fileSelectorHandler = event => {
-    const messagePanel = document.getElementById('panel');
-    this.showMessage();
+    const messagePanel = document.getElementById('preview_image');
+    this.showMessage("preview");
 
     messagePanel.innerHTML = '<b>' + event.target.files[0].name + '</b>' + ' selected';
     this.setState({
@@ -38,9 +46,15 @@ class FileUpload extends Component {
       selectedFile:""
     });
   }
+
+  closePanel = () =>{
+    document.getElementById('message-panel').style.display ="none";   
+    document.getElementById('preview-panel').style.display ="none"; 
+    this.filerClearer();
+  }
   
   fileUploadHandler = () => {
-    this.showMessage(); 
+    this.showMessage("message"); 
     const messagePanel = document.getElementById('panel');    
     if(this.state.selectedFile){ 
         document.getElementById('panel').innerHTML = "";
@@ -128,16 +142,16 @@ class FileUpload extends Component {
         </tbody>
        </table>
         <div id="message-panel">  
-          <img className="close_panel" src="../assets/close.png" alt="close"></img>     
+          <img className="close_panel" src="../assets/close.png" alt="close" onClick={this.closePanel}></img>     
           <span id="panel"></span>
         </div>  
         <div id="preview-panel">
-          <img className="close_panel" src="../assets/close.png" alt="close"></img>
+          <img className="close_panel" src="../assets/close.png" alt="close" onClick={this.closePanel}></img>
           <table>
               <tbody>
                   <tr><td> Selected image preview</td></tr>
                   <tr><td> <img src="https://i.pinimg.com/736x/cd/90/d9/cd90d9de63fa2c8e5c5e7117e27b5c18--gritty-portrait-photography-studio-photography.jpg"></img></td> </tr> 
-                  <tr><td> <span id="panel">Andromeda.jpg</span></td></tr>
+                  <tr><td> <span id="preview_image">Andromeda.jpg</span></td></tr>
               </tbody>
           </table>
         </div>   
