@@ -71,6 +71,7 @@ class FileUpload extends Component {
     document.getElementById('preview-panel').style.display ="none"; 
     this.filerClearer();
     document.getElementById('preview-image').removeChild(previewImage);
+    document.getElementById('fileSelector').value = "";
   }
   
   fileUploadHandler = () => {
