@@ -8,12 +8,12 @@ class FileUpload extends Component {
   }
 
   showMessage = mode =>{
-    var el;
+    let el;
     if(mode==="message"){
-       el = document.getElementById('message-panel').style; 
+      el = document.getElementById('message-panel').style; 
       document.getElementById('preview-panel').style.display = "none";
     }else{
-       el = document.getElementById('preview-panel').style; 
+      el = document.getElementById('preview-panel').style; 
       document.getElementById('message-panel').style.display = "none";
     }
     
@@ -30,15 +30,40 @@ class FileUpload extends Component {
         }  
     })();    
   }
+
+  handlePreview(file) {                    
+    const preview = document.getElementById('preview-image');
+    console.log(file);
+   
+    // if(document.querySelector('preview-image img')){
+    //   preview.removeChild(document.querySelector('#preview-image img'));
+    // }
+
+    const img = document.createElement("img");
+     preview.appendChild(img);
+   // preview.innerHTML = img;
+    
+    const reader = new FileReader();
+    reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; /*console.log(e.target.result)*/}; })(img);
+    reader.readAsDataURL(file);
+   
+  }
+
   
   fileSelectorHandler = event => {
-    const messagePanel = document.getElementById('preview_image');
-    this.showMessage("preview");
+    //document.getElementById('preview-image').removeChild(document.getElementById('preview-image img'));
+    if(!document.querySelector('#preview-image img')){
+    
+      const messagePanel = document.getElementById('preview-name');
+      this.showMessage("preview");
+      
+      this.handlePreview(event.target.files[0]);
 
-    messagePanel.innerHTML = '<b>' + event.target.files[0].name + '</b>' + ' selected';
-    this.setState({
-       selectedFile:event.target.files[0]
-    })
+      messagePanel.innerHTML = event.target.files[0].name;
+      this.setState({
+        selectedFile:event.target.files[0]
+      })
+    }
   }
 
   filerClearer = () =>{
@@ -48,9 +73,11 @@ class FileUpload extends Component {
   }
 
   closePanel = () =>{
+    const previewImage = document.querySelector('#preview-image img');
     document.getElementById('message-panel').style.display ="none";   
     document.getElementById('preview-panel').style.display ="none"; 
     this.filerClearer();
+    document.getElementById('preview-image').removeChild(previewImage);
   }
   
   fileUploadHandler = () => {
@@ -150,10 +177,11 @@ class FileUpload extends Component {
           <table>
               <tbody>
                   <tr><td> Selected image preview</td></tr>
-                  <tr><td> <img src="https://i.pinimg.com/736x/cd/90/d9/cd90d9de63fa2c8e5c5e7117e27b5c18--gritty-portrait-photography-studio-photography.jpg"></img></td> </tr> 
-                  <tr><td> <span id="preview_image">Andromeda.jpg</span></td></tr>
+                  <tr><td id="preview-image"> </td> </tr> 
+                 
               </tbody>
           </table>
+          <span id="preview-name">Andromeda.jpg</span>
         </div>   
       </div>
       
