@@ -33,15 +33,8 @@ class FileUpload extends Component {
 
   handlePreview(file) {                    
     const preview = document.getElementById('preview-image');
-    console.log(file);
-   
-    // if(document.querySelector('preview-image img')){
-    //   preview.removeChild(document.querySelector('#preview-image img'));
-    // }
-
     const img = document.createElement("img");
-     preview.appendChild(img);
-   // preview.innerHTML = img;
+    preview.appendChild(img);
     
     const reader = new FileReader();
     reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; /*console.log(e.target.result)*/}; })(img);
@@ -51,8 +44,8 @@ class FileUpload extends Component {
 
   
   fileSelectorHandler = event => {
-    //document.getElementById('preview-image').removeChild(document.getElementById('preview-image img'));
-    if(!document.querySelector('#preview-image img')){
+     //checks if there is a preview image already in place
+     if(!document.querySelector('#preview-image img')){
     
       const messagePanel = document.getElementById('preview-name');
       this.showMessage("preview");
