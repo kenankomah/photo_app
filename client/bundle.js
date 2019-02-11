@@ -27128,41 +27128,62 @@
 
 	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = FileUpload.__proto__ || Object.getPrototypeOf(FileUpload)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
 	      selectedFile: null
-	    }, _this.showMessage = function () {
-	      var el = document.getElementById('message-panel').style;
+	    }, _this.showMessage = function (mode) {
+	      var el = void 0;
+	      if (mode === "message") {
+	        el = document.getElementById('message-panel').style;
+	        document.getElementById('preview-panel').style.display = "none";
+	      } else {
+	        el = document.getElementById('preview-panel').style;
+	        document.getElementById('message-panel').style.display = "none";
+	      }
+
 	      el.display = "block";
 	      el.opacity = 0;
 	      var pos = void 0;
 
 	      (function fade_in() {
 	        pos = Number(el.opacity);
-	        pos += 0.01;
+	        pos += 0.02;
 	        el.opacity = pos;
-	        var val = Number(el.left.replace("px", ""));
 	        if (pos < 1) {
 	          requestAnimationFrame(fade_in);
 	        }
 	      })();
 	    }, _this.fileSelectorHandler = function (event) {
-	      var messagePanel = document.getElementById('panel');
-	      _this.showMessage();
+	      //checks if there is a preview image already in place
+	      if (!document.querySelector('#preview-image img')) {
 
-	      messagePanel.innerHTML = '<b>' + event.target.files[0].name + '</b>' + ' selected';
-	      _this.setState({
-	        selectedFile: event.target.files[0]
-	      });
+	        var messagePanel = document.getElementById('preview-name');
+	        _this.showMessage("preview");
+
+	        _this.handlePreview(event.target.files[0]);
+
+	        messagePanel.innerHTML = event.target.files[0].name;
+	        _this.setState({
+	          selectedFile: event.target.files[0]
+	        });
+	      }
 	    }, _this.filerClearer = function () {
 	      _this.setState({
 	        selectedFile: ""
 	      });
+	    }, _this.closePanel = function () {
+	      var previewImage = document.querySelector('#preview-image img');
+	      document.getElementById('message-panel').style.display = "none";
+	      document.getElementById('preview-panel').style.display = "none";
+	      _this.filerClearer();
+	      document.getElementById('preview-image').removeChild(previewImage);
+	      //the value is cleared so that the same file can be uploaded when panel is closed
+	      document.getElementById('fileSelector').value = "";
 	    }, _this.fileUploadHandler = function () {
-	      _this.showMessage();
+	      _this.showMessage("message");
 	      var messagePanel = document.getElementById('panel');
 	      if (_this.state.selectedFile) {
 	        document.getElementById('panel').innerHTML = "";
 	        var img = document.createElement('img');
 	        var text = document.createTextNode("Uploading ");
-	        img.setAttribute('src', 'https://image-gallery1.s3.eu-west-2.amazonaws.com/myImage-1537648204973.gif');
+	        img.setAttribute('src', '../assets/loader.gif');
 	        img.setAttribute('style', 'width:30px;');
 	        messagePanel.appendChild(text);
 	        messagePanel.appendChild(img);
@@ -27196,6 +27217,21 @@
 	  }
 
 	  _createClass(FileUpload, [{
+	    key: 'handlePreview',
+	    value: function handlePreview(file) {
+	      var preview = document.getElementById('preview-image');
+	      var img = document.createElement("img");
+	      preview.appendChild(img);
+
+	      var reader = new FileReader();
+	      reader.onload = function (aImg) {
+	        return function (e) {
+	          aImg.src = e.target.result; /*console.log(e.target.result)*/
+	        };
+	      }(img);
+	      reader.readAsDataURL(file);
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
@@ -27276,7 +27312,45 @@
 	        _react2.default.createElement(
 	          'div',
 	          { id: 'message-panel' },
+	          _react2.default.createElement('img', { className: 'close_panel', src: '../assets/close.png', alt: 'close', onClick: this.closePanel }),
 	          _react2.default.createElement('span', { id: 'panel' })
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { id: 'preview-panel' },
+	          _react2.default.createElement('img', { className: 'close_panel', src: '../assets/close.png', alt: 'close', onClick: this.closePanel }),
+	          _react2.default.createElement(
+	            'table',
+	            null,
+	            _react2.default.createElement(
+	              'tbody',
+	              null,
+	              _react2.default.createElement(
+	                'tr',
+	                null,
+	                _react2.default.createElement(
+	                  'td',
+	                  null,
+	                  ' Selected image preview'
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'tr',
+	                null,
+	                _react2.default.createElement(
+	                  'td',
+	                  { id: 'preview-image' },
+	                  ' '
+	                ),
+	                ' '
+	              )
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'span',
+	            { id: 'preview-name' },
+	            'Andromeda.jpg'
+	          )
 	        )
 	      );
 	    }

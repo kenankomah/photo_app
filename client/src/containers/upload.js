@@ -23,7 +23,7 @@ class FileUpload extends Component {
 
     (function fade_in() {
         pos = Number(el.opacity);
-        pos += 0.01;
+        pos += 0.02;
         el.opacity = pos;
         if ( pos < 1) {
             requestAnimationFrame(fade_in);
@@ -70,8 +70,12 @@ class FileUpload extends Component {
     document.getElementById('message-panel').style.display ="none";   
     document.getElementById('preview-panel').style.display ="none"; 
     this.filerClearer();
-    document.getElementById('preview-image').removeChild(previewImage);
+    //the value is cleared so that the same file can be uploaded when panel is closed
     document.getElementById('fileSelector').value = "";
+    
+    if(document.querySelector('#preview-image img')){
+      document.getElementById('preview-image').removeChild(previewImage);
+    }   
   }
   
   fileUploadHandler = () => {
@@ -81,7 +85,7 @@ class FileUpload extends Component {
         document.getElementById('panel').innerHTML = "";
         const img = document.createElement('img');
         const text = document.createTextNode("Uploading ");
-        img.setAttribute('src','https://image-gallery1.s3.eu-west-2.amazonaws.com/myImage-1537648204973.gif');
+        img.setAttribute('src','../assets/loader.gif');
         img.setAttribute('style','width:30px;');       
         messagePanel.appendChild(text);
         messagePanel.appendChild(img);        
