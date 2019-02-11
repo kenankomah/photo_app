@@ -444,3 +444,9 @@ footer{
     border-radius: 5px;
 }
 
+h1{
+    position: relative;
+    top: 144px;
+    text-align: center;
+}
+

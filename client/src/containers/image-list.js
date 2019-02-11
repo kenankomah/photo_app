@@ -83,7 +83,7 @@ class ImageList extends Component {
           <Upload />
           <Profile />            
         </div>              
-       
+        <h1>Image Gallery</h1>
         <div className="container-3">
           {this.renderList()}
         </div> 

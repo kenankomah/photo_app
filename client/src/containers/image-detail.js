@@ -5,10 +5,12 @@ import { Link } from 'react-router';
 import Upload from './upload';
 import Profile from './profile';
 import Footer from './footer';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+//import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 
 
 class ImageDetail extends Component {
-    deleteImage(id){
+   deleteImage(id){
       const newPost = () => {
         const options = {
           method:'DELETE',
@@ -27,6 +29,28 @@ class ImageDetail extends Component {
       window.location.assign('/');
       newPost();
   }
+
+  submit = (imageId) => {
+    
+    
+       confirmAlert({
+         title: '',
+         message: "Are you sure you want to delete this image?",
+         buttons: [
+           {
+             label: 'Yes',
+             onClick: () => this.deleteImage(imageId)
+           },
+           {
+             label: 'No',
+            // onClick: () => this.clearWarning()
+           }
+         ]
+       })
+     
+ // event.preventDefault();
+};
+
 
   returnIndex(imageSrc){
     for(let i=0; i<this.props.images.length; i++){
@@ -99,11 +123,6 @@ class ImageDetail extends Component {
 
         <div id="button-div">  
           
-            {/* <button className="slide" id="back" onClick={() =>this.imageSlider("previous")}> 
-            
-            </button> */}
-
-
             <svg onClick={() =>this.imageSlider("previous")}  id ="previous" className="slide" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 492 492"  enable-background="new 0 0 492 492">
                 <path d="M198.608,246.104L382.664,62.04c5.068-5.056,7.856-11.816,7.856-19.024c0-7.212-2.788-13.968-7.856-19.032l-16.128-16.12
                   C361.476,2.792,354.712,0,347.504,0s-13.964,2.792-19.028,7.864L109.328,227.008c-5.084,5.08-7.868,11.868-7.848,19.084
@@ -131,7 +150,7 @@ class ImageDetail extends Component {
           
           <div className="span4 text-center" id="date">Added <span className="time">on</span>:{this.props.image.dates.split(" ")[0]} <span className="time">at</span>:{this.props.image.dates.split(" ")[1]}
             <br/>
-            <svg className = "icon_bin" onClick={() =>this.deleteImage(this.props.image.id)} x="0px" y="0px"
+            <svg className = "icon_bin" onClick={() =>this.submit(this.props.image.id)} x="0px" y="0px"
               viewBox="0 0 512 512" enable-background="new 0 0 512 512">
                 <rect x="166.4" y="230.4" width="25.6" height="204.8"/>
                 <rect x="243.2" y="230.4" width="25.6" height="204.8"/>
