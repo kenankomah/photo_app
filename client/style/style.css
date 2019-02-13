@@ -119,3 +119,13 @@ img{
 	user-select: none;
 }
 
+#loader{
+	position: absolute;
+	top:calc(50% - 50px);
+	left:calc(50% - 50px);
+	display: block;
+	width:100px;
+	height:100px;
+	text-align: center;
+}
+

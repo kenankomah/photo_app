@@ -36,7 +36,14 @@ ImagesReducer().payload
   .then(posts => {
     if(posts){
       //replace local storage with a cookie that has the same life span as Passport's session cookie
-      localStorage.setItem('loggedIn',true);
+      
+      var d = new Date();
+      d.setTime(d.getTime() + 24*60*60*1000);
+      d.toGMTString();
+
+      document.cookie = "gallery_session=true; expires=" + d.toGMTString() + "; path=/";
+
+      //localStorage.setItem('loggedIn',true);
       const reducers = combineReducers({
           images: returnArray,
           activeImage: ActiveImage,
@@ -64,8 +71,8 @@ ImagesReducer().payload
     }
   );
 
-  if(localStorage.getItem('loggedIn')){
-    const loader = <h1> Loading... </h1>
+  if(document.cookie.includes("gallery_session=true")){
+    const loader = <img id="loader" src='../assets/wait.gif'></img>
     ReactDOM.render(loader, document.querySelector('.app-container'));   
   }else{
     // const element = <div>

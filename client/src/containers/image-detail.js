@@ -43,7 +43,7 @@ class ImageDetail extends Component {
            },
            {
              label: 'No',
-            // onClick: () => this.clearWarning()
+             onClick: () => console.log('closed')
            }
          ]
        })
@@ -146,7 +146,7 @@ class ImageDetail extends Component {
         </div> 
         
         <div  height="50px;" className="span4"></div>
-          <img onload={() =>this.controlButtons()} className="center-block" id="detail-img" src={this.props.image.src} />
+          <img onload={() =>this.controlButtons()} className="center-block" id="detail-img" src={this.props.image.src} style={{filter:this.props.image.filter}} />
           
           <div className="span4 text-center" id="date">Added <span className="time">on</span>:{this.props.image.dates.split(" ")[0]} <span className="time">at</span>:{this.props.image.dates.split(" ")[1]}
             <br/>

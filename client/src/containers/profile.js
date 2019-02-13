@@ -8,8 +8,7 @@ import { Link } from 'react-router';
 
 class Profile extends Component {    
     loggout(){
-        localStorage.removeItem('loggedIn');
-
+        document.cookie = "gallery_session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
     } 
       
     render() {

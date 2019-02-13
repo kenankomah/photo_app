@@ -25,7 +25,7 @@ class ImageList extends Component {
          <div key={image.src} className="container-3-box"> 
             <Link to="list"
               onClick={() => this.props.selectImage(select_image)}>
-              <img src={image.src} />
+              <img src={image.src} style={{filter:image.filter}} />
             </Link>
          </div>       
       );
@@ -60,7 +60,7 @@ class ImageList extends Component {
     .then(posts => {
         const arr = [];
         posts.map( el => {
-        arr.push({src:el.src, dates:el.dates, id:el._id, mongoId:el.mongoId});
+        arr.push({src:el.src, dates:el.dates, id:el._id, mongoId:el.mongoId, filter: el.filter});
       })
     //load is an action
      const load =  {
@@ -69,6 +69,7 @@ class ImageList extends Component {
      }
 
       this.props.actionArr(load);
+      console.log(load.payload)
 
     });
 
