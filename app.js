@@ -60,6 +60,24 @@ app.get('/images/:id',function(req, res){
     })
 });
 
+//image update
+app.put('/image/:id', function(req, res){
+  //console.log(req.body.filter)
+   Image.findOneAndUpdate({
+     _id:req.params.id
+   },
+   {$set: {filter:req.body.filter}},
+      {upsert:true},
+      function(err, newFilter){
+        if(err){
+          console.log('error occured');
+        }else{
+          console.log(newFilter);
+          res.sendStatus(204);
+        }      
+    });
+});
+
 /**************************************** image upload code ******************************************/
 
 

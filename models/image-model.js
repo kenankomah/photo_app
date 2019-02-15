@@ -4,7 +4,8 @@ var Schema=mongoose.Schema;
 var ImageSchema = new Schema({
     src:String,
     dates:String,
-    mongoId:String
+    mongoId:String,
+    filter:String
  });
 
 

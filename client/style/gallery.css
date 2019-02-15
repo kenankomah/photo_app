@@ -356,8 +356,14 @@ footer{
 
 
 .container-3 img:hover {
-    filter: brightness(70%);
+    /* filter: brightness(70%); */
 } 
+
+.container-3-box:hover {
+    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+    border: 1px solid rgba(81, 203, 238, 1);
+} 
+
 
 /* #profile-pic{
     filter:grayscale(100%);
@@ -368,7 +374,7 @@ footer{
 } */
 
 #detail-img{
-    filter:drop-shadow(8px 8px 10px gray);
+    box-shadow: 8px 8px 10px gray;
 }
 
 
@@ -450,3 +456,19 @@ h1{
     text-align: center;
 }
 
+#update{
+    position: relative;
+    top:130px;
+    width: 50px;
+    height: 20px;
+}
+
+/* 
+.overlay {
+    background-color: rgba(0,0,0,0.5);
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+} */

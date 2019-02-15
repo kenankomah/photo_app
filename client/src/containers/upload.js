@@ -37,15 +37,14 @@ class FileUpload extends Component {
     preview.appendChild(img);
     
     const reader = new FileReader();
-    reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; /*console.log(e.target.result)*/}; })(img);
-    reader.readAsDataURL(file);
-   
+    reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result;}; })(img);
+    reader.readAsDataURL(file);   
   }
 
   
   fileSelectorHandler = event => {
-     //checks if there is a preview image already in place
-     if(!document.querySelector('#preview-image img')){
+      //checks if there is a preview image already in place
+      if(!document.querySelector('#preview-image img')){
     
       const messagePanel = document.getElementById('preview-name');
       this.showMessage("preview");
@@ -108,8 +107,8 @@ class FileUpload extends Component {
             messagePanel.innerHTML = "Done!";
            }
             this.filerClearer();
-           // console.log(this.state.selectedFile);
-           console.log(res.data.msg);
+            // console.log(this.state.selectedFile);
+            console.log(res.data.msg);
         }).catch(error => console.log(error));
     } else{
       messagePanel.innerHTML = "Select an image before uploading";      

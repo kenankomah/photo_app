@@ -69,7 +69,7 @@ class ImageList extends Component {
      }
 
       this.props.actionArr(load);
-      console.log(load.payload)
+      //console.log(load.payload)
 
     });
 

@@ -71,7 +71,7 @@
 
 	var _routes2 = _interopRequireDefault(_routes);
 
-	var _logins = __webpack_require__(301);
+	var _logins = __webpack_require__(300);
 
 	var _logins2 = _interopRequireDefault(_logins);
 
@@ -83,7 +83,7 @@
 
 	var _reducer_images2 = _interopRequireDefault(_reducer_images);
 
-	var _reducer_active_image = __webpack_require__(302);
+	var _reducer_active_image = __webpack_require__(301);
 
 	var _reducer_active_image2 = _interopRequireDefault(_reducer_active_image);
 
@@ -120,7 +120,14 @@
 	(0, _reducer_images2.default)().payload.then(function (posts) {
 	  if (posts) {
 	    //replace local storage with a cookie that has the same life span as Passport's session cookie
-	    localStorage.setItem('loggedIn', true);
+
+	    var d = new Date();
+	    d.setTime(d.getTime() + 24 * 60 * 60 * 1000);
+	    d.toGMTString();
+
+	    document.cookie = "gallery_session=true; expires=" + d.toGMTString() + "; path=/";
+
+	    //localStorage.setItem('loggedIn',true);
 	    var reducers = (0, _redux.combineReducers)({
 	      images: returnArray,
 	      activeImage: _reducer_active_image2.default,
@@ -146,12 +153,8 @@
 	  }
 	});
 
-	if (localStorage.getItem('loggedIn')) {
-	  var loader = _react2.default.createElement(
-	    'h1',
-	    null,
-	    ' Loading... '
-	  );
+	if (document.cookie.includes("gallery_session=true")) {
+	  var loader = _react2.default.createElement('img', { id: 'loader', src: '../assets/wait.gif' });
 	  _reactDom2.default.render(loader, document.querySelector('.app-container'));
 	} else {
 	  // const element = <div>
@@ -26752,7 +26755,7 @@
 
 	var _upload2 = _interopRequireDefault(_upload);
 
-	var _test = __webpack_require__(300);
+	var _test = __webpack_require__(299);
 
 	var _test2 = _interopRequireDefault(_test);
 
@@ -26929,7 +26932,7 @@
 	              onClick: function onClick() {
 	                return _this2.props.selectImage(select_image);
 	              } },
-	            _react2.default.createElement('img', { src: image.src })
+	            _react2.default.createElement('img', { src: image.src, style: { filter: image.filter } })
 	          )
 	        );
 	      });
@@ -26965,7 +26968,7 @@
 	        (0, _reducer_images2.default)().payload.then(function (posts) {
 	          var arr = [];
 	          posts.map(function (el) {
-	            arr.push({ src: el.src, dates: el.dates, id: el._id, mongoId: el.mongoId });
+	            arr.push({ src: el.src, dates: el.dates, id: el._id, mongoId: el.mongoId, filter: el.filter });
 	          });
 	          //load is an action
 	          var load = {
@@ -26974,6 +26977,7 @@
 	          };
 
 	          _this3.props.actionArr(load);
+	          //console.log(load.payload)
 	        });
 	      };
 	      test();
@@ -27056,7 +27060,7 @@
 
 	exports.default = function () {
 		// const request = fetch('/images',{ credentials: 'include' })
-		var request = fetch('/images', { credentials: 'include' }).then(function (res) {
+		var request = fetch('http://localhost:5000/images', { credentials: 'include' }).then(function (res) {
 			return res.json();
 		}).catch(function (error) {
 			console.log(error);
@@ -27076,7 +27080,7 @@
 	});
 
 	exports.default = function () {
-	  var request = fetch('/mongoid', { credentials: 'include' }).then(function (res) {
+	  var request = fetch('http://localhost:5000/mongoid', { credentials: 'include' }).then(function (res) {
 	    return res.json();
 	  }).catch(function (error) {
 	    console.log(error);
@@ -27198,7 +27202,7 @@
 
 	        var fd = new FormData();
 	        fd.append('myImage', _this.state.selectedFile, _this.state.selectedFile.name);
-	        _axios2.default.post('/upload', fd, {
+	        _axios2.default.post('http://localhost:5000/upload', fd, {
 	          onUploadProgress: function onUploadProgress(progressEvent) {
 	            // console.log('Upload progress: ' + ((progressEvent.loaded * 100)/progressEvent.total) + '%');
 	          },
@@ -27234,7 +27238,7 @@
 	      var reader = new FileReader();
 	      reader.onload = function (aImg) {
 	        return function (e) {
-	          aImg.src = e.target.result; /*console.log(e.target.result)*/
+	          aImg.src = e.target.result;
 	        };
 	      }(img);
 	      reader.readAsDataURL(file);
@@ -28960,7 +28964,7 @@
 	    _createClass(Profile, [{
 	        key: 'loggout',
 	        value: function loggout() {
-	            localStorage.removeItem('loggedIn');
+	            document.cookie = "gallery_session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 	        }
 	    }, {
 	        key: 'render',
@@ -29016,7 +29020,7 @@
 	                                { style: { textAlign: "center" } },
 	                                _react2.default.createElement(
 	                                    'a',
-	                                    { onClick: this.loggout, href: '/auth/logout' },
+	                                    { onClick: this.loggout, href: 'http://localhost:5000/auth/logout' },
 	                                    _react2.default.createElement(
 	                                        'svg',
 	                                        { className: 'sign_out_icon', x: '0px', y: '0px', viewBox: '0 0 1000 1000', 'enable-background': 'new 0 0 1000 1000' },
@@ -29189,7 +29193,6 @@
 	    }
 
 	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ImageDetail.__proto__ || Object.getPrototypeOf(ImageDetail)).call.apply(_ref, [this].concat(args))), _this), _this.submit = function (imageId) {
-
 	      (0, _reactConfirmAlert.confirmAlert)({
 	        title: '',
 	        message: "Are you sure you want to delete this image?",
@@ -29199,12 +29202,12 @@
 	            return _this.deleteImage(imageId);
 	          }
 	        }, {
-	          label: 'No'
-	          // onClick: () => this.clearWarning()
+	          label: 'No',
+	          onClick: function onClick() {
+	            return console.log('closed');
+	          }
 	        }]
 	      });
-
-	      // event.preventDefault();
 	    }, _temp), _possibleConstructorReturn(_this, _ret);
 	  }
 
@@ -29217,9 +29220,9 @@
 	          headers: new Headers({
 	            'Content-Type': 'application/json'
 	          })
+	        };
 
-	          //return fetch('/image/'+ id, options)
-	        };return fetch('/image/' + id, options).then(function (res) {
+	        return fetch('http://localhost:5000/image/' + id, options).then(function (res) {
 	          return res.json();
 	        }).then(function (res) {
 	          return console.log(res);
@@ -29229,6 +29232,32 @@
 	      };
 	      window.location.assign('/');
 	      newPost();
+	    }
+	  }, {
+	    key: 'updateImage',
+	    value: function updateImage() {
+	      var post = {
+	        filter: 'grayscale(100%)'
+
+	        //alert("sfsf");
+	      };var update = function update() {
+	        var options = {
+	          method: 'PUT',
+	          body: JSON.stringify(post),
+	          headers: new Headers({
+	            'Content-Type': 'application/json'
+	          })
+	        };
+
+	        return fetch('http://localhost:5000/image/' + "5c1185fdfc8d7200132183bd", options).then(function (res) {
+	          return res.json();
+	        }).then(function (res) {
+	          return console.log(res);
+	        }).catch(function (error) {
+	          return console.log(error);
+	        });
+	      };
+	      update(post);
 	    }
 	  }, {
 	    key: 'returnIndex',
@@ -29311,6 +29340,13 @@
 	          'div',
 	          { id: 'button-div' },
 	          _react2.default.createElement(
+	            'div',
+	            { id: 'update', type: 'submit', onClick: function onClick() {
+	                return _this2.updateImage();
+	              } },
+	            ' Update '
+	          ),
+	          _react2.default.createElement(
 	            'svg',
 	            { onClick: function onClick() {
 	                return _this2.imageSlider("previous");
@@ -29337,7 +29373,7 @@
 	        _react2.default.createElement('div', { height: '50px;', className: 'span4' }),
 	        _react2.default.createElement('img', { onload: function onload() {
 	            return _this2.controlButtons();
-	          }, className: 'center-block', id: 'detail-img', src: this.props.image.src }),
+	          }, className: 'center-block', id: 'detail-img', src: this.props.image.src, style: { filter: this.props.image.filter } }),
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'span4 text-center', id: 'date' },
@@ -30800,8 +30836,7 @@
 
 
 /***/ }),
-/* 299 */,
-/* 300 */
+/* 299 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30863,7 +30898,7 @@
 	exports.default = Login;
 
 /***/ }),
-/* 301 */
+/* 300 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30901,7 +30936,7 @@
 	                { className: 'text-center social-btn' },
 	                _react2.default.createElement(
 	                    'a',
-	                    { href: '/auth/google', id: 'google', className: 'btn btn-danger btn-block' },
+	                    { href: 'http://localhost:5000/auth/google', id: 'google', className: 'btn btn-danger btn-block' },
 	                    _react2.default.createElement('i', { className: 'fa fa-google' }),
 	                    ' Sign in with ',
 	                    _react2.default.createElement(
@@ -30912,7 +30947,7 @@
 	                ),
 	                _react2.default.createElement(
 	                    'a',
-	                    { href: '/auth/twitter', id: 'twitter', className: 'btn btn-info btn-block' },
+	                    { href: 'http://localhost:5000/auth/twitter', id: 'twitter', className: 'btn btn-info btn-block' },
 	                    _react2.default.createElement('i', { className: 'fa fa-twitter' }),
 	                    ' Sign in with ',
 	                    _react2.default.createElement(
@@ -30923,7 +30958,7 @@
 	                ),
 	                _react2.default.createElement(
 	                    'a',
-	                    { href: '/auth/github', id: 'github', className: 'btn btn-primary btn-block' },
+	                    { href: 'http://localhost:5000/auth/github', id: 'github', className: 'btn btn-primary btn-block' },
 	                    _react2.default.createElement('i', { className: 'fa fa-github' }),
 	                    ' Sign in with ',
 	                    _react2.default.createElement(
@@ -30940,7 +30975,7 @@
 	exports.default = logins;
 
 /***/ }),
-/* 302 */
+/* 301 */
 /***/ (function(module, exports) {
 
 	'use strict';
