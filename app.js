@@ -16,11 +16,20 @@ const multerS3 = require('multer-s3');
 
 
 const authRoutes = require('./routes/auth-routes');
-const passportSetup = require('./config/passport-setup');
+const passportSetup = require('./config/passport-setup-google');
 const passportSetup_twitter = require('./config/passport-setup-twitter');
 const passportSetup_github = require('./config/passport-setup-github');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
+
+//for passport local
+var createError = require('http-errors');//
+var session = require('express-session');//
+var logger = require('morgan');//
+
+// view engine setup
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'ejs');
 
 
 const port = process.env.PORT || 5000; 
@@ -173,20 +182,21 @@ app.get('/mongoid', (req, res)=>{
 
 
 app.get('/images', function(req, res){
-    Image.find({})
-    .exec(function(err, images){
-       if(err){
-         res.send('error has occured') ;
-       }else{
-         //filters the images array to only those that have a matching user id
-         if(req.user){
-          const filteredImages = images.filter((el)=>{
-              return req.user.id === el.mongoId;
-          });
-           res.json(filteredImages);
-         }
+  Image.find({})
+  .exec(function(err, images){
+     if(err){
+       res.send('error has occured') ;
+     }else{
+       //filters the images array to only those that have a matching user id
+      // console.log("User object is: " + req.user);
+       if(req.user){
+        const filteredImages = images.filter((el)=>{
+            return req.user.id === el.mongoId;
+        });
+         res.json(filteredImages);
        }
-    })
+     }
+  })
 });
 
 
@@ -246,9 +256,62 @@ app.use(function (err, req, res, next) {
 })
 
 
-app.use(function (req, res, next) {
-  res.status(404).send(pageNotFound);
-})
+// app.use(function (req, res, next) {
+//   res.status(404).send(pageNotFound);
+// })
+
+
+
+
+/************************************ Passport Local ******************************************/
+
+require('./config/passport-setup-local')(passport);
+
+var indexRouter= require('./routes/index');
+var usersRouter = require('./routes/users');
+var authRouter = require('./routes/auth-routes-local')(passport);
+
+
+
+// view engine setup
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'ejs');
+
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+//app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
+
+//SECRET MUST BE ADDED TO .ENV!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+app.use(session({
+    secret:'thesecret',
+    saveUninitialized:false,
+    resave: false
+}))
+
+
+
+app.use('/', indexRouter);
+app.use('/users2', usersRouter);
+app.use('/auth', authRouter);
+
+// catch 404 and forward to error handler
+// app.use(function(req, res, next) {
+//   next(createError(404));
+// });
+
+// error handler
+// app.use(function(err, req, res, next) {
+//   // set locals, only providing error in development
+//   res.locals.message = err.message;
+//   res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+//   // render the error page
+//   res.status(err.status || 500);
+//   res.render('error');
+// });
 
 
 app.listen(port, function(){
