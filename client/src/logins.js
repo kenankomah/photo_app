@@ -13,7 +13,9 @@ const logins =
                 <a href="http://localhost:5000/auth/twitter" id="twitter" className="btn btn-info btn-block"><i className="fa fa-twitter"></i> Sign in with <b>Twitter</b></a>
                 <a href="http://localhost:5000/auth/github" id="github" className="btn btn-primary btn-block"><i className="fa fa-github"></i> Sign in with <b>Github</b></a>             
             </div>
+        </form>     
             <div className="or-seperator"><i>or</i></div>
+         <form action="http://localhost:5000/authent/login" method="post">   
             <div className="form-group">
                 <div className="input-group">
                     <span className="input-group-addon"><i className="fa fa-user"></i></span>
@@ -32,7 +34,7 @@ const logins =
             <div className="or-seperator"><i>or sign up</i></div>
          </form> 
 
-         <form action="http://localhost:5000/auth/signup" method="post"> 
+         <form action="http://localhost:5000/authent/signup" method="post"> 
             <div className="form-group">
                 <div className="input-group">
                     <span className="input-group-addon"><i className="fa fa-user"></i></span>

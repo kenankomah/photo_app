@@ -15,13 +15,18 @@ const multer = require('multer');
 const multerS3 = require('multer-s3');
 
 
+
 const authRoutes = require('./routes/auth-routes');
-const passportSetup = require('./config/passport-setup-google');
-const passportSetup_twitter = require('./config/passport-setup-twitter');
-const passportSetup_github = require('./config/passport-setup-github');
-const cookieSession = require('cookie-session');
+// const passportSetup = require('./config/passport-setup-google');
+// const passportSetup_twitter = require('./config/passport-setup-twitter');
+// const passportSetup_github = require('./config/passport-setup-github');
+ const cookieSession = require('cookie-session');
+
 const passport = require('passport');
 
+
+const passportSetup_local = require('./config/passport-setup-local');
+//require('./config/passport-setup-local')(passport);
 //for passport local
 var createError = require('http-errors');//
 var session = require('express-session');//
@@ -162,6 +167,15 @@ app.delete('/image/:id', function(req, res){
 // set up view engine
 
 
+//SECRET MUST BE ADDED TO .ENV!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// app.use(session({
+//   secret:'thesecret',
+//   saveUninitialized:false,
+//   resave: false
+// }))
+
+
+
 //encrypts cookie and sets it's lifespan
 app.use(cookieSession({
   maxAge:24*60*60*1000,
@@ -265,7 +279,7 @@ app.use(function (err, req, res, next) {
 
 /************************************ Passport Local ******************************************/
 
-require('./config/passport-setup-local')(passport);
+
 
 var indexRouter= require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -280,22 +294,16 @@ var authRouter = require('./routes/auth-routes-local')(passport);
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-//app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-//SECRET MUST BE ADDED TO .ENV!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-app.use(session({
-    secret:'thesecret',
-    saveUninitialized:false,
-    resave: false
-}))
+
 
 
 
 app.use('/', indexRouter);
 app.use('/users2', usersRouter);
-app.use('/auth', authRouter);
+app.use('/authent', authRouter);
 
 // catch 404 and forward to error handler
 // app.use(function(req, res, next) {
