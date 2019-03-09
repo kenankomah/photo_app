@@ -41,7 +41,10 @@ module.exports = function(passport){
         failureRedirect:'/',
         successRedirect:'/'
     }), function(req, res){
-        res.send('hey')
+        //res.send('hey')
+        req.session.save(function(){
+            res.redirect('/welcome');
+        });
     })
     return router;
 };

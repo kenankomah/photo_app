@@ -17,15 +17,24 @@ const multerS3 = require('multer-s3');
 
 
 const authRoutes = require('./routes/auth-routes');
-// const passportSetup = require('./config/passport-setup-google');
-// const passportSetup_twitter = require('./config/passport-setup-twitter');
-// const passportSetup_github = require('./config/passport-setup-github');
- const cookieSession = require('cookie-session');
 
 const passport = require('passport');
 
-
 const passportSetup_local = require('./config/passport-setup-local');
+const passportSetup = require('./config/passport-setup-google');
+const passportSetup_twitter = require('./config/passport-setup-twitter');
+ const passportSetup_github = require('./config/passport-setup-github');
+
+
+// app.post('/authent/login', (req, res) =>{
+//   console.log("testtesttesttest")
+// });
+
+const cookieSession = require('cookie-session');
+
+//console.log(passport); 
+
+
 //require('./config/passport-setup-local')(passport);
 //for passport local
 var createError = require('http-errors');//
@@ -189,23 +198,32 @@ app.use(passport.session());
 //set up routes
 app.use('/auth', authRoutes);
 
+
+var userObj;
+
 // request is made for user profile data e.g profile pic and name
 app.get('/mongoid', (req, res)=>{
-  res.send(req.user); 
+  userObj = req.user;
+  
+  res.send(req.user);  
 });
 
 
-app.get('/images', function(req, res){
+
+app.get('/images', (req, res)=>{
+  
   Image.find({})
   .exec(function(err, images){
      if(err){
        res.send('error has occured') ;
      }else{
        //filters the images array to only those that have a matching user id
-      // console.log("User object is: " + req.user);
-       if(req.user){
+           
+       if(userObj){
+        var user_id = userObj.id || userObj._id;
         const filteredImages = images.filter((el)=>{
-            return req.user.id === el.mongoId;
+          // console.log("userObj", userObj);
+            return user_id == el.mongoId;
         });
          res.json(filteredImages);
        }
@@ -225,7 +243,7 @@ app.get('/', function (req, res) {
 
 app.get('/list', (req, res)=>{
   res.redirect('/');
-})
+});
 
 
 app.post('/upload', (req, res) =>{
