@@ -27,11 +27,10 @@ passport.use(
   }, (accessToken, refreshToken, profile, done) => {
     //passport callback function
     //check if user already exists in database
-    console.log('user issssssssssssss:');
     User.findOne({userId:profile.id}).then((currentUser)=>{
       if(currentUser){
         //already have the user
-        console.log('user issssssssssssss:' + currentUser);
+        console.log('user is:' + currentUser);
         done(null, currentUser);
       }else {
         //if not create user in our db

@@ -203,8 +203,7 @@ var userObj;
 
 // request is made for user profile data e.g profile pic and name
 app.get('/mongoid', (req, res)=>{
-  userObj = req.user;
-  
+  userObj = req.user;  
   res.send(req.user);  
 });
 
@@ -221,8 +220,9 @@ app.get('/images', (req, res)=>{
            
        if(userObj){
         var user_id = userObj.id || userObj._id;
+        // console.log("user_id", user_id);
         const filteredImages = images.filter((el)=>{
-          // console.log("userObj", userObj);
+           // console.log("user_id", user_id);
             return user_id == el.mongoId;
         });
          res.json(filteredImages);
@@ -247,7 +247,8 @@ app.get('/list', (req, res)=>{
 
 
 app.post('/upload', (req, res) =>{
-   upload(req, res, (err) => {
+    upload(req, res, (err) => {
+      console.log("user_test----",req.user);
        if(err){
            res.send({
                msg: err,
@@ -270,9 +271,9 @@ app.post('/upload', (req, res) =>{
                //newImage.src = `/images/${req.file.filename}`;
                newImage.src = req.file.location;
                newImage.dates = dateTime.toLocaleString();
-               newImage.mongoId = req.user.id;
+               newImage.mongoId = req.user.id || req.user._id;
                newImage.save();
-               //console.log(req.file);
+              // console.log(req.user._id);
            }
        }
    });
