@@ -199,31 +199,27 @@ app.use(passport.session());
 app.use('/auth', authRoutes);
 
 
-var userObj;
+
 
 // request is made for user profile data e.g profile pic and name
 app.get('/mongoid', (req, res)=>{
-  userObj = req.user;  
-  res.send(req.user);  
+   res.send(req.user);  
 });
 
 
 
 app.get('/images', (req, res)=>{
-  
+  //console.log('test:',req.user);
   Image.find({})
   .exec(function(err, images){
      if(err){
        res.send('error has occured') ;
      }else{
-       //filters the images array to only those that have a matching user id
-           
-       if(userObj){
-        var user_id = userObj.id || userObj._id;
-        // console.log("user_id", user_id);
-        const filteredImages = images.filter((el)=>{
-           // console.log("user_id", user_id);
-            return user_id == el.mongoId;
+       //filters the images array to only those that have a matching user id    
+       if(req.user){
+          var userId = req.user.id || req.user._id
+          const filteredImages = images.filter((el)=>{            
+          return userId == el.mongoId;
         });
          res.json(filteredImages);
        }
@@ -272,8 +268,7 @@ app.post('/upload', (req, res) =>{
                newImage.src = req.file.location;
                newImage.dates = dateTime.toLocaleString();
                newImage.mongoId = req.user.id || req.user._id;
-               newImage.save();
-              // console.log(req.user._id);
+               newImage.save();               
            }
        }
    });
