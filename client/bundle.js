@@ -27060,7 +27060,7 @@
 
 	exports.default = function () {
 		// const request = fetch('/images',{ credentials: 'include' })
-		var request = fetch('/5000/images', { credentials: 'include' }).then(function (res) {
+		var request = fetch('/images', { credentials: 'include' }).then(function (res) {
 			return res.json();
 		}).catch(function (error) {
 			console.log(error);
@@ -27080,7 +27080,7 @@
 	});
 
 	exports.default = function () {
-	  var request = fetch('/5000/mongoid', { credentials: 'include' }).then(function (res) {
+	  var request = fetch('/mongoid', { credentials: 'include' }).then(function (res) {
 	    return res.json();
 	  }).catch(function (error) {
 	    console.log(error);
@@ -27202,7 +27202,7 @@
 
 	        var fd = new FormData();
 	        fd.append('myImage', _this.state.selectedFile, _this.state.selectedFile.name);
-	        _axios2.default.post('/5000/upload', fd, {
+	        _axios2.default.post('/upload', fd, {
 	          onUploadProgress: function onUploadProgress(progressEvent) {
 	            // console.log('Upload progress: ' + ((progressEvent.loaded * 100)/progressEvent.total) + '%');
 	          },
@@ -29020,7 +29020,7 @@
 	                                { style: { textAlign: "center" } },
 	                                _react2.default.createElement(
 	                                    'a',
-	                                    { onClick: this.loggout, href: '/5000/auth/logout' },
+	                                    { onClick: this.loggout, href: '/auth/logout' },
 	                                    _react2.default.createElement(
 	                                        'svg',
 	                                        { className: 'sign_out_icon', x: '0px', y: '0px', viewBox: '0 0 1000 1000', 'enable-background': 'new 0 0 1000 1000' },
@@ -29222,7 +29222,7 @@
 	          })
 	        };
 
-	        return fetch('/5000/image/' + id, options).then(function (res) {
+	        return fetch('/image/' + id, options).then(function (res) {
 	          return res.json();
 	        }).then(function (res) {
 	          return console.log(res);
@@ -29250,7 +29250,7 @@
 	          })
 	        };
 
-	        return fetch('/5000/image/' + "5c1185fdfc8d7200132183bd", options)
+	        return fetch('/image/' + "5c1185fdfc8d7200132183bd", options)
 	        //return fetch('/5000/auth/login', options)
 	        .then(function (res) {
 	          return res.json();
@@ -30928,7 +30928,7 @@
 	        { className: 'login-form' },
 	        _react2.default.createElement(
 	            'form',
-	            { action: '/5000/auth/login', method: 'post' },
+	            { action: '/auth/login', method: 'post' },
 	            _react2.default.createElement(
 	                'h2',
 	                { className: 'text-center' },
@@ -30939,7 +30939,7 @@
 	                { className: 'text-center social-btn' },
 	                _react2.default.createElement(
 	                    'a',
-	                    { href: '/5000/auth/google', id: 'google', className: 'btn btn-danger btn-block' },
+	                    { href: '/auth/google', id: 'google', className: 'btn btn-danger btn-block' },
 	                    _react2.default.createElement('i', { className: 'fa fa-google' }),
 	                    ' Sign in with ',
 	                    _react2.default.createElement(
@@ -30950,7 +30950,7 @@
 	                ),
 	                _react2.default.createElement(
 	                    'a',
-	                    { href: '/5000/auth/twitter', id: 'twitter', className: 'btn btn-info btn-block' },
+	                    { href: '/auth/twitter', id: 'twitter', className: 'btn btn-info btn-block' },
 	                    _react2.default.createElement('i', { className: 'fa fa-twitter' }),
 	                    ' Sign in with ',
 	                    _react2.default.createElement(
@@ -30961,7 +30961,7 @@
 	                ),
 	                _react2.default.createElement(
 	                    'a',
-	                    { href: '/5000/auth/github', id: 'github', className: 'btn btn-primary btn-block' },
+	                    { href: '/auth/github', id: 'github', className: 'btn btn-primary btn-block' },
 	                    _react2.default.createElement('i', { className: 'fa fa-github' }),
 	                    ' Sign in with ',
 	                    _react2.default.createElement(
@@ -30983,7 +30983,7 @@
 	        ),
 	        _react2.default.createElement(
 	            'form',
-	            { action: '/5000/authent/login', method: 'post' },
+	            { action: '/authent/login', method: 'post' },
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'form-group' },
@@ -31033,7 +31033,7 @@
 	        ),
 	        _react2.default.createElement(
 	            'form',
-	            { action: '/5000/authent/signup', method: 'post' },
+	            { action: '/authent/signup', method: 'post' },
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'form-group' },
