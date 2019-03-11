@@ -158,9 +158,9 @@
 	  _reactDom2.default.render(loader, document.querySelector('.app-container'));
 	} else {
 	  // const element = <div>
-	  //     <button className="btn"> <a href="http://localhost:5000/auth/google">Sign in with Google</a> </button> <br></br><br></br>
-	  //     <button className="btn"> <a href="http://localhost:5000/auth/github">Sign in with GitHub</a> </button><br></br><br></br>
-	  //     <button className="btn"> <a href="http://localhost:5000/auth/twitter">Sign in with Twitter</a> </button>
+	  //     <button className="btn"> <a href="/5000/auth/google">Sign in with Google</a> </button> <br></br><br></br>
+	  //     <button className="btn"> <a href="/5000/auth/github">Sign in with GitHub</a> </button><br></br><br></br>
+	  //     <button className="btn"> <a href="/5000/auth/twitter">Sign in with Twitter</a> </button>
 	  // </div>;
 
 	  _reactDom2.default.render(_logins2.default, document.querySelector('.app-container'));
@@ -26939,7 +26939,7 @@
 	    }
 
 	    // redirect(){
-	    //   window.location.assign('http://localhost:8000/upload_image');
+	    //   window.location.assign('/8000/upload_image');
 	    // }
 
 	    // loggout(){
@@ -27060,7 +27060,7 @@
 
 	exports.default = function () {
 		// const request = fetch('/images',{ credentials: 'include' })
-		var request = fetch('http://localhost:5000/images', { credentials: 'include' }).then(function (res) {
+		var request = fetch('/5000/images', { credentials: 'include' }).then(function (res) {
 			return res.json();
 		}).catch(function (error) {
 			console.log(error);
@@ -27080,7 +27080,7 @@
 	});
 
 	exports.default = function () {
-	  var request = fetch('http://localhost:5000/mongoid', { credentials: 'include' }).then(function (res) {
+	  var request = fetch('/5000/mongoid', { credentials: 'include' }).then(function (res) {
 	    return res.json();
 	  }).catch(function (error) {
 	    console.log(error);
@@ -27202,7 +27202,7 @@
 
 	        var fd = new FormData();
 	        fd.append('myImage', _this.state.selectedFile, _this.state.selectedFile.name);
-	        _axios2.default.post('http://localhost:5000/upload', fd, {
+	        _axios2.default.post('/5000/upload', fd, {
 	          onUploadProgress: function onUploadProgress(progressEvent) {
 	            // console.log('Upload progress: ' + ((progressEvent.loaded * 100)/progressEvent.total) + '%');
 	          },
@@ -27275,7 +27275,7 @@
 	                _react2.default.createElement(
 	                  'svg',
 	                  { className: 'select_pic_icon', x: '0px', y: '0px', viewBox: '0 0 51.167 51.167', 'enable-background': 'new 0 0 1000 1000' },
-	                  _react2.default.createElement('path', { d: 'M34.53,18.54H6.136C2.753,18.54,0,21.427,0,24.976v12.632c0,3.548,2.753,6.435,6.136,6.435H34.53\r c3.383,0,6.136-2.887,6.136-6.435V24.976C40.666,21.427,37.913,18.54,34.53,18.54z M38.554,37.607c0,2.384-1.805,4.323-4.024,4.323\r H6.136c-2.014,0-3.671-1.602-3.963-3.68c1.393-1.184,5.668-4.402,9.591-3.016c3.567,1.263,6.374-0.687,8.849-2.408\r c1.784-1.241,3.469-2.413,5.372-2.538c4.971-0.327,12.45-0.002,12.525,0.001l0.044-0.999C38.554,29.29,38.554,37.607,38.554,37.607\r z M38.554,28.288c-0.574-0.024-7.721-0.322-12.7,0.003c-2.458,0.162-4.453,1.55-6.383,2.893c-2.383,1.656-4.441,3.085-7.039,2.165\r c-4.027-1.428-8.064,0.77-10.319,2.401V24.976c-0.001-2.384,1.804-4.323,4.023-4.323H34.53c2.219,0,4.024,1.938,4.024,4.322\r C38.554,24.975,38.554,28.288,38.554,28.288z M46.001,18.957v19.667c0,0.553-0.447,1-1,1s-1-0.447-1-1V18.957c0-2.206-1.794-4-4-4\r H8.668c-0.553,0-1-0.447-1-1s0.447-1,1-1h31.333C43.31,12.957,46.001,15.648,46.001,18.957z M51.167,13.124v19.667\r c0,0.553-0.447,1-1,1s-1-0.447-1-1V13.124c0-2.206-1.794-4-4-4H13.834c-0.553,0-1-0.447-1-1s0.447-1,1-1h31.333\r C48.476,7.124,51.167,9.815,51.167,13.124z M8.668,22.374c-2.159,0-3.916,1.757-3.916,3.916s1.757,3.916,3.916,3.916\r s3.916-1.757,3.916-3.916S10.827,22.374,8.668,22.374z M8.668,28.206c-1.057,0-1.916-0.859-1.916-1.916s0.859-1.916,1.916-1.916\r c1.057,0,1.916,0.859,1.916,1.916S9.725,28.206,8.668,28.206z' })
+	                  _react2.default.createElement('path', { d: 'M34.53,18.54H6.136C2.753,18.54,0,21.427,0,24.976v12.632c0,3.548,2.753,6.435,6.136,6.435H34.53 c3.383,0,6.136-2.887,6.136-6.435V24.976C40.666,21.427,37.913,18.54,34.53,18.54z M38.554,37.607c0,2.384-1.805,4.323-4.024,4.323 H6.136c-2.014,0-3.671-1.602-3.963-3.68c1.393-1.184,5.668-4.402,9.591-3.016c3.567,1.263,6.374-0.687,8.849-2.408 c1.784-1.241,3.469-2.413,5.372-2.538c4.971-0.327,12.45-0.002,12.525,0.001l0.044-0.999C38.554,29.29,38.554,37.607,38.554,37.607 z M38.554,28.288c-0.574-0.024-7.721-0.322-12.7,0.003c-2.458,0.162-4.453,1.55-6.383,2.893c-2.383,1.656-4.441,3.085-7.039,2.165 c-4.027-1.428-8.064,0.77-10.319,2.401V24.976c-0.001-2.384,1.804-4.323,4.023-4.323H34.53c2.219,0,4.024,1.938,4.024,4.322 C38.554,24.975,38.554,28.288,38.554,28.288z M46.001,18.957v19.667c0,0.553-0.447,1-1,1s-1-0.447-1-1V18.957c0-2.206-1.794-4-4-4 H8.668c-0.553,0-1-0.447-1-1s0.447-1,1-1h31.333C43.31,12.957,46.001,15.648,46.001,18.957z M51.167,13.124v19.667 c0,0.553-0.447,1-1,1s-1-0.447-1-1V13.124c0-2.206-1.794-4-4-4H13.834c-0.553,0-1-0.447-1-1s0.447-1,1-1h31.333 C48.476,7.124,51.167,9.815,51.167,13.124z M8.668,22.374c-2.159,0-3.916,1.757-3.916,3.916s1.757,3.916,3.916,3.916 s3.916-1.757,3.916-3.916S10.827,22.374,8.668,22.374z M8.668,28.206c-1.057,0-1.916-0.859-1.916-1.916s0.859-1.916,1.916-1.916 c1.057,0,1.916,0.859,1.916,1.916S9.725,28.206,8.668,28.206z' })
 	                )
 	              )
 	            ),
@@ -27305,8 +27305,8 @@
 	                _react2.default.createElement(
 	                  'svg',
 	                  { className: 'upload_icon', viewBox: '0 0 384.97 384.97' },
-	                  _react2.default.createElement('path', { d: 'M372.939,264.641c-6.641,0-12.03,5.39-12.03,12.03v84.212H24.061v-84.212c0-6.641-5.39-12.03-12.03-12.03\r S0,270.031,0,276.671v96.242c0,6.641,5.39,12.03,12.03,12.03h360.909c6.641,0,12.03-5.39,12.03-12.03v-96.242\r C384.97,270.019,379.58,264.641,372.939,264.641z' }),
-	                  _react2.default.createElement('path', { d: 'M117.067,103.507l63.46-62.558v235.71c0,6.641,5.438,12.03,12.151,12.03c6.713,0,12.151-5.39,12.151-12.03V40.95\r l63.46,62.558c4.74,4.704,12.439,4.704,17.179,0c4.74-4.704,4.752-12.319,0-17.011l-84.2-82.997\r c-4.692-4.656-12.584-4.608-17.191,0L99.888,86.496c-4.752,4.704-4.74,12.319,0,17.011\r C104.628,108.211,112.327,108.211,117.067,103.507z' })
+	                  _react2.default.createElement('path', { d: 'M372.939,264.641c-6.641,0-12.03,5.39-12.03,12.03v84.212H24.061v-84.212c0-6.641-5.39-12.03-12.03-12.03 S0,270.031,0,276.671v96.242c0,6.641,5.39,12.03,12.03,12.03h360.909c6.641,0,12.03-5.39,12.03-12.03v-96.242 C384.97,270.019,379.58,264.641,372.939,264.641z' }),
+	                  _react2.default.createElement('path', { d: 'M117.067,103.507l63.46-62.558v235.71c0,6.641,5.438,12.03,12.151,12.03c6.713,0,12.151-5.39,12.151-12.03V40.95 l63.46,62.558c4.74,4.704,12.439,4.704,17.179,0c4.74-4.704,4.752-12.319,0-17.011l-84.2-82.997 c-4.692-4.656-12.584-4.608-17.191,0L99.888,86.496c-4.752,4.704-4.74,12.319,0,17.011 C104.628,108.211,112.327,108.211,117.067,103.507z' })
 	                )
 	              )
 	            ),
@@ -29020,7 +29020,7 @@
 	                                { style: { textAlign: "center" } },
 	                                _react2.default.createElement(
 	                                    'a',
-	                                    { onClick: this.loggout, href: 'http://localhost:5000/auth/logout' },
+	                                    { onClick: this.loggout, href: '/5000/auth/logout' },
 	                                    _react2.default.createElement(
 	                                        'svg',
 	                                        { className: 'sign_out_icon', x: '0px', y: '0px', viewBox: '0 0 1000 1000', 'enable-background': 'new 0 0 1000 1000' },
@@ -29222,7 +29222,7 @@
 	          })
 	        };
 
-	        return fetch('http://localhost:5000/image/' + id, options).then(function (res) {
+	        return fetch('/5000/image/' + id, options).then(function (res) {
 	          return res.json();
 	        }).then(function (res) {
 	          return console.log(res);
@@ -29243,13 +29243,16 @@
 	      };var update = function update() {
 	        var options = {
 	          method: 'PUT',
+	          // method:'POST',
 	          body: JSON.stringify(post),
 	          headers: new Headers({
 	            'Content-Type': 'application/json'
 	          })
 	        };
 
-	        return fetch('http://localhost:5000/image/' + "5c1185fdfc8d7200132183bd", options).then(function (res) {
+	        return fetch('/5000/image/' + "5c1185fdfc8d7200132183bd", options)
+	        //return fetch('/5000/auth/login', options)
+	        .then(function (res) {
 	          return res.json();
 	        }).then(function (res) {
 	          return console.log(res);
@@ -29351,7 +29354,7 @@
 	            { onClick: function onClick() {
 	                return _this2.imageSlider("previous");
 	              }, id: 'previous', className: 'slide', xmlns: 'http://www.w3.org/2000/svg', x: '0px', y: '0px', viewBox: '0 0 492 492', 'enable-background': 'new 0 0 492 492' },
-	            _react2.default.createElement('path', { d: 'M198.608,246.104L382.664,62.04c5.068-5.056,7.856-11.816,7.856-19.024c0-7.212-2.788-13.968-7.856-19.032l-16.128-16.12 C361.476,2.792,354.712,0,347.504,0s-13.964,2.792-19.028,7.864L109.328,227.008c-5.084,5.08-7.868,11.868-7.848,19.084 c-0.02,7.248,2.76,14.028,7.848,19.112l218.944,218.932c5.064,5.072,11.82,7.864,19.032,7.864c7.208,0,13.964-2.792,19.032-7.864\t\tl16.124-16.12c10.492-10.492,10.492-27.572,0-38.06L198.608,246.104z' })
+	            _react2.default.createElement('path', { d: 'M198.608,246.104L382.664,62.04c5.068-5.056,7.856-11.816,7.856-19.024c0-7.212-2.788-13.968-7.856-19.032l-16.128-16.12\r C361.476,2.792,354.712,0,347.504,0s-13.964,2.792-19.028,7.864L109.328,227.008c-5.084,5.08-7.868,11.868-7.848,19.084\r c-0.02,7.248,2.76,14.028,7.848,19.112l218.944,218.932c5.064,5.072,11.82,7.864,19.032,7.864c7.208,0,13.964-2.792,19.032-7.864\t\tl16.124-16.12c10.492-10.492,10.492-27.572,0-38.06L198.608,246.104z' })
 	          ),
 	          _react2.default.createElement(
 	            _reactRouter.Link,
@@ -29367,7 +29370,7 @@
 	            { onClick: function onClick() {
 	                return _this2.imageSlider("next");
 	              }, id: 'next', className: 'slide', xmlns: 'http://www.w3.org/2000/svg', x: '0px', y: '0px', viewBox: '0 0 492.004 492.004', 'enable-background': 'new 0 0 492.004 492.004' },
-	            _react2.default.createElement('path', { d: 'M382.678,226.804L163.73,7.86C158.666,2.792,151.906,0,144.698,0s-13.968,2.792-19.032,7.86l-16.124,16.12 c-10.492,10.504-10.492,27.576,0,38.064L293.398,245.9l-184.06,184.06c-5.064,5.068-7.86,11.824-7.86,19.028 c0,7.212,2.796,13.968,7.86,19.04l16.124,16.116c5.068,5.068,11.824,7.86,19.032,7.86s13.968-2.792,19.032-7.86L382.678,265 c5.076-5.084,7.864-11.872,7.848-19.088C390.542,238.668,387.754,231.884,382.678,226.804z' })
+	            _react2.default.createElement('path', { d: 'M382.678,226.804L163.73,7.86C158.666,2.792,151.906,0,144.698,0s-13.968,2.792-19.032,7.86l-16.124,16.12\r c-10.492,10.504-10.492,27.576,0,38.064L293.398,245.9l-184.06,184.06c-5.064,5.068-7.86,11.824-7.86,19.028\r c0,7.212,2.796,13.968,7.86,19.04l16.124,16.116c5.068,5.068,11.824,7.86,19.032,7.86s13.968-2.792,19.032-7.86L382.678,265\r c5.076-5.084,7.864-11.872,7.848-19.088C390.542,238.668,387.754,231.884,382.678,226.804z' })
 	          )
 	        ),
 	        _react2.default.createElement('div', { height: '50px;', className: 'span4' }),
@@ -29403,7 +29406,7 @@
 	            _react2.default.createElement('rect', { x: '166.4', y: '230.4', width: '25.6', height: '204.8' }),
 	            _react2.default.createElement('rect', { x: '243.2', y: '230.4', width: '25.6', height: '204.8' }),
 	            _react2.default.createElement('rect', { x: '320', y: '230.4', width: '25.6', height: '204.8' }),
-	            _react2.default.createElement('path', { d: 'M422.4,51.2H320V25.6C320,11.46,308.54,0,294.4,0h-76.8C203.46,0,192,11.46,192,25.6v25.6H89.6 C75.46,51.2,64,62.66,64,76.8V128c0,14.14,11.46,25.6,25.6,25.6v332.8c0,14.14,11.46,25.6,25.6,25.6h281.6 c14.14,0,25.6-11.46,25.6-25.6V153.6c14.14,0,25.6-11.46,25.6-25.6V76.8C448,62.66,436.54,51.2,422.4,51.2z M217.6,25.6h76.8v25.6 h-76.8V25.6z M396.8,486.4H115.2V153.6h281.6V486.4z M422.4,128H89.6V76.8h332.8V128z' })
+	            _react2.default.createElement('path', { d: 'M422.4,51.2H320V25.6C320,11.46,308.54,0,294.4,0h-76.8C203.46,0,192,11.46,192,25.6v25.6H89.6\r C75.46,51.2,64,62.66,64,76.8V128c0,14.14,11.46,25.6,25.6,25.6v332.8c0,14.14,11.46,25.6,25.6,25.6h281.6\r c14.14,0,25.6-11.46,25.6-25.6V153.6c14.14,0,25.6-11.46,25.6-25.6V76.8C448,62.66,436.54,51.2,422.4,51.2z M217.6,25.6h76.8v25.6\r h-76.8V25.6z M396.8,486.4H115.2V153.6h281.6V486.4z M422.4,128H89.6V76.8h332.8V128z' })
 	          )
 	        ),
 	        _react2.default.createElement(_footer2.default, null)
@@ -30925,7 +30928,7 @@
 	        { className: 'login-form' },
 	        _react2.default.createElement(
 	            'form',
-	            null,
+	            { action: '/5000/auth/login', method: 'post' },
 	            _react2.default.createElement(
 	                'h2',
 	                { className: 'text-center' },
@@ -30936,7 +30939,7 @@
 	                { className: 'text-center social-btn' },
 	                _react2.default.createElement(
 	                    'a',
-	                    { href: 'http://localhost:5000/auth/google', id: 'google', className: 'btn btn-danger btn-block' },
+	                    { href: '/5000/auth/google', id: 'google', className: 'btn btn-danger btn-block' },
 	                    _react2.default.createElement('i', { className: 'fa fa-google' }),
 	                    ' Sign in with ',
 	                    _react2.default.createElement(
@@ -30947,7 +30950,7 @@
 	                ),
 	                _react2.default.createElement(
 	                    'a',
-	                    { href: 'http://localhost:5000/auth/twitter', id: 'twitter', className: 'btn btn-info btn-block' },
+	                    { href: '/5000/auth/twitter', id: 'twitter', className: 'btn btn-info btn-block' },
 	                    _react2.default.createElement('i', { className: 'fa fa-twitter' }),
 	                    ' Sign in with ',
 	                    _react2.default.createElement(
@@ -30958,7 +30961,7 @@
 	                ),
 	                _react2.default.createElement(
 	                    'a',
-	                    { href: 'http://localhost:5000/auth/github', id: 'github', className: 'btn btn-primary btn-block' },
+	                    { href: '/5000/auth/github', id: 'github', className: 'btn btn-primary btn-block' },
 	                    _react2.default.createElement('i', { className: 'fa fa-github' }),
 	                    ' Sign in with ',
 	                    _react2.default.createElement(
@@ -30966,6 +30969,106 @@
 	                        null,
 	                        'Github'
 	                    )
+	                )
+	            )
+	        ),
+	        _react2.default.createElement(
+	            'div',
+	            { className: 'or-seperator' },
+	            _react2.default.createElement(
+	                'i',
+	                null,
+	                'or'
+	            )
+	        ),
+	        _react2.default.createElement(
+	            'form',
+	            { action: '/5000/authent/login', method: 'post' },
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'form-group' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'input-group' },
+	                    _react2.default.createElement(
+	                        'span',
+	                        { className: 'input-group-addon' },
+	                        _react2.default.createElement('i', { className: 'fa fa-user' })
+	                    ),
+	                    _react2.default.createElement('input', { type: 'text', className: 'form-control', name: 'username', placeholder: 'Username', required: 'required' })
+	                )
+	            ),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'form-group' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'input-group' },
+	                    _react2.default.createElement(
+	                        'span',
+	                        { className: 'input-group-addon' },
+	                        _react2.default.createElement('i', { className: 'fa fa-lock' })
+	                    ),
+	                    _react2.default.createElement('input', { type: 'password', className: 'form-control', name: 'password', placeholder: 'Password', required: 'required' })
+	                )
+	            ),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'form-group' },
+	                _react2.default.createElement(
+	                    'button',
+	                    { type: 'submit', className: 'btn btn-success btn-block login-btn' },
+	                    'Sign in'
+	                )
+	            ),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'or-seperator' },
+	                _react2.default.createElement(
+	                    'i',
+	                    null,
+	                    'or sign up'
+	                )
+	            )
+	        ),
+	        _react2.default.createElement(
+	            'form',
+	            { action: '/5000/authent/signup', method: 'post' },
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'form-group' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'input-group' },
+	                    _react2.default.createElement(
+	                        'span',
+	                        { className: 'input-group-addon' },
+	                        _react2.default.createElement('i', { className: 'fa fa-user' })
+	                    ),
+	                    _react2.default.createElement('input', { type: 'text', className: 'form-control', name: 'username', placeholder: 'Username', required: 'required' })
+	                )
+	            ),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'form-group' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'input-group' },
+	                    _react2.default.createElement(
+	                        'span',
+	                        { className: 'input-group-addon' },
+	                        _react2.default.createElement('i', { className: 'fa fa-lock' })
+	                    ),
+	                    _react2.default.createElement('input', { type: 'password', className: 'form-control', name: 'password', placeholder: 'Password', required: 'required' })
+	                )
+	            ),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'form-group' },
+	                _react2.default.createElement(
+	                    'button',
+	                    { type: 'submit', className: 'btn btn-success btn-block login-btn' },
+	                    'Sign up'
 	                )
 	            )
 	        )

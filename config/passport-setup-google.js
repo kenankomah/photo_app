@@ -2,8 +2,8 @@ const dotenv = require('dotenv');
 dotenv.config();
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20');
-//const keys = require('./keys');
 const User = require('../models/user-models');
+
 
 passport.serializeUser((user, done)=>{
   //user is passed to this funtion from done(null, currentUser) below
@@ -30,7 +30,7 @@ passport.use(
     User.findOne({userId:profile.id}).then((currentUser)=>{
       if(currentUser){
         //already have the user
-        console.log('user is:' + currentUser);
+    //s    console.log('user is:' + currentUser);
         done(null, currentUser);
       }else {
         //if not create user in our db

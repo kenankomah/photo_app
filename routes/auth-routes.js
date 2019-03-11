@@ -3,7 +3,8 @@ const passport = require('passport');
 
 //auth login
 router.get('/login', (req, res) =>{
-  res.render('login',{user:req.user});
+  //EJS CODE SO MUST BE UPDATED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ // res.render('login',{user:req.user});
 });
 
 //auth logout

@@ -38,6 +38,7 @@ class ImageDetail extends Component {
     const update = () => {
       const options = {
         method:'PUT',
+       // method:'POST',
         body: JSON.stringify(post),
         headers: new Headers({
           'Content-Type':'application/json'
@@ -45,6 +46,7 @@ class ImageDetail extends Component {
       }
       
       return fetch('http://localhost:5000/image/'+ "5c1185fdfc8d7200132183bd", options)
+      //return fetch('http://localhost:5000/auth/login', options)
       .then(res => res.json())
       .then(res => console.log(res))
       .catch(error => console.log(error))

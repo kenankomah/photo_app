@@ -15,12 +15,35 @@ const multer = require('multer');
 const multerS3 = require('multer-s3');
 
 
+
 const authRoutes = require('./routes/auth-routes');
-const passportSetup = require('./config/passport-setup');
-const passportSetup_twitter = require('./config/passport-setup-twitter');
-const passportSetup_github = require('./config/passport-setup-github');
-const cookieSession = require('cookie-session');
+
 const passport = require('passport');
+
+const passportSetup_local = require('./config/passport-setup-local');
+const passportSetup = require('./config/passport-setup-google');
+const passportSetup_twitter = require('./config/passport-setup-twitter');
+ const passportSetup_github = require('./config/passport-setup-github');
+
+
+// app.post('/authent/login', (req, res) =>{
+//   console.log("testtesttesttest")
+// });
+
+const cookieSession = require('cookie-session');
+
+//console.log(passport); 
+
+
+//require('./config/passport-setup-local')(passport);
+//for passport local
+var createError = require('http-errors');//
+var session = require('express-session');//
+var logger = require('morgan');//
+
+// view engine setup
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'ejs');
 
 
 const port = process.env.PORT || 5000; 
@@ -153,6 +176,15 @@ app.delete('/image/:id', function(req, res){
 // set up view engine
 
 
+//SECRET MUST BE ADDED TO .ENV!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// app.use(session({
+//   secret:'thesecret',
+//   saveUninitialized:false,
+//   resave: false
+// }))
+
+
+
 //encrypts cookie and sets it's lifespan
 app.use(cookieSession({
   maxAge:24*60*60*1000,
@@ -166,27 +198,37 @@ app.use(passport.session());
 //set up routes
 app.use('/auth', authRoutes);
 
+
+var userObj;
+
 // request is made for user profile data e.g profile pic and name
 app.get('/mongoid', (req, res)=>{
-  res.send(req.user); 
+  userObj = req.user;  
+  res.send(req.user);  
 });
 
 
-app.get('/images', function(req, res){
-    Image.find({})
-    .exec(function(err, images){
-       if(err){
-         res.send('error has occured') ;
-       }else{
-         //filters the images array to only those that have a matching user id
-         if(req.user){
-          const filteredImages = images.filter((el)=>{
-              return req.user.id === el.mongoId;
-          });
-           res.json(filteredImages);
-         }
+
+app.get('/images', (req, res)=>{
+  
+  Image.find({})
+  .exec(function(err, images){
+     if(err){
+       res.send('error has occured') ;
+     }else{
+       //filters the images array to only those that have a matching user id
+           
+       if(userObj){
+        var user_id = userObj.id || userObj._id;
+        // console.log("user_id", user_id);
+        const filteredImages = images.filter((el)=>{
+           // console.log("user_id", user_id);
+            return user_id == el.mongoId;
+        });
+         res.json(filteredImages);
        }
-    })
+     }
+  })
 });
 
 
@@ -201,11 +243,12 @@ app.get('/', function (req, res) {
 
 app.get('/list', (req, res)=>{
   res.redirect('/');
-})
+});
 
 
 app.post('/upload', (req, res) =>{
-   upload(req, res, (err) => {
+    upload(req, res, (err) => {
+      console.log("user_test----",req.user);
        if(err){
            res.send({
                msg: err,
@@ -228,9 +271,9 @@ app.post('/upload', (req, res) =>{
                //newImage.src = `/images/${req.file.filename}`;
                newImage.src = req.file.location;
                newImage.dates = dateTime.toLocaleString();
-               newImage.mongoId = req.user.id;
+               newImage.mongoId = req.user.id || req.user._id;
                newImage.save();
-               //console.log(req.file);
+              // console.log(req.user._id);
            }
        }
    });
@@ -246,9 +289,56 @@ app.use(function (err, req, res, next) {
 })
 
 
-app.use(function (req, res, next) {
-  res.status(404).send(pageNotFound);
-})
+// app.use(function (req, res, next) {
+//   res.status(404).send(pageNotFound);
+// })
+
+
+
+
+/************************************ Passport Local ******************************************/
+
+
+
+var indexRouter= require('./routes/index');
+var usersRouter = require('./routes/users');
+var authRouter = require('./routes/auth-routes-local')(passport);
+
+
+
+// view engine setup
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'ejs');
+
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')));
+
+
+
+
+
+
+app.use('/', indexRouter);
+app.use('/users2', usersRouter);
+app.use('/authent', authRouter);
+
+// catch 404 and forward to error handler
+// app.use(function(req, res, next) {
+//   next(createError(404));
+// });
+
+// error handler
+// app.use(function(err, req, res, next) {
+//   // set locals, only providing error in development
+//   res.locals.message = err.message;
+//   res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+//   // render the error page
+//   res.status(err.status || 500);
+//   res.render('error');
+// });
 
 
 app.listen(port, function(){
