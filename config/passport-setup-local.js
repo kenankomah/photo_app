@@ -35,6 +35,7 @@ let passport = require('passport');
                      done(null, {
                           username:doc.username,
                           password:doc.password,
+                          thumbnail:doc.thumbnail,
                           id:doc.id
                       });
                       //done(null, doc);

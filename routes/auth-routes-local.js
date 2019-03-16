@@ -24,6 +24,7 @@ module.exports = function(passport){
                     var record = new User(); 
                     record.username = username;
                     record.password = record.hashPassword(password); 
+                    record.thumbnail = "https://safe-ocean-51888.herokuapp.com/assets/default_profile.png";
                     record.save(function(err, user){
                         if(err){
                             res.status(500).send('db error');
