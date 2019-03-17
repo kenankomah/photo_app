@@ -101,8 +101,6 @@
 	  return state;
 	}
 	//import reducers from './reducers';
-
-
 	//began on 1/04/2018
 
 
@@ -118,39 +116,42 @@
 	}
 	console.log((0, _reducer_images2.default)().payload);
 	(0, _reducer_images2.default)().payload.then(function (posts) {
-	  if (posts) {
-	    //replace local storage with a cookie that has the same life span as Passport's session cookie
+	  console.log("the source", posts);
+	 // alert(posts && (post !== 'wrong password' || posts !== 'user does not exist'));
+	 // debugger;
+	  if (posts /*&& (posts !== 'wrong password' && posts !== 'user does not exist')*/) {
+	      //replace local storage with a cookie that has the same life span as Passport's session cookie
+	      //alert("the source");
+	      var d = new Date();
+	      d.setTime(d.getTime() + 24 * 60 * 60 * 1000);
+	      d.toGMTString();
 
-	    var d = new Date();
-	    d.setTime(d.getTime() + 24 * 60 * 60 * 1000);
-	    d.toGMTString();
+	      document.cookie = "gallery_session=true; expires=" + d.toGMTString() + "; path=/";
 
-	    document.cookie = "gallery_session=true; expires=" + d.toGMTString() + "; path=/";
+	      //localStorage.setItem('loggedIn',true);
+	      var reducers = (0, _redux.combineReducers)({
+	        images: returnArray,
+	        activeImage: _reducer_active_image2.default,
+	        activeUser: ActiveUser
+	      });
 
-	    //localStorage.setItem('loggedIn',true);
-	    var reducers = (0, _redux.combineReducers)({
-	      images: returnArray,
-	      activeImage: _reducer_active_image2.default,
-	      activeUser: ActiveUser
-	    });
+	      document.querySelector('body').classList.remove("bg");
+	      document.querySelector('body').classList.remove("over-flow");
+	      document.querySelector('.overlay').classList.remove("overlay");
 
-	    document.querySelector('body').classList.remove("bg");
-	    document.querySelector('body').classList.remove("over-flow");
-	    document.querySelector('.overlay').classList.remove("overlay");
+	      document.querySelector('body').classList.add("gallery-bg");
+	      // document.querySelector("tr span").parentNode.removeChild(document.querySelector("tr span"));
 
-	    document.querySelector('body').classList.add("gallery-bg");
-	    // document.querySelector("tr span").parentNode.removeChild(document.querySelector("tr span"));
-
-	    //console.log(reducers);
-	    var createStoreWithMiddleware = (0, _redux.applyMiddleware)()(_redux.createStore);
-	    _reactDom2.default.render(_react2.default.createElement(
-	      _reactRedux.Provider,
-	      { store: createStoreWithMiddleware(reducers) },
-	      _react2.default.createElement(_reactRouter.Router, { history: _reactRouter.browserHistory, routes: _routes2.default })
-	    ), document.querySelector('.app-container'));
-	    //removes rogue dynamilcally created span causing an error to be thrown
-	    document.querySelector("tr span").parentNode.removeChild(document.querySelector("tr span"));
-	  }
+	      //console.log(reducers);
+	      var createStoreWithMiddleware = (0, _redux.applyMiddleware)()(_redux.createStore);
+	      _reactDom2.default.render(_react2.default.createElement(
+	        _reactRedux.Provider,
+	        { store: createStoreWithMiddleware(reducers) },
+	        _react2.default.createElement(_reactRouter.Router, { history: _reactRouter.browserHistory, routes: _routes2.default })
+	      ), document.querySelector('.app-container'));
+	      //removes rogue dynamilcally created span causing an error to be thrown
+	      document.querySelector("tr span").parentNode.removeChild(document.querySelector("tr span"));
+	    }
 	});
 
 	if (document.cookie.includes("gallery_session=true")) {
@@ -158,12 +159,12 @@
 	  _reactDom2.default.render(loader, document.querySelector('.app-container'));
 	} else {
 	  // const element = <div>
-	  //     <button className="btn"> <a href="/5000/auth/google">Sign in with Google</a> </button> <br></br><br></br>
-	  //     <button className="btn"> <a href="/5000/auth/github">Sign in with GitHub</a> </button><br></br><br></br>
-	  //     <button className="btn"> <a href="/5000/auth/twitter">Sign in with Twitter</a> </button>
+	  //     <button className="btn"> <a href="http://localhost:5000/auth/google">Sign in with Google</a> </button> <br></br><br></br>
+	  //     <button className="btn"> <a href="http://localhost:5000/auth/github">Sign in with GitHub</a> </button><br></br><br></br>
+	  //     <button className="btn"> <a href="http://localhost:5000/auth/twitter">Sign in with Twitter</a> </button>
 	  // </div>;
 
-	  _reactDom2.default.render(_logins2.default, document.querySelector('.app-container'));
+	  _reactDom2.default.render(_react2.default.createElement(_logins2.default), document.querySelector('.app-container'));
 	}
 
 /***/ }),
@@ -26939,7 +26940,7 @@
 	    }
 
 	    // redirect(){
-	    //   window.location.assign('/8000/upload_image');
+	    //   window.location.assign('http://localhost:8000/upload_image');
 	    // }
 
 	    // loggout(){
@@ -27014,7 +27015,7 @@
 
 
 	function mapStateToProps(state) {
-	  //  console.log(state)
+	  //console.log(state.activeUser)
 	  return {
 	    images: state.images,
 	    activeUser: state.activeUser
@@ -27060,7 +27061,7 @@
 
 	exports.default = function () {
 		// const request = fetch('/images',{ credentials: 'include' })
-		var request = fetch('/images', { credentials: 'include' }).then(function (res) {
+		var request = fetch('http://localhost:5000/images', { credentials: 'include' }).then(function (res) {
 			return res.json();
 		}).catch(function (error) {
 			console.log(error);
@@ -27080,7 +27081,7 @@
 	});
 
 	exports.default = function () {
-	  var request = fetch('/mongoid', { credentials: 'include' }).then(function (res) {
+	  var request = fetch('http://localhost:5000/mongoid', { credentials: 'include' }).then(function (res) {
 	    return res.json();
 	  }).catch(function (error) {
 	    console.log(error);
@@ -27202,7 +27203,7 @@
 
 	        var fd = new FormData();
 	        fd.append('myImage', _this.state.selectedFile, _this.state.selectedFile.name);
-	        _axios2.default.post('/upload', fd, {
+	        _axios2.default.post('http://localhost:5000/upload', fd, {
 	          onUploadProgress: function onUploadProgress(progressEvent) {
 	            // console.log('Upload progress: ' + ((progressEvent.loaded * 100)/progressEvent.total) + '%');
 	          },
@@ -29020,7 +29021,7 @@
 	                                { style: { textAlign: "center" } },
 	                                _react2.default.createElement(
 	                                    'a',
-	                                    { onClick: this.loggout, href: '/auth/logout' },
+	                                    { onClick: this.loggout, href: 'http://localhost:5000/auth/logout' },
 	                                    _react2.default.createElement(
 	                                        'svg',
 	                                        { className: 'sign_out_icon', x: '0px', y: '0px', viewBox: '0 0 1000 1000', 'enable-background': 'new 0 0 1000 1000' },
@@ -29054,7 +29055,7 @@
 	//export default Profile;
 
 	function mapStateToProps(state) {
-	    //console.log(state);
+	    console.log(state.activeUser);
 	    return {
 	        activeUser: state.activeUser
 	    };
@@ -29222,7 +29223,7 @@
 	          })
 	        };
 
-	        return fetch('/image/' + id, options).then(function (res) {
+	        return fetch('http://localhost:5000/image/' + id, options).then(function (res) {
 	          return res.json();
 	        }).then(function (res) {
 	          return console.log(res);
@@ -29250,8 +29251,8 @@
 	          })
 	        };
 
-	        return fetch('/image/' + "5c1185fdfc8d7200132183bd", options)
-	        //return fetch('/5000/auth/login', options)
+	        return fetch('http://localhost:5000/image/' + "5c1185fdfc8d7200132183bd", options)
+	        //return fetch('http://localhost:5000/auth/login', options)
 	        .then(function (res) {
 	          return res.json();
 	        }).then(function (res) {
@@ -30910,172 +30911,270 @@
 	    value: true
 	});
 
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 	var _react = __webpack_require__(2);
 
 	var _react2 = _interopRequireDefault(_react);
 
 	var _reactRouter = __webpack_require__(198);
 
+	var _id_export = __webpack_require__(258);
+
+	var _id_export2 = _interopRequireDefault(_id_export);
+
+	var _reactRedux = __webpack_require__(160);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var logins = _react2.default.createElement(
-	    'div',
-	    null,
-	    _react2.default.createElement('div', { classNameName: 'overlay' }),
-	    _react2.default.createElement('div', { className: 'bg' }),
-	    _react2.default.createElement(
-	        'div',
-	        { className: 'login-form' },
-	        _react2.default.createElement(
-	            'form',
-	            { action: '/auth/login', method: 'post' },
-	            _react2.default.createElement(
-	                'h2',
-	                { className: 'text-center' },
-	                'Sign in to the Photo Gallery'
-	            ),
-	            _react2.default.createElement(
-	                'div',
-	                { className: 'text-center social-btn' },
-	                _react2.default.createElement(
-	                    'a',
-	                    { href: '/auth/google', id: 'google', className: 'btn btn-danger btn-block' },
-	                    _react2.default.createElement('i', { className: 'fa fa-google' }),
-	                    ' Sign in with ',
-	                    _react2.default.createElement(
-	                        'b',
-	                        null,
-	                        'Google'
-	                    )
-	                ),
-	                _react2.default.createElement(
-	                    'a',
-	                    { href: '/auth/twitter', id: 'twitter', className: 'btn btn-info btn-block' },
-	                    _react2.default.createElement('i', { className: 'fa fa-twitter' }),
-	                    ' Sign in with ',
-	                    _react2.default.createElement(
-	                        'b',
-	                        null,
-	                        'Twitter'
-	                    )
-	                ),
-	                _react2.default.createElement(
-	                    'a',
-	                    { href: '/auth/github', id: 'github', className: 'btn btn-primary btn-block' },
-	                    _react2.default.createElement('i', { className: 'fa fa-github' }),
-	                    ' Sign in with ',
-	                    _react2.default.createElement(
-	                        'b',
-	                        null,
-	                        'Github'
-	                    )
-	                )
-	            )
-	        ),
-	        _react2.default.createElement(
-	            'div',
-	            { className: 'or-seperator' },
-	            _react2.default.createElement(
-	                'i',
-	                null,
-	                'or'
-	            )
-	        ),
-	        _react2.default.createElement(
-	            'form',
-	            { action: '/authent/login', method: 'post' },
-	            _react2.default.createElement(
-	                'div',
-	                { className: 'form-group' },
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'input-group' },
-	                    _react2.default.createElement(
-	                        'span',
-	                        { className: 'input-group-addon' },
-	                        _react2.default.createElement('i', { className: 'fa fa-user' })
-	                    ),
-	                    _react2.default.createElement('input', { type: 'text', className: 'form-control', name: 'username', placeholder: 'Username', required: 'required' })
-	                )
-	            ),
-	            _react2.default.createElement(
-	                'div',
-	                { className: 'form-group' },
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'input-group' },
-	                    _react2.default.createElement(
-	                        'span',
-	                        { className: 'input-group-addon' },
-	                        _react2.default.createElement('i', { className: 'fa fa-lock' })
-	                    ),
-	                    _react2.default.createElement('input', { type: 'password', className: 'form-control', name: 'password', placeholder: 'Password', required: 'required' })
-	                )
-	            ),
-	            _react2.default.createElement(
-	                'div',
-	                { className: 'form-group' },
-	                _react2.default.createElement(
-	                    'button',
-	                    { type: 'submit', className: 'btn btn-success btn-block login-btn' },
-	                    'Sign in'
-	                )
-	            ),
-	            _react2.default.createElement(
-	                'div',
-	                { className: 'or-seperator' },
-	                _react2.default.createElement(
-	                    'i',
-	                    null,
-	                    'or sign up'
-	                )
-	            )
-	        ),
-	        _react2.default.createElement(
-	            'form',
-	            { action: '/authent/signup', method: 'post' },
-	            _react2.default.createElement(
-	                'div',
-	                { className: 'form-group' },
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'input-group' },
-	                    _react2.default.createElement(
-	                        'span',
-	                        { className: 'input-group-addon' },
-	                        _react2.default.createElement('i', { className: 'fa fa-user' })
-	                    ),
-	                    _react2.default.createElement('input', { type: 'text', className: 'form-control', name: 'username', placeholder: 'Username', required: 'required' })
-	                )
-	            ),
-	            _react2.default.createElement(
-	                'div',
-	                { className: 'form-group' },
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'input-group' },
-	                    _react2.default.createElement(
-	                        'span',
-	                        { className: 'input-group-addon' },
-	                        _react2.default.createElement('i', { className: 'fa fa-lock' })
-	                    ),
-	                    _react2.default.createElement('input', { type: 'password', className: 'form-control', name: 'password', placeholder: 'Password', required: 'required' })
-	                )
-	            ),
-	            _react2.default.createElement(
-	                'div',
-	                { className: 'form-group' },
-	                _react2.default.createElement(
-	                    'button',
-	                    { type: 'submit', className: 'btn btn-success btn-block login-btn' },
-	                    'Sign up'
-	                )
-	            )
-	        )
-	    )
-	);
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	exports.default = logins;
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Logins = function (_Component) {
+	    _inherits(Logins, _Component);
+
+	    function Logins() {
+	        var _ref;
+
+	        var _temp, _this, _ret;
+
+	        _classCallCheck(this, Logins);
+
+	        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	            args[_key] = arguments[_key];
+	        }
+
+	        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Logins.__proto__ || Object.getPrototypeOf(Logins)).call.apply(_ref, [this].concat(args))), _this), _this.signIn = function (event) {
+	            var username = document.querySelectorAll('.form-control')[0].value;
+	            var password = document.querySelectorAll('.form-control')[1].value;
+
+	            var form_data = { username: username, password: password };
+
+	            // event.preventDefault();
+	            // const newPost = () => {
+	            //     const options = {
+	            //         method:'POST',
+	            //        // body: JSON.stringify(form_data),
+	            //         headers: new Headers({
+	            //             'Content-Type':'application/json'
+	            //         })
+	            //     }
+
+	            //     return fetch('http://localhost:5000/authent/login', options)
+	            //     .then(res => { 
+	            //         console.log("TETESTSTTESTTESTTESTTESTTESTVVV",res)      
+	            //     })
+	            //     //.then(res => console.log("TETESTSTTESTTESTTESTTESTTESTVVV",res))
+	            //     .catch(error => console.log(error))  
+	            // }
+
+	            // newPost();
+
+	            // const request = fetch('http://localhost:5000/mongoid',{ credentials: 'include' })
+	            // .then(res => console.log("hallohallo",res.json())).catch(error => { console.log(error)
+	            //   if(error.message === "Failed to fetch" && (document.querySelector("h1") || document.querySelector(".center-block"))){
+	            //     window.location.reload();      
+	            //   } 
+	            // })     
+	            //  return {payload:request}  
+
+	            // const test2 = () => {
+	            //     IdExport().payload
+	            //    .then(activeUserInfo => {
+	            //        const userData =  {
+	            //           type:'USER_DATA',
+	            //           payload: activeUserInfo
+	            //        }
+	            //       // this.props.userDetails(userData);
+	            //       console.log(userData.payload);
+	            //     });
+	            //   }
+
+	            //  test2();
+
+	        }, _this.signUp = function () {}, _temp), _possibleConstructorReturn(_this, _ret);
+	    }
+
+	    _createClass(Logins, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement('div', { classNameName: 'overlay' }),
+	                _react2.default.createElement('div', { className: 'bg' }),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'login-form' },
+	                    _react2.default.createElement(
+	                        'form',
+	                        { action: 'http://localhost:5000/auth/login', method: 'post' },
+	                        _react2.default.createElement(
+	                            'h2',
+	                            { className: 'text-center' },
+	                            'Sign in to the Photo Gallery'
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'text-center social-btn' },
+	                            _react2.default.createElement(
+	                                'a',
+	                                { href: 'http://localhost:5000/auth/google', id: 'google', className: 'btn btn-danger btn-block' },
+	                                _react2.default.createElement('i', { className: 'fa fa-google' }),
+	                                ' Sign in with ',
+	                                _react2.default.createElement(
+	                                    'b',
+	                                    null,
+	                                    'Google'
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'a',
+	                                { href: 'http://localhost:5000/auth/twitter', id: 'twitter', className: 'btn btn-info btn-block' },
+	                                _react2.default.createElement('i', { className: 'fa fa-twitter' }),
+	                                ' Sign in with ',
+	                                _react2.default.createElement(
+	                                    'b',
+	                                    null,
+	                                    'Twitter'
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'a',
+	                                { href: 'http://localhost:5000/auth/github', id: 'github', className: 'btn btn-primary btn-block' },
+	                                _react2.default.createElement('i', { className: 'fa fa-github' }),
+	                                ' Sign in with ',
+	                                _react2.default.createElement(
+	                                    'b',
+	                                    null,
+	                                    'Github'
+	                                )
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'or-seperator' },
+	                        _react2.default.createElement(
+	                            'i',
+	                            null,
+	                            'or'
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'form',
+	                        { action: 'http://localhost:5000/authent/login', method: 'post' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'form-group' },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'input-group' },
+	                                _react2.default.createElement(
+	                                    'span',
+	                                    { className: 'input-group-addon' },
+	                                    _react2.default.createElement('i', { className: 'fa fa-user' })
+	                                ),
+	                                _react2.default.createElement('input', { type: 'text', className: 'form-control', name: 'username', placeholder: 'Username', required: 'required' })
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'form-group' },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'input-group' },
+	                                _react2.default.createElement(
+	                                    'span',
+	                                    { className: 'input-group-addon' },
+	                                    _react2.default.createElement('i', { className: 'fa fa-lock' })
+	                                ),
+	                                _react2.default.createElement('input', { type: 'password', className: 'form-control', name: 'password', placeholder: 'Password', required: 'required' })
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'form-group' },
+	                            _react2.default.createElement(
+	                                'button',
+	                                { type: 'submit', onClick: this.signIn, className: 'btn btn-success btn-block login-btn' },
+	                                'Sign in'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'or-seperator' },
+	                            _react2.default.createElement(
+	                                'i',
+	                                null,
+	                                'or sign up'
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'form',
+	                        { action: 'http://localhost:5000/authent/signup', method: 'post' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'form-group' },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'input-group' },
+	                                _react2.default.createElement(
+	                                    'span',
+	                                    { className: 'input-group-addon' },
+	                                    _react2.default.createElement('i', { className: 'fa fa-user' })
+	                                ),
+	                                _react2.default.createElement('input', { type: 'text', className: 'form-control', name: 'username', placeholder: 'Username', required: 'required' })
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'form-group' },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'input-group' },
+	                                _react2.default.createElement(
+	                                    'span',
+	                                    { className: 'input-group-addon' },
+	                                    _react2.default.createElement('i', { className: 'fa fa-lock' })
+	                                ),
+	                                _react2.default.createElement('input', { type: 'password', className: 'form-control', name: 'password', placeholder: 'Password', required: 'required' })
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'form-group' },
+	                            _react2.default.createElement(
+	                                'button',
+	                                { type: 'submit', className: 'btn btn-success btn-block login-btn' },
+	                                'Sign up'
+	                            )
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return Logins;
+	}(_react.Component);
+
+	// function mapStateToProps(state) {
+	//     //console.log(state);
+	//     return {
+	//       image: state.activeImage,
+	//       images: state.images
+	//     };
+	//   }
+
+	//   export default connect(mapStateToProps)(Logins);
+
+
+	exports.default = Logins;
 
 /***/ }),
 /* 301 */

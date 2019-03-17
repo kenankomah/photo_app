@@ -22,7 +22,7 @@ class ImageList extends Component {
       }
 
       return (
-         <div key={image.src} className="container-3-box"> 
+         <div key={image.src} className="grid-box"> 
             <Link to="list"
               onClick={() => this.props.selectImage(select_image)}>
               <img src={image.src} style={{filter:image.filter}} />
@@ -85,7 +85,7 @@ class ImageList extends Component {
           <Profile />            
         </div>              
         <h1>Image Gallery</h1>
-        <div className="container-3">
+        <div className="picture-grid">
           {this.renderList()}
         </div> 
         <Footer />   
@@ -96,7 +96,7 @@ class ImageList extends Component {
 
 //the actionCreator actionArr dispatches the array arr to the application state and then mapStateToProps adds to the props
 function mapStateToProps(state) {
-//  console.log(state)
+  //console.log(state.activeUser)
   return {
     images: state.images,
     activeUser: state.activeUser

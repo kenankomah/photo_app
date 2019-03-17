@@ -17,35 +17,39 @@ let passport = require('passport');
     })
 
     passport.use(new localStrategy(function(username,password,done){
-       
-        User.findOne({username:username}, function(err,doc){
+        console.log("usernameusernameusername:" + username);
+        User.findOne( {username:username}, function(err,user){
             if(err){
               done(err)
             }else{
                 //if username exists
-                if (doc){
+                if (user){
                    //checks if password is valid by comparing to existing user password
                    console.log("step33333333333333333333333333333333");
-                  var valid = doc.comparePassword(password, doc.password);
+                  var valid = user.comparePassword(password, user.password);
                   if(valid){
                     console.log("step4444444444444444444444444444444");
                      
                       //allows login
-                    
+                  
                      done(null, {
-                          username:doc.username,
-                          password:doc.password,
-                          thumbnail:doc.thumbnail,
-                          id:doc.id
+                          username:user.username,
+                          password:user.password,
+                          thumbnail:user.thumbnail,
+                          id:user.id
                       });
-                      //done(null, doc);
+                      //done(null, user);
                   }else{
                     //no login
-                    done(null, false);
+                    console.log('message1message1message1message1message1message1')
+                    done(null, false, {message: 'wrong password'});
+                    
                   }
                }else {
                   //no login
-                  done(null, false);
+                 
+                    console.log('message2message2message2message2message2message2');
+                    done(null, false, {message: 'user does not exist'});
                }
             }
         })

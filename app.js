@@ -23,7 +23,7 @@ const passport = require('passport');
 const passportSetup_local = require('./config/passport-setup-local');
 const passportSetup = require('./config/passport-setup-google');
 const passportSetup_twitter = require('./config/passport-setup-twitter');
-const passportSetup_github = require('./config/passport-setup-github');
+ const passportSetup_github = require('./config/passport-setup-github');
 
 
 // app.post('/authent/login', (req, res) =>{
@@ -203,7 +203,6 @@ app.use('/auth', authRoutes);
 
 // request is made for user profile data e.g profile pic and name
 app.get('/mongoid', (req, res)=>{
-   //console.log(req.user);
    res.send(req.user);  
 });
 

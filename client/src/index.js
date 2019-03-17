@@ -9,8 +9,6 @@ import logins from './logins';
 
 import App from './components/app';
 //import reducers from './reducers';
-
-
 import { combineReducers } from 'redux';
 import ImagesReducer from './reducers/reducer_images';
 import ActiveImage from './reducers/reducer_active_image';
@@ -34,9 +32,10 @@ function ActiveUser(state = [], action){
 console.log(ImagesReducer().payload);
 ImagesReducer().payload
   .then(posts => {
+       
     if(posts){
       //replace local storage with a cookie that has the same life span as Passport's session cookie
-      
+      //alert("the source");
       var d = new Date();
       d.setTime(d.getTime() + 24*60*60*1000);
       d.toGMTString();
@@ -81,7 +80,7 @@ ImagesReducer().payload
     //     <button className="btn"> <a href="http://localhost:5000/auth/twitter">Sign in with Twitter</a> </button>
     // </div>;
       
-    ReactDOM.render(logins, document.querySelector('.app-container'));
+    ReactDOM.render(React.createElement(logins), document.querySelector('.app-container'));
   }
  
 

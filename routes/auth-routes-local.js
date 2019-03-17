@@ -15,10 +15,10 @@ module.exports = function(passport){
         var body = req.body,
             username = body.username,
             password = body.password; 
-        User.findOne({username:username}, function(err, doc){
+        User.findOne({username:username}, function(err, user){
             if(err) {res.status(500).send('error occured!')}
             else{
-                if(doc){
+                if(user){
                     res.status(500).send('Username already exists')
                 }else{
                     var record = new User(); 
@@ -40,12 +40,15 @@ module.exports = function(passport){
 
     router.post('/login', passport.authenticate('local',{
         failureRedirect:'/',
-        successRedirect:'/'
-    }), function(req, res){
+        successRedirect:'/',
+        failureFlash: true 
+    }))/*, function(req, res){
         //res.send('hey')
         req.session.save(function(){
             res.redirect('/welcome');
+            res.send('test string');
         });
-    })
+    })*/
+
     return router;
 };

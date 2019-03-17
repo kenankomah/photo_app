@@ -1,0 +1,64 @@
+body{
+    width:100%;
+    height:100%;
+    margin:0px;
+    padding: 0px;
+}
+
+.picture-grid{
+    position: relative;
+    top:170px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    justify-items: center;
+    grid-gap: 5px;
+    grid-row-gap:0px;
+}
+
+
+
+.grid-box img {
+    max-height: 100%;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+
+
+  .grid-box {
+    height: 195px; /*can be anything*/
+    width: 234px; /*can be anything*/
+    display: inline-block;
+    vertical-align: top; /*not required*/
+    background-color:rgb(255, 255, 255);
+    position: relative;
+    margin-left: 0px;
+    margin-top: 27px;
+    box-shadow: 5px 10px 5px #888888;
+    border-radius: 5px;
+    border: 0.5px solid rgb(218, 215, 215);
+  }
+
+
+
+  /*apply this only non-mobile screens*/
+
+  @media only screen and (min-width: 600px) {
+    .picture-grid{
+        margin: 0 auto;
+        max-width: 50%
+    }
+  }
+
+
+.grid-box img:hover {
+    opacity: 0.70;
+    /* cursor: pointer; */
+ } 
+
