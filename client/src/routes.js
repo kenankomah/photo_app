@@ -6,6 +6,7 @@ import ImageDetail from './containers/image-detail';
 import ImageList from './containers/image-list';
 import Upload from './containers/upload';
 import Test from './containers/test';
+import Filters from './containers/filters';
 
 //import PostsShow from './components/posts_show';
 
@@ -18,6 +19,7 @@ export default (
     <Route path="list" component={ImageDetail} />
     <Route path="upload" component={Upload} />
     <Route path="test" component={Test} />
+    <Route path="filters" component={Filters} />
   </Route>
 );
 

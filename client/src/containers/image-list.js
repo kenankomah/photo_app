@@ -84,10 +84,11 @@ class ImageList extends Component {
           <Upload />
           <Profile />            
         </div>              
-        <h1>Image Gallery</h1>
+        <h1>Image Gallery</h1>        
         <div className="picture-grid">
           {this.renderList()}
         </div> 
+        {/* <div id="pillar"></div> */}
         <Footer />   
       </div>
     )

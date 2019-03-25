@@ -62,3 +62,135 @@ body{
     /* cursor: pointer; */
  } 
 
+
+
+ /*********************styles for the filter page******************/
+
+ .filter-box img {
+  max-height: 100%;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+
+.filter-box {
+  height: 336px; /*can be anything*/
+  width: 365px; /*can be anything*/
+  display: inline-block;
+  vertical-align: top; /*not required*/
+  background-color:rgb(255, 255, 255);
+  position: relative;
+  margin-left: 113px;
+  margin-top: 27px;
+  box-shadow: 5px 10px 5px #888888;
+  border-radius: 5px;
+  border: 0.5px solid rgb(218, 215, 215);
+  top:100px;
+}
+
+
+#sliders{
+  position: relative;
+  top: -235px;
+  left: 513px;
+  background: beige;
+  border: 0.5px solid rgb(218, 215, 215);
+  width: 430px;
+  height: 336px;
+  border-radius: 5px;
+}
+
+.slider{
+  display: block;
+  margin: 0px auto;
+  width: 200px;
+}
+
+#filter-box{
+  text-align: center;
+}
+
+#filter-table{
+  margin: 0 auto; 
+}
+
+
+#filter-table td{
+  width: 94px;
+  height: 30px;
+  /* text-align: center; */
+}
+
+
+#filter-container{
+  margin: 0 auto;
+  border: 0.5px solid rgb(218, 215, 215);
+  width: 1000px;
+  top: 177px;
+  position: relative;
+  background: aliceblue;
+  border-radius: 5px;
+  height: 600px;
+}
+
+/* slider styles */
+.slider {
+  -webkit-appearance: none;
+  width: 200px;
+  height: 6px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+  border-radius:30px;
+  margin-bottom: 0px;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #4CAF50;
+  cursor: pointer;
+  border-radius:100%;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: #4CAF50;
+  cursor: pointer;    
+}
+
+.scale{
+  text-align: center;
+}
+
+#sliders button{
+  position: relative;
+  top:20px;
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+

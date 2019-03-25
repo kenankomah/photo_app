@@ -87,9 +87,15 @@ svg.slide{
 	height: 25px;
 	width: 25px;
 	top: 30px;
+	left:-22px;
 }
 
 .icon_bin:hover {
+    fill: blue;
+    cursor: pointer;
+} 
+
+#icon_edit:hover {
     fill: blue;
     cursor: pointer;
 } 
@@ -129,3 +135,17 @@ img{
 	text-align: center;
 }
 
+#pillar{
+	position: absolute;
+	width: 100px;
+	height: 500px;
+	border: solid black 1px;
+}
+
+#icon_edit{
+	position: relative;
+    height: 22px;
+    width: 22px;
+	top: 30px;
+	left: 24px;
+}
