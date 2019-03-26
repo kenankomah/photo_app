@@ -43,7 +43,7 @@ class Profile extends Component {
 //export default Profile;
 
 function mapStateToProps(state) {
-    console.log(state.activeUser);
+    //console.log(state.activeUser);
     return {     
       activeUser: state.activeUser
     };

@@ -71,7 +71,7 @@
 
 	var _routes2 = _interopRequireDefault(_routes);
 
-	var _logins = __webpack_require__(300);
+	var _logins = __webpack_require__(301);
 
 	var _logins2 = _interopRequireDefault(_logins);
 
@@ -83,7 +83,7 @@
 
 	var _reducer_images2 = _interopRequireDefault(_reducer_images);
 
-	var _reducer_active_image = __webpack_require__(301);
+	var _reducer_active_image = __webpack_require__(302);
 
 	var _reducer_active_image2 = _interopRequireDefault(_reducer_active_image);
 
@@ -116,42 +116,40 @@
 	}
 	console.log((0, _reducer_images2.default)().payload);
 	(0, _reducer_images2.default)().payload.then(function (posts) {
-	  console.log("the source", posts);
-	 // alert(posts && (post !== 'wrong password' || posts !== 'user does not exist'));
-	 // debugger;
-	  if (posts /*&& (posts !== 'wrong password' && posts !== 'user does not exist')*/) {
-	      //replace local storage with a cookie that has the same life span as Passport's session cookie
-	      //alert("the source");
-	      var d = new Date();
-	      d.setTime(d.getTime() + 24 * 60 * 60 * 1000);
-	      d.toGMTString();
 
-	      document.cookie = "gallery_session=true; expires=" + d.toGMTString() + "; path=/";
+	  if (posts) {
+	    //replace local storage with a cookie that has the same life span as Passport's session cookie
+	    //alert("the source");
+	    var d = new Date();
+	    d.setTime(d.getTime() + 24 * 60 * 60 * 1000);
+	    d.toGMTString();
 
-	      //localStorage.setItem('loggedIn',true);
-	      var reducers = (0, _redux.combineReducers)({
-	        images: returnArray,
-	        activeImage: _reducer_active_image2.default,
-	        activeUser: ActiveUser
-	      });
+	    document.cookie = "gallery_session=true; expires=" + d.toGMTString() + "; path=/";
 
-	      document.querySelector('body').classList.remove("bg");
-	      document.querySelector('body').classList.remove("over-flow");
-	      document.querySelector('.overlay').classList.remove("overlay");
+	    //localStorage.setItem('loggedIn',true);
+	    var reducers = (0, _redux.combineReducers)({
+	      images: returnArray,
+	      activeImage: _reducer_active_image2.default,
+	      activeUser: ActiveUser
+	    });
 
-	      document.querySelector('body').classList.add("gallery-bg");
-	      // document.querySelector("tr span").parentNode.removeChild(document.querySelector("tr span"));
+	    document.querySelector('body').classList.remove("bg");
+	    document.querySelector('body').classList.remove("over-flow");
+	    document.querySelector('.overlay').classList.remove("overlay");
 
-	      //console.log(reducers);
-	      var createStoreWithMiddleware = (0, _redux.applyMiddleware)()(_redux.createStore);
-	      _reactDom2.default.render(_react2.default.createElement(
-	        _reactRedux.Provider,
-	        { store: createStoreWithMiddleware(reducers) },
-	        _react2.default.createElement(_reactRouter.Router, { history: _reactRouter.browserHistory, routes: _routes2.default })
-	      ), document.querySelector('.app-container'));
-	      //removes rogue dynamilcally created span causing an error to be thrown
-	      document.querySelector("tr span").parentNode.removeChild(document.querySelector("tr span"));
-	    }
+	    document.querySelector('body').classList.add("gallery-bg");
+	    // document.querySelector("tr span").parentNode.removeChild(document.querySelector("tr span"));
+
+	    //console.log(reducers);
+	    var createStoreWithMiddleware = (0, _redux.applyMiddleware)()(_redux.createStore);
+	    _reactDom2.default.render(_react2.default.createElement(
+	      _reactRedux.Provider,
+	      { store: createStoreWithMiddleware(reducers) },
+	      _react2.default.createElement(_reactRouter.Router, { history: _reactRouter.browserHistory, routes: _routes2.default })
+	    ), document.querySelector('.app-container'));
+	    //removes rogue dynamilcally created span causing an error to be thrown
+	    document.querySelector("tr span").parentNode.removeChild(document.querySelector("tr span"));
+	  }
 	});
 
 	if (document.cookie.includes("gallery_session=true")) {
@@ -26760,6 +26758,10 @@
 
 	var _test2 = _interopRequireDefault(_test);
 
+	var _filters = __webpack_require__(300);
+
+	var _filters2 = _interopRequireDefault(_filters);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	//import PostsShow from './components/posts_show';
@@ -26774,7 +26776,8 @@
 	  _react2.default.createElement(_reactRouter.IndexRoute, { component: _imageList2.default }),
 	  _react2.default.createElement(_reactRouter.Route, { path: 'list', component: _imageDetail2.default }),
 	  _react2.default.createElement(_reactRouter.Route, { path: 'upload', component: _upload2.default }),
-	  _react2.default.createElement(_reactRouter.Route, { path: 'test', component: _test2.default })
+	  _react2.default.createElement(_reactRouter.Route, { path: 'test', component: _test2.default }),
+	  _react2.default.createElement(_reactRouter.Route, { path: 'filters', component: _filters2.default })
 	);
 
 	// export default (
@@ -26926,7 +26929,7 @@
 
 	        return _react2.default.createElement(
 	          'div',
-	          { key: image.src, className: 'container-3-box' },
+	          { key: image.src, className: 'grid-box' },
 	          _react2.default.createElement(
 	            _reactRouter.Link,
 	            { to: 'list',
@@ -27000,7 +27003,7 @@
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'container-3' },
+	          { className: 'picture-grid' },
 	          this.renderList()
 	        ),
 	        _react2.default.createElement(_footer2.default, null)
@@ -29319,7 +29322,7 @@
 	      //code below runs when the component is rendered
 	      this.controlButtons();
 	      this.imageSlider();
-	      document.querySelector('footer').style.top = "412px"; //(window.innerHeight - 110)  + "px";
+	      //document.querySelector('footer').style.top =  "412px";//(window.innerHeight - 110)  + "px";
 	    }
 	  }, {
 	    key: 'render',
@@ -29343,13 +29346,6 @@
 	        _react2.default.createElement(
 	          'div',
 	          { id: 'button-div' },
-	          _react2.default.createElement(
-	            'div',
-	            { id: 'update', type: 'submit', onClick: function onClick() {
-	                return _this2.updateImage();
-	              } },
-	            ' Update '
-	          ),
 	          _react2.default.createElement(
 	            'svg',
 	            { onClick: function onClick() {
@@ -29408,9 +29404,20 @@
 	            _react2.default.createElement('rect', { x: '243.2', y: '230.4', width: '25.6', height: '204.8' }),
 	            _react2.default.createElement('rect', { x: '320', y: '230.4', width: '25.6', height: '204.8' }),
 	            _react2.default.createElement('path', { d: 'M422.4,51.2H320V25.6C320,11.46,308.54,0,294.4,0h-76.8C203.46,0,192,11.46,192,25.6v25.6H89.6\r C75.46,51.2,64,62.66,64,76.8V128c0,14.14,11.46,25.6,25.6,25.6v332.8c0,14.14,11.46,25.6,25.6,25.6h281.6\r c14.14,0,25.6-11.46,25.6-25.6V153.6c14.14,0,25.6-11.46,25.6-25.6V76.8C448,62.66,436.54,51.2,422.4,51.2z M217.6,25.6h76.8v25.6\r h-76.8V25.6z M396.8,486.4H115.2V153.6h281.6V486.4z M422.4,128H89.6V76.8h332.8V128z' })
+	          ),
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: '/filters' },
+	            _react2.default.createElement(
+	              'svg',
+	              { version: '1.1', id: 'icon_edit', xmlns: 'http://www.w3.org/2000/svg', x: '0px', y: '0px',
+	                viewBox: '0 0 490.273 490.273', 'enable-background': 'new 0 0 490.273 490.273;' },
+	              _react2.default.createElement('path', { d: 'M313.548,152.387l-230.8,230.9c-6.7,6.7-6.7,17.6,0,24.3c3.3,3.3,7.7,5,12.1,5s8.8-1.7,12.1-5l230.8-230.8\r c6.7-6.7,6.7-17.6,0-24.3C331.148,145.687,320.248,145.687,313.548,152.387z' }),
+	              _react2.default.createElement('path', { d: 'M431.148,191.887c4.4,0,8.8-1.7,12.1-5l25.2-25.2c29.1-29.1,29.1-76.4,0-105.4l-34.4-34.4\r c-14.1-14.1-32.8-21.8-52.7-21.8c-19.9,0-38.6,7.8-52.7,21.8l-25.2,25.2c-6.7,6.7-6.7,17.6,0,24.3l115.6,115.6\r C422.348,190.187,426.748,191.887,431.148,191.887z M352.948,45.987c7.6-7.6,17.7-11.8,28.5-11.8c10.7,0,20.9,4.2,28.5,11.8\r l34.4,34.4c15.7,15.7,15.7,41.2,0,56.9l-13.2,13.2l-91.4-91.4L352.948,45.987z' }),
+	              _react2.default.createElement('path', { d: 'M162.848,467.187l243.5-243.5c6.7-6.7,6.7-17.6,0-24.3s-17.6-6.7-24.3,0l-239.3,239.5l-105.6,14.2l14.2-105.6\r l228.6-228.6c6.7-6.7,6.7-17.6,0-24.3c-6.7-6.7-17.6-6.7-24.3,0l-232.6,232.8c-2.7,2.7-4.4,6.1-4.9,9.8l-18,133.6\r c-0.7,5.3,1.1,10.6,4.9,14.4c3.2,3.2,7.6,5,12.1,5c0.8,0,1.5-0.1,2.3-0.2l133.6-18\r C156.748,471.587,160.248,469.887,162.848,467.187z' })
+	            )
 	          )
-	        ),
-	        _react2.default.createElement(_footer2.default, null)
+	        )
 	      );
 	    }
 	  }]);
@@ -30917,13 +30924,338 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRouter = __webpack_require__(198);
-
-	var _id_export = __webpack_require__(258);
-
-	var _id_export2 = _interopRequireDefault(_id_export);
-
 	var _reactRedux = __webpack_require__(160);
+
+	var _upload = __webpack_require__(259);
+
+	var _upload2 = _interopRequireDefault(_upload);
+
+	var _profile = __webpack_require__(286);
+
+	var _profile2 = _interopRequireDefault(_profile);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ImageFilter = function (_Component) {
+	    _inherits(ImageFilter, _Component);
+
+	    function ImageFilter() {
+	        _classCallCheck(this, ImageFilter);
+
+	        return _possibleConstructorReturn(this, (ImageFilter.__proto__ || Object.getPrototypeOf(ImageFilter)).apply(this, arguments));
+	    }
+
+	    _createClass(ImageFilter, [{
+	        key: 'addFilter',
+	        value: function addFilter() {
+	            var img = document.querySelector('#filter-container img');
+
+	            var grayscale = document.getElementById("grayscale");
+	            var invert = document.getElementById("invert");
+	            var sepia = document.getElementById("sepia");
+	            var contrast = document.getElementById("contrast");
+	            var brightness = document.getElementById("brightness");
+	            var huerotate = document.getElementById("huerotate");
+	            var saturate = document.getElementById("saturate");
+	            var blur = document.getElementById("blur");
+
+	            var grey = "grayscale(" + grayscale.value + "%" + ")";
+	            var inv = "invert(" + invert.value + "%" + ")";
+	            var sep = "sepia(" + sepia.value + "%" + ")";
+	            var cont = "contrast(" + contrast.value + "%" + ")";
+	            var bright = "brightness(" + brightness.value / 50 + ")";
+	            var hue = "hue-rotate(" + huerotate.value + "deg" + ")";
+	            var sat = "saturate(" + saturate.value / 20 + ")";
+	            var blu = "blur(" + blur.value / 10 + "px" + ")";
+
+	            img.style.filter = grey + inv + sep + cont + bright + hue + sat + blu;
+
+	            document.querySelectorAll('#filter-table td')[2].innerText = grayscale.value + "%";
+	            document.querySelectorAll('#filter-table td')[5].innerText = invert.value + "%";
+	            document.querySelectorAll('#filter-table td')[8].innerText = sepia.value + "%";
+	            document.querySelectorAll('#filter-table td')[11].innerText = Math.ceil(contrast.value / 2) + "%";
+	            document.querySelectorAll('#filter-table td')[14].innerText = brightness.value + "%";
+	            document.querySelectorAll('#filter-table td')[17].innerText = Math.ceil(huerotate.value / 3.6) + " %";
+	            document.querySelectorAll('#filter-table td')[20].innerText = saturate.value + "%";
+	            document.querySelectorAll('#filter-table td')[23].innerText = blur.value * 2 + "%";
+	        }
+	    }, {
+	        key: 'filterReset',
+
+
+	        // document.querySelector('button').addEventListener("click", function(){
+	        value: function filterReset() {
+	            var img = document.querySelector('#filter-container img');
+	            document.querySelectorAll('#filter-table td')[2].innerText = 0 + "%";
+	            document.querySelectorAll('#filter-table td')[5].innerText = 0 + "%";
+	            document.querySelectorAll('#filter-table td')[8].innerText = 0 + "%";
+	            document.querySelectorAll('#filter-table td')[11].innerText = 50 + "%";
+	            document.querySelectorAll('#filter-table td')[14].innerText = 50 + "%";
+	            document.querySelectorAll('#filter-table td')[17].innerText = 0 + " %";
+	            document.querySelectorAll('#filter-table td')[20].innerText = 20 + "%";
+	            document.querySelectorAll('#filter-table td')[23].innerText = 0 + "%";
+
+	            document.querySelectorAll("input[type=range]")[0].value = 0;
+	            document.querySelectorAll("input[type=range]")[1].value = 0;
+	            document.querySelectorAll("input[type=range]")[2].value = 0;
+	            document.querySelectorAll("input[type=range]")[3].value = 100;
+	            document.querySelectorAll("input[type=range]")[4].value = 50;
+	            document.querySelectorAll("input[type=range]")[5].value = 0;
+	            document.querySelectorAll("input[type=range]")[6].value = 20;
+	            document.querySelectorAll("input[type=range]")[7].value = 0;
+
+	            img.style.filter = "none";
+
+	            // })
+	        }
+
+	        //addFilter();
+
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var _this2 = this;
+
+	            return _react2.default.createElement(
+	                'div',
+	                { id: 'filter-settings' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { id: 'nav-bar' },
+	                    _react2.default.createElement(_upload2.default, null),
+	                    _react2.default.createElement(_profile2.default, null)
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { id: 'filter-container' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'filter-box' },
+	                        _react2.default.createElement('img', { src: this.props.image.src }),
+	                        ' ',
+	                        _react2.default.createElement('br', null),
+	                        _react2.default.createElement('br', null)
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { id: 'sliders', onInput: function onInput() {
+	                                return _this2.addFilter();
+	                            } },
+	                        _react2.default.createElement(
+	                            'p',
+	                            { id: 'filter-box' },
+	                            'Image filters'
+	                        ),
+	                        _react2.default.createElement(
+	                            'table',
+	                            { id: 'filter-table' },
+	                            _react2.default.createElement(
+	                                'tr',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    'Grayscale'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    _react2.default.createElement('input', { type: 'range', min: '0', max: '100', defaultValue: '0', className: 'slider', id: 'grayscale' })
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    { className: 'scale' },
+	                                    '0%'
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'tr',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    'Invert'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    _react2.default.createElement('input', { type: 'range', min: '0', max: '100', defaultValue: '0', className: 'slider', id: 'invert' }),
+	                                    ' '
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    { className: 'scale' },
+	                                    '0%'
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'tr',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    'Sepia'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    _react2.default.createElement('input', { type: 'range', min: '0', max: '100', defaultValue: '0', className: 'slider', id: 'sepia' }),
+	                                    ' '
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    { className: 'scale' },
+	                                    '0%'
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'tr',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    'Contrast'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    _react2.default.createElement('input', { type: 'range', min: '0', max: '200', defaultValue: '100', className: 'slider', id: 'contrast' }),
+	                                    ' '
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    { className: 'scale' },
+	                                    '50%'
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'tr',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    'Brightness'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    _react2.default.createElement('input', { type: 'range', min: '0', max: '100', defaultValue: '50', className: 'slider', id: 'brightness' }),
+	                                    ' '
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    { className: 'scale' },
+	                                    '50%'
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'tr',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    'Huerotate'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    _react2.default.createElement('input', { type: 'range', min: '0', max: '360', defaultValue: '0', className: 'slider', id: 'huerotate' }),
+	                                    ' '
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    { className: 'scale' },
+	                                    '0%'
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'tr',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    'Saturate'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    _react2.default.createElement('input', { type: 'range', min: '0', max: '100', defaultValue: '20', className: 'slider', id: 'saturate' }),
+	                                    ' '
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    { className: 'scale' },
+	                                    '20%'
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'tr',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    'blur'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    _react2.default.createElement('input', { type: 'range', min: '0', max: '50', defaultValue: '0', className: 'slider', id: 'blur' }),
+	                                    ' '
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    { className: 'scale' },
+	                                    '0%'
+	                                )
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'button',
+	                            { onClick: function onClick() {
+	                                    return _this2.filterReset();
+	                                } },
+	                            'Reset'
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return ImageFilter;
+	}(_react.Component);
+
+	function mapStateToProps(state) {
+	    return {
+	        image: state.activeImage
+	    };
+	}
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(ImageFilter);
+
+/***/ }),
+/* 301 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(198);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -30937,65 +31269,9 @@
 	    _inherits(Logins, _Component);
 
 	    function Logins() {
-	        var _ref;
-
-	        var _temp, _this, _ret;
-
 	        _classCallCheck(this, Logins);
 
-	        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	            args[_key] = arguments[_key];
-	        }
-
-	        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Logins.__proto__ || Object.getPrototypeOf(Logins)).call.apply(_ref, [this].concat(args))), _this), _this.signIn = function (event) {
-	            var username = document.querySelectorAll('.form-control')[0].value;
-	            var password = document.querySelectorAll('.form-control')[1].value;
-
-	            var form_data = { username: username, password: password };
-
-	            // event.preventDefault();
-	            // const newPost = () => {
-	            //     const options = {
-	            //         method:'POST',
-	            //        // body: JSON.stringify(form_data),
-	            //         headers: new Headers({
-	            //             'Content-Type':'application/json'
-	            //         })
-	            //     }
-
-	            //     return fetch('http://localhost:5000/authent/login', options)
-	            //     .then(res => { 
-	            //         console.log("TETESTSTTESTTESTTESTTESTTESTVVV",res)      
-	            //     })
-	            //     //.then(res => console.log("TETESTSTTESTTESTTESTTESTTESTVVV",res))
-	            //     .catch(error => console.log(error))  
-	            // }
-
-	            // newPost();
-
-	            // const request = fetch('http://localhost:5000/mongoid',{ credentials: 'include' })
-	            // .then(res => console.log("hallohallo",res.json())).catch(error => { console.log(error)
-	            //   if(error.message === "Failed to fetch" && (document.querySelector("h1") || document.querySelector(".center-block"))){
-	            //     window.location.reload();      
-	            //   } 
-	            // })     
-	            //  return {payload:request}  
-
-	            // const test2 = () => {
-	            //     IdExport().payload
-	            //    .then(activeUserInfo => {
-	            //        const userData =  {
-	            //           type:'USER_DATA',
-	            //           payload: activeUserInfo
-	            //        }
-	            //       // this.props.userDetails(userData);
-	            //       console.log(userData.payload);
-	            //     });
-	            //   }
-
-	            //  test2();
-
-	        }, _this.signUp = function () {}, _temp), _possibleConstructorReturn(_this, _ret);
+	        return _possibleConstructorReturn(this, (Logins.__proto__ || Object.getPrototypeOf(Logins)).apply(this, arguments));
 	    }
 
 	    _createClass(Logins, [{
@@ -31054,106 +31330,6 @@
 	                                )
 	                            )
 	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'or-seperator' },
-	                        _react2.default.createElement(
-	                            'i',
-	                            null,
-	                            'or'
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'form',
-	                        { action: 'http://localhost:5000/authent/login', method: 'post' },
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'form-group' },
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'input-group' },
-	                                _react2.default.createElement(
-	                                    'span',
-	                                    { className: 'input-group-addon' },
-	                                    _react2.default.createElement('i', { className: 'fa fa-user' })
-	                                ),
-	                                _react2.default.createElement('input', { type: 'text', className: 'form-control', name: 'username', placeholder: 'Username', required: 'required' })
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'form-group' },
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'input-group' },
-	                                _react2.default.createElement(
-	                                    'span',
-	                                    { className: 'input-group-addon' },
-	                                    _react2.default.createElement('i', { className: 'fa fa-lock' })
-	                                ),
-	                                _react2.default.createElement('input', { type: 'password', className: 'form-control', name: 'password', placeholder: 'Password', required: 'required' })
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'form-group' },
-	                            _react2.default.createElement(
-	                                'button',
-	                                { type: 'submit', onClick: this.signIn, className: 'btn btn-success btn-block login-btn' },
-	                                'Sign in'
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'or-seperator' },
-	                            _react2.default.createElement(
-	                                'i',
-	                                null,
-	                                'or sign up'
-	                            )
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'form',
-	                        { action: 'http://localhost:5000/authent/signup', method: 'post' },
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'form-group' },
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'input-group' },
-	                                _react2.default.createElement(
-	                                    'span',
-	                                    { className: 'input-group-addon' },
-	                                    _react2.default.createElement('i', { className: 'fa fa-user' })
-	                                ),
-	                                _react2.default.createElement('input', { type: 'text', className: 'form-control', name: 'username', placeholder: 'Username', required: 'required' })
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'form-group' },
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'input-group' },
-	                                _react2.default.createElement(
-	                                    'span',
-	                                    { className: 'input-group-addon' },
-	                                    _react2.default.createElement('i', { className: 'fa fa-lock' })
-	                                ),
-	                                _react2.default.createElement('input', { type: 'password', className: 'form-control', name: 'password', placeholder: 'Password', required: 'required' })
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'form-group' },
-	                            _react2.default.createElement(
-	                                'button',
-	                                { type: 'submit', className: 'btn btn-success btn-block login-btn' },
-	                                'Sign up'
-	                            )
-	                        )
 	                    )
 	                )
 	            );
@@ -31163,21 +31339,10 @@
 	    return Logins;
 	}(_react.Component);
 
-	// function mapStateToProps(state) {
-	//     //console.log(state);
-	//     return {
-	//       image: state.activeImage,
-	//       images: state.images
-	//     };
-	//   }
-
-	//   export default connect(mapStateToProps)(Logins);
-
-
 	exports.default = Logins;
 
 /***/ }),
-/* 301 */
+/* 302 */
 /***/ (function(module, exports) {
 
 	'use strict';

@@ -242,6 +242,11 @@ app.get('/list', (req, res)=>{
 });
 
 
+app.get('/filters', (req, res)=>{
+  res.redirect('/');
+});
+
+
 app.post('/upload', (req, res) =>{
     upload(req, res, (err) => {
       console.log("user_test----",req.user);

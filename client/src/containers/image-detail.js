@@ -82,6 +82,12 @@ class ImageDetail extends Component {
 
   updateSource(index){    
     document.getElementById("detail-img").src = this.props.images[index].src;
+
+    const select_image = {
+      type:'IMAGE_SELECTED',
+      payload: this.props.images[index]
+    }
+    this.props.selectImage(select_image);
   }
 
   imageSlider(direction){
@@ -132,6 +138,8 @@ class ImageDetail extends Component {
     if(!this.props.image){
       window.location.assign('/');
     }
+
+    //console.log("image_testttttttttttttttttt",this.props.image);
 
     return (
       <div id="detail-container">
@@ -206,12 +214,21 @@ class ImageDetail extends Component {
 }
 
 function mapStateToProps(state) {
-  //console.log(state);
+  //console.log(state.activeImage);
   return {
     image: state.activeImage,
     images: state.images
   };
 }
 
-export default connect(mapStateToProps)(ImageDetail);
+function mapDispatchToProps(dispatch){ 
+   return {
+      selectImage: function (selectImg) {return dispatch(selectImg)}
+   }   
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(ImageDetail);
+
+//export default connect(mapStateToProps)(ImageDetail);
 

@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import Upload from './upload';
+import Profile from './profile';
+import { Link } from 'react-router';
 
 
 class ImageFilter extends Component {
-    
-   
-        
 
-        
         addFilter(){ 
             const img = document.querySelector('#filter-container img');
 
@@ -19,9 +18,6 @@ class ImageFilter extends Component {
             const huerotate = document.getElementById("huerotate"); 
             const saturate = document.getElementById("saturate"); 
             const blur = document.getElementById("blur"); 
-
-
-
 
 
             const grey = "grayscale(" + grayscale.value + "%" + ")";
@@ -47,7 +43,7 @@ class ImageFilter extends Component {
 
         
         // document.querySelector('button').addEventListener("click", function(){
-            filterReset(){
+        filterReset(){
                 const img = document.querySelector('#filter-container img');
             document.querySelectorAll('#filter-table td')[2].innerText = 0 + "%";
             document.querySelectorAll('#filter-table td')[5].innerText = 0 + "%";
@@ -77,7 +73,19 @@ class ImageFilter extends Component {
 
     render(){
         return(
-            <div id="filter-container">
+            <div id="filter-settings">
+                <div id="nav-bar">
+                    <Upload />
+                    <Profile />            
+                </div> 
+
+
+                <Link to="/list">
+                    <button className="center-block btn btn-primary" id="back-to-main"> Back to main image</button>
+                </Link>
+                
+                
+                <div id="filter-container">
                 <div className="filter-box">
                     <img src={this.props.image.src} /> <br/><br/>
                 </div>
@@ -129,6 +137,7 @@ class ImageFilter extends Component {
 
                     </table> 
                     <button onClick = {() =>this.filterReset()}>Reset</button>  
+                </div>
                 </div>
             </div>
         )
