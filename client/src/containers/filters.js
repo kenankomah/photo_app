@@ -36,7 +36,7 @@ class ImageFilter extends Component {
             document.querySelectorAll('#filter-table td')[8].innerText = sepia.value + "%";
             document.querySelectorAll('#filter-table td')[11].innerText = Math.ceil(contrast.value/2) + "%";
             document.querySelectorAll('#filter-table td')[14].innerText = brightness.value + "%";
-            document.querySelectorAll('#filter-table td')[17].innerText =  Math.ceil(huerotate.value/3.6) + " %";
+            document.querySelectorAll('#filter-table td')[17].innerText =  Math.ceil(huerotate.value/3.6) + "%";
             document.querySelectorAll('#filter-table td')[20].innerText = saturate.value + "%";
             document.querySelectorAll('#filter-table td')[23].innerText = blur.value * 2 + "%";
         };
@@ -44,13 +44,14 @@ class ImageFilter extends Component {
         
         // document.querySelector('button').addEventListener("click", function(){
         filterReset(){
-                const img = document.querySelector('#filter-container img');
+            console.log(this.props.image.id);
+            const img = document.querySelector('#filter-container img');
             document.querySelectorAll('#filter-table td')[2].innerText = 0 + "%";
             document.querySelectorAll('#filter-table td')[5].innerText = 0 + "%";
             document.querySelectorAll('#filter-table td')[8].innerText = 0 + "%";
             document.querySelectorAll('#filter-table td')[11].innerText = 50 + "%";
             document.querySelectorAll('#filter-table td')[14].innerText = 50 + "%";
-            document.querySelectorAll('#filter-table td')[17].innerText =  0 + " %";
+            document.querySelectorAll('#filter-table td')[17].innerText =  0 + "%";
             document.querySelectorAll('#filter-table td')[20].innerText = 20 + "%";
             document.querySelectorAll('#filter-table td')[23].innerText = 0 + "%";
 
@@ -68,6 +69,34 @@ class ImageFilter extends Component {
 
         // })
     }
+
+    updateImage(imageId){
+        const imgfilter = document.querySelector('#filter-container img').style.filter;
+        
+        const post = {
+           filter:imgfilter
+        }
+    
+        //alert("sfsf");
+        const update = () => {
+            console.log(post)
+          const options = {
+            method:'PUT',
+           // method:'POST',
+            body: JSON.stringify(post),
+            headers: new Headers({
+              'Content-Type':'application/json'
+            })
+          }
+          
+          return fetch('http://localhost:5000/image/'+ imageId, options)
+          //return fetch('http://localhost:5000/auth/login', options)
+          .then(res => res.json())
+          .then(res => console.log(res))
+          .catch(error => console.log(error))
+        }
+        update();
+      }
 
     //addFilter();
 
@@ -87,7 +116,7 @@ class ImageFilter extends Component {
                 
                 <div id="filter-container">
                 <div className="filter-box">
-                    <img src={this.props.image.src} /> <br/><br/>
+                    <img src={this.props.image.src} style={{filter:this.props.image.filter}} /> <br/><br/>
                 </div>
 
                 <div id="sliders" onInput = {() =>this.addFilter()}>
@@ -139,6 +168,7 @@ class ImageFilter extends Component {
                     <button onClick = {() =>this.filterReset()}>Reset</button>  
                 </div>
                 </div>
+                <button type="button" className="btn btn-success" id ="update" type="submit" onClick={() =>this.updateImage(this.props.image.id)} > Save changes </button> 
             </div>
         )
     }
@@ -153,3 +183,5 @@ function mapStateToProps(state) {
 
 
 export default connect(mapStateToProps)(ImageFilter);
+
+

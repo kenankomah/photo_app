@@ -29,30 +29,7 @@ class ImageDetail extends Component {
       newPost();
   }
 
-  updateImage(){
-    const post = {
-       filter:'grayscale(100%)'
-    }
-
-    //alert("sfsf");
-    const update = () => {
-      const options = {
-        method:'PUT',
-       // method:'POST',
-        body: JSON.stringify(post),
-        headers: new Headers({
-          'Content-Type':'application/json'
-        })
-      }
-      
-      return fetch('http://localhost:5000/image/'+ "5c1185fdfc8d7200132183bd", options)
-      //return fetch('http://localhost:5000/auth/login', options)
-      .then(res => res.json())
-      .then(res => console.log(res))
-      .catch(error => console.log(error))
-    }
-    update(post);
-  }
+  
 
   submit = (imageId) => {    
     confirmAlert({
@@ -150,7 +127,7 @@ class ImageDetail extends Component {
         </div> 
         
         <div id="button-div">  
-        {/* <div id = "update" type="submit" onClick={() =>this.updateImage()} > Update </div> */}
+        
             <svg onClick={() =>this.imageSlider("previous")}  id ="previous" className="slide" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 492 492"  enable-background="new 0 0 492 492">
                 <path d="M198.608,246.104L382.664,62.04c5.068-5.056,7.856-11.816,7.856-19.024c0-7.212-2.788-13.968-7.856-19.032l-16.128-16.12
                   C361.476,2.792,354.712,0,347.504,0s-13.964,2.792-19.028,7.864L109.328,227.008c-5.084,5.08-7.868,11.868-7.848,19.084

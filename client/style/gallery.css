@@ -457,11 +457,13 @@ h1{
     text-align: center;
 }
 
-#update{
+#update {
     position: relative;
-    top:130px;
-    width: 50px;
+    display: block;
+    top: 152px;
+    width: 122px;
     height: 20px;
+    margin: 0 auto;
 }
 
 /* 
