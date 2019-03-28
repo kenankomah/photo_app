@@ -7,68 +7,68 @@ import { Link } from 'react-router';
 
 class ImageFilter extends Component {
 
-        addFilter(){ 
-            const img = document.querySelector('#filter-container img');
+    addFilter(){ 
+        const img = document.querySelector('#filter-container img');
 
-            const grayscale = document.getElementById("grayscale"); 
-            const invert = document.getElementById("invert");    
-            const sepia = document.getElementById("sepia"); 
-            const contrast = document.getElementById("contrast"); 
-            const brightness = document.getElementById("brightness");    
-            const huerotate = document.getElementById("huerotate"); 
-            const saturate = document.getElementById("saturate"); 
-            const blur = document.getElementById("blur"); 
+        const grayscale = document.getElementById("grayscale"); 
+        const invert = document.getElementById("invert");    
+        const sepia = document.getElementById("sepia"); 
+        const contrast = document.getElementById("contrast"); 
+        const brightness = document.getElementById("brightness");    
+        const huerotate = document.getElementById("huerotate"); 
+        const saturate = document.getElementById("saturate"); 
+        const blur = document.getElementById("blur"); 
 
 
-            const grey = "grayscale(" + grayscale.value + "%" + ")";
-            const inv = "invert(" + invert.value + "%" + ")";
-            const sep = "sepia(" + sepia.value + "%" + ")";
-            const cont = "contrast(" + contrast.value + "%" + ")";
-            const bright = "brightness(" + brightness.value /50 + ")";
-            const hue = "hue-rotate(" + huerotate.value + "deg" + ")";
-            const sat = "saturate(" + saturate.value/20 + ")";
-            const blu = "blur(" + blur.value/10 + "px" + ")";
+        const grey = "grayscale(" + grayscale.value + "%" + ")";
+        const inv = "invert(" + invert.value + "%" + ")";
+        const sep = "sepia(" + sepia.value + "%" + ")";
+        const cont = "contrast(" + contrast.value + "%" + ")";
+        const bright = "brightness(" + brightness.value /50 + ")";
+        const hue = "hue-rotate(" + huerotate.value + "deg" + ")";
+        const sat = "saturate(" + saturate.value/20 + ")";
+        const blu = "blur(" + blur.value/10 + "px" + ")";
 
-            img.style.filter = grey + inv + sep + cont + bright + hue + sat + blu; 
+        img.style.filter = grey + inv + sep + cont + bright + hue + sat + blu; 
 
-            document.querySelectorAll('#filter-table td')[2].innerText = grayscale.value + "%";
-            document.querySelectorAll('#filter-table td')[5].innerText = invert.value + "%";
-            document.querySelectorAll('#filter-table td')[8].innerText = sepia.value + "%";
-            document.querySelectorAll('#filter-table td')[11].innerText = Math.ceil(contrast.value/2) + "%";
-            document.querySelectorAll('#filter-table td')[14].innerText = brightness.value + "%";
-            document.querySelectorAll('#filter-table td')[17].innerText =  Math.ceil(huerotate.value/3.6) + "%";
-            document.querySelectorAll('#filter-table td')[20].innerText = saturate.value + "%";
-            document.querySelectorAll('#filter-table td')[23].innerText = blur.value * 2 + "%";
-        };
+        document.querySelectorAll('#filter-table td')[2].innerText = grayscale.value + "%";
+        document.querySelectorAll('#filter-table td')[5].innerText = invert.value + "%";
+        document.querySelectorAll('#filter-table td')[8].innerText = sepia.value + "%";
+        document.querySelectorAll('#filter-table td')[11].innerText = Math.ceil(contrast.value/2) + "%";
+        document.querySelectorAll('#filter-table td')[14].innerText = brightness.value + "%";
+        document.querySelectorAll('#filter-table td')[17].innerText =  Math.ceil(huerotate.value/3.6) + "%";
+        document.querySelectorAll('#filter-table td')[20].innerText = saturate.value + "%";
+        document.querySelectorAll('#filter-table td')[23].innerText = blur.value * 2 + "%";
+    };
 
+    
+    // document.querySelector('button').addEventListener("click", function(){
+    filterReset(){
+        console.log(this.props.image);
+        const img = document.querySelector('#filter-container img');
+        document.querySelectorAll('#filter-table td')[2].innerText = 0 + "%";
+        document.querySelectorAll('#filter-table td')[5].innerText = 0 + "%";
+        document.querySelectorAll('#filter-table td')[8].innerText = 0 + "%";
+        document.querySelectorAll('#filter-table td')[11].innerText = 50 + "%";
+        document.querySelectorAll('#filter-table td')[14].innerText = 50 + "%";
+        document.querySelectorAll('#filter-table td')[17].innerText =  0 + "%";
+        document.querySelectorAll('#filter-table td')[20].innerText = 20 + "%";
+        document.querySelectorAll('#filter-table td')[23].innerText = 0 + "%";
+
+
+        document.querySelectorAll("input[type=range]")[0].value = 0;
+        document.querySelectorAll("input[type=range]")[1].value = 0;
+        document.querySelectorAll("input[type=range]")[2].value = 0;
+        document.querySelectorAll("input[type=range]")[3].value = 100;
+        document.querySelectorAll("input[type=range]")[4].value = 50;
+        document.querySelectorAll("input[type=range]")[5].value = 0;
+        document.querySelectorAll("input[type=range]")[6].value = 20;
+        document.querySelectorAll("input[type=range]")[7].value = 0;
         
-        // document.querySelector('button').addEventListener("click", function(){
-        filterReset(){
-            console.log(this.props.image.id);
-            const img = document.querySelector('#filter-container img');
-            document.querySelectorAll('#filter-table td')[2].innerText = 0 + "%";
-            document.querySelectorAll('#filter-table td')[5].innerText = 0 + "%";
-            document.querySelectorAll('#filter-table td')[8].innerText = 0 + "%";
-            document.querySelectorAll('#filter-table td')[11].innerText = 50 + "%";
-            document.querySelectorAll('#filter-table td')[14].innerText = 50 + "%";
-            document.querySelectorAll('#filter-table td')[17].innerText =  0 + "%";
-            document.querySelectorAll('#filter-table td')[20].innerText = 20 + "%";
-            document.querySelectorAll('#filter-table td')[23].innerText = 0 + "%";
+        img.style.filter = "none";
 
-
-            document.querySelectorAll("input[type=range]")[0].value = 0;
-            document.querySelectorAll("input[type=range]")[1].value = 0;
-            document.querySelectorAll("input[type=range]")[2].value = 0;
-            document.querySelectorAll("input[type=range]")[3].value = 100;
-            document.querySelectorAll("input[type=range]")[4].value = 50;
-            document.querySelectorAll("input[type=range]")[5].value = 0;
-            document.querySelectorAll("input[type=range]")[6].value = 20;
-            document.querySelectorAll("input[type=range]")[7].value = 0;
-            
-            img.style.filter = "none";
-
-        // })
-    }
+    // })
+     }
 
     updateImage(imageId){
         const imgfilter = document.querySelector('#filter-container img').style.filter;
@@ -77,12 +77,9 @@ class ImageFilter extends Component {
            filter:imgfilter
         }
     
-        //alert("sfsf");
-        const update = () => {
-            console.log(post)
-          const options = {
+         const update = () => {
+            const options = {
             method:'PUT',
-           // method:'POST',
             body: JSON.stringify(post),
             headers: new Headers({
               'Content-Type':'application/json'
@@ -90,7 +87,6 @@ class ImageFilter extends Component {
           }
           
           return fetch('http://localhost:5000/image/'+ imageId, options)
-          //return fetch('http://localhost:5000/auth/login', options)
           .then(res => res.json())
           .then(res => console.log(res))
           .catch(error => console.log(error))
@@ -98,8 +94,31 @@ class ImageFilter extends Component {
         update();
       }
 
-    //addFilter();
+      componentDidMount(){
+        const filter = this.props.image.filter;
+        document.querySelectorAll('#filter-table td')[2].innerText = filter.split(' ')[0].replace(/[^0-9.]/g,"") + "%";
+        document.querySelectorAll('#filter-table td')[5].innerText = filter.split(' ')[1].replace(/[^0-9.]/g,"") + "%";
+        document.querySelectorAll('#filter-table td')[8].innerText = filter.split(' ')[2].replace(/[^0-9.]/g,"") + "%";
+        document.querySelectorAll('#filter-table td')[11].innerText = filter.split(' ')[3].replace(/[^0-9.]/g,"")/2 + "%";
+        document.querySelectorAll('#filter-table td')[14].innerText = (filter.split(' ')[4].replace(/[^0-9.]/g,"")/2)*100 + "%";
+        document.querySelectorAll('#filter-table td')[17].innerText =  ((filter.split(' ')[5].replace(/[^0-9.]/g,"")/360)*100).toFixed(0) + "%";
+        document.querySelectorAll('#filter-table td')[20].innerText = ((filter.split(' ')[6].replace(/[^0-9.]/g,"")/5)*100).toFixed(0) + "%";
+        document.querySelectorAll('#filter-table td')[23].innerText = filter.split(' ')[7].replace(/[^0-9.]/g,"") * 20 + "%";
 
+
+        document.querySelectorAll("input[type=range]")[0].value = filter.split(' ')[0].replace(/[^0-9.]/g,"");
+        document.querySelectorAll("input[type=range]")[1].value = filter.split(' ')[1].replace(/[^0-9.]/g,"");
+        document.querySelectorAll("input[type=range]")[2].value = filter.split(' ')[2].replace(/[^0-9.]/g,"");
+        document.querySelectorAll("input[type=range]")[3].value = filter.split(' ')[3].replace(/[^0-9.]/g,"");
+        document.querySelectorAll("input[type=range]")[4].value = (filter.split(' ')[4].replace(/[^0-9.]/g,"")/2)*100;
+        document.querySelectorAll("input[type=range]")[5].value = filter.split(' ')[5].replace(/[^0-9.]/g,"");
+        document.querySelectorAll("input[type=range]")[6].value = (filter.split(' ')[6].replace(/[^0-9.]/g,"")/5)*100;
+        document.querySelectorAll("input[type=range]")[7].value = filter.split(' ')[7].replace(/[^0-9.]/g,"") * 10;
+             
+      }
+    
+
+ 
     render(){
         return(
             <div id="filter-settings">
