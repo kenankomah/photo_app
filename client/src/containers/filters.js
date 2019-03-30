@@ -34,9 +34,9 @@ class ImageFilter extends Component {
         document.querySelectorAll('#filter-table td')[2].innerText = grayscale.value + "%";
         document.querySelectorAll('#filter-table td')[5].innerText = invert.value + "%";
         document.querySelectorAll('#filter-table td')[8].innerText = sepia.value + "%";
-        document.querySelectorAll('#filter-table td')[11].innerText = Math.ceil(contrast.value/2) + "%";
+        document.querySelectorAll('#filter-table td')[11].innerText = (contrast.value/2).toFixed(0) + "%";
         document.querySelectorAll('#filter-table td')[14].innerText = brightness.value + "%";
-        document.querySelectorAll('#filter-table td')[17].innerText =  Math.ceil(huerotate.value/3.6) + "%";
+        document.querySelectorAll('#filter-table td')[17].innerText =  (huerotate.value/3.6).toFixed(0) + "%";
         document.querySelectorAll('#filter-table td')[20].innerText = saturate.value + "%";
         document.querySelectorAll('#filter-table td')[23].innerText = blur.value * 2 + "%";
     };
@@ -70,9 +70,9 @@ class ImageFilter extends Component {
     // })
      }
 
-    updateImage(imageId){
-        const imgfilter = document.querySelector('#filter-container img').style.filter;
-        
+      updateImage(imageId){
+        const imgfilter = document.querySelector('#filter-container img').style.filter || "filter:none;";
+
         const post = {
            filter:imgfilter
         }
@@ -92,29 +92,32 @@ class ImageFilter extends Component {
           .catch(error => console.log(error))
         }
         update();
+        setTimeout(()=>{window.location.assign('/');},1000);
       }
 
       componentDidMount(){
         const filter = this.props.image.filter;
-        document.querySelectorAll('#filter-table td')[2].innerText = filter.split(' ')[0].replace(/[^0-9.]/g,"") + "%";
-        document.querySelectorAll('#filter-table td')[5].innerText = filter.split(' ')[1].replace(/[^0-9.]/g,"") + "%";
-        document.querySelectorAll('#filter-table td')[8].innerText = filter.split(' ')[2].replace(/[^0-9.]/g,"") + "%";
-        document.querySelectorAll('#filter-table td')[11].innerText = filter.split(' ')[3].replace(/[^0-9.]/g,"")/2 + "%";
-        document.querySelectorAll('#filter-table td')[14].innerText = (filter.split(' ')[4].replace(/[^0-9.]/g,"")/2)*100 + "%";
-        document.querySelectorAll('#filter-table td')[17].innerText =  ((filter.split(' ')[5].replace(/[^0-9.]/g,"")/360)*100).toFixed(0) + "%";
-        document.querySelectorAll('#filter-table td')[20].innerText = ((filter.split(' ')[6].replace(/[^0-9.]/g,"")/5)*100).toFixed(0) + "%";
-        document.querySelectorAll('#filter-table td')[23].innerText = filter.split(' ')[7].replace(/[^0-9.]/g,"") * 20 + "%";
+        
+        if(filter.split(' ').length > 1){
+            document.querySelectorAll('#filter-table td')[2].innerText = filter.split(' ')[0].replace(/[^0-9.]/g,"") + "%";
+            document.querySelectorAll('#filter-table td')[5].innerText = filter.split(' ')[1].replace(/[^0-9.]/g,"") + "%";
+            document.querySelectorAll('#filter-table td')[8].innerText = filter.split(' ')[2].replace(/[^0-9.]/g,"") + "%";
+            document.querySelectorAll('#filter-table td')[11].innerText = filter.split(' ')[3].replace(/[^0-9.]/g,"")/2 + "%";
+            document.querySelectorAll('#filter-table td')[14].innerText = (filter.split(' ')[4].replace(/[^0-9.]/g,"")/2)*100 + "%";
+            document.querySelectorAll('#filter-table td')[17].innerText =  ((filter.split(' ')[5].replace(/[^0-9.]/g,"")/360)*100).toFixed(0) + "%";
+            document.querySelectorAll('#filter-table td')[20].innerText = ((filter.split(' ')[6].replace(/[^0-9.]/g,"")/5)*100).toFixed(0) + "%";
+            document.querySelectorAll('#filter-table td')[23].innerText = filter.split(' ')[7].replace(/[^0-9.]/g,"") * 20 + "%";
 
 
-        document.querySelectorAll("input[type=range]")[0].value = filter.split(' ')[0].replace(/[^0-9.]/g,"");
-        document.querySelectorAll("input[type=range]")[1].value = filter.split(' ')[1].replace(/[^0-9.]/g,"");
-        document.querySelectorAll("input[type=range]")[2].value = filter.split(' ')[2].replace(/[^0-9.]/g,"");
-        document.querySelectorAll("input[type=range]")[3].value = filter.split(' ')[3].replace(/[^0-9.]/g,"");
-        document.querySelectorAll("input[type=range]")[4].value = (filter.split(' ')[4].replace(/[^0-9.]/g,"")/2)*100;
-        document.querySelectorAll("input[type=range]")[5].value = filter.split(' ')[5].replace(/[^0-9.]/g,"");
-        document.querySelectorAll("input[type=range]")[6].value = (filter.split(' ')[6].replace(/[^0-9.]/g,"")/5)*100;
-        document.querySelectorAll("input[type=range]")[7].value = filter.split(' ')[7].replace(/[^0-9.]/g,"") * 10;
-             
+            document.querySelectorAll("input[type=range]")[0].value = filter.split(' ')[0].replace(/[^0-9.]/g,"");
+            document.querySelectorAll("input[type=range]")[1].value = filter.split(' ')[1].replace(/[^0-9.]/g,"");
+            document.querySelectorAll("input[type=range]")[2].value = filter.split(' ')[2].replace(/[^0-9.]/g,"");
+            document.querySelectorAll("input[type=range]")[3].value = filter.split(' ')[3].replace(/[^0-9.]/g,"");
+            document.querySelectorAll("input[type=range]")[4].value = (filter.split(' ')[4].replace(/[^0-9.]/g,"")/2)*100;
+            document.querySelectorAll("input[type=range]")[5].value = filter.split(' ')[5].replace(/[^0-9.]/g,"");
+            document.querySelectorAll("input[type=range]")[6].value = (filter.split(' ')[6].replace(/[^0-9.]/g,"")/5)*100;
+            document.querySelectorAll("input[type=range]")[7].value = filter.split(' ')[7].replace(/[^0-9.]/g,"") * 10;
+        }   
       }
     
 
@@ -127,67 +130,68 @@ class ImageFilter extends Component {
                     <Profile />            
                 </div> 
 
-
-                <Link to="/list">
-                    <button className="center-block btn btn-primary" id="back-to-main"> Back to main image</button>
-                </Link>
-                
                 
                 <div id="filter-container">
-                <div className="filter-box">
-                    <img src={this.props.image.src} style={{filter:this.props.image.filter}} /> <br/><br/>
-                </div>
+                    <Link to="/list">
+                        <button className="center-block btn btn-primary" id="back-to-main"> Back to main image</button>
+                    </Link>
+                    <button className="btn btn-success"id="reset" onClick = {() =>this.filterReset()}>Reset</button>  
+                    <div className="filter-box">
+                        <img src={this.props.image.src} style={{filter:this.props.image.filter}} /> <br/><br/>
+                    </div>
 
-                <div id="sliders" onInput = {() =>this.addFilter()}>
+                    <div id="sliders" onInput = {() =>this.addFilter()}>
+                    
+                        <p id="filter-box">Image filters</p> 
+                        <table id="filter-table">
+                            <tr>
+                                <td className="filter-name">Grayscale</td>
+                                <td><input type="range" min="0" max="100" defaultValue="0" className="slider" id="grayscale"/></td> 
+                                <td className="scale">0%</td> 
+                            </tr>
+                            <tr>
+                                <td className="filter-name">Invert</td>
+                                <td><input type="range" min="0" max="100" defaultValue="0" className="slider" id="invert"/> </td>
+                                <td className="scale">0%</td> 
+                            </tr>
+                            <tr>
+                                <td className="filter-name">Sepia</td>
+                                <td><input type="range" min="0" max="100" defaultValue="0" className="slider" id="sepia"/> </td>
+                                <td className="scale">0%</td> 
+                            </tr>
+                            <tr>
+                                <td className="filter-name">Contrast</td>
+                                <td><input type="range" min="0" max="200" defaultValue="100" className="slider" id="contrast"/> </td>
+                                <td className="scale">50%</td> 
+                            </tr>
+                            <tr>
+                                <td className="filter-name">Brightness</td>
+                                <td><input type="range" min="0" max="100" defaultValue="50" className="slider" id="brightness"/> </td>
+                                <td className="scale">50%</td> 
+                            </tr>
+                            <tr>
+                                <td className="filter-name">Huerotate</td>
+                                <td><input type="range" min="0" max="360" defaultValue="0" className="slider" id="huerotate"/> </td>
+                                <td className="scale">0%</td> 
+                            </tr>
+                            <tr>
+                                <td className="filter-name">Saturate</td>
+                                <td><input type="range" min="0" max="100" defaultValue="20" className="slider" id="saturate"/> </td>
+                                <td className="scale">20%</td> 
+                            </tr>
+                            <tr>
+                                <td className="filter-name">blur</td>
+                                <td><input type="range" min="0" max="50" defaultValue="0" className="slider" id="blur"/> </td>
+                                <td className="scale">0%</td> 
+                            </tr>
+
+                        </table> 
+                        
+                    </div>
+                    <button type="button" className="btn btn-primary" id ="update" type="submit" onClick={() =>this.updateImage(this.props.image.id)} > Save changes </button>
+                </div>
                 
-                    <p id="filter-box">Image filters</p> 
-                    <table id="filter-table">
-                        <tr>
-                            <td>Grayscale</td>
-                            <td><input type="range" min="0" max="100" defaultValue="0" className="slider" id="grayscale"/></td> 
-                            <td className="scale">0%</td> 
-                        </tr>
-                        <tr>
-                            <td>Invert</td>
-                            <td><input type="range" min="0" max="100" defaultValue="0" className="slider" id="invert"/> </td>
-                            <td className="scale">0%</td> 
-                        </tr>
-                        <tr>
-                            <td>Sepia</td>
-                            <td><input type="range" min="0" max="100" defaultValue="0" className="slider" id="sepia"/> </td>
-                            <td className="scale">0%</td> 
-                        </tr>
-                        <tr>
-                            <td>Contrast</td>
-                            <td><input type="range" min="0" max="200" defaultValue="100" className="slider" id="contrast"/> </td>
-                            <td className="scale">50%</td> 
-                        </tr>
-                        <tr>
-                            <td>Brightness</td>
-                            <td><input type="range" min="0" max="100" defaultValue="50" className="slider" id="brightness"/> </td>
-                            <td className="scale">50%</td> 
-                        </tr>
-                        <tr>
-                            <td>Huerotate</td>
-                            <td><input type="range" min="0" max="360" defaultValue="0" className="slider" id="huerotate"/> </td>
-                            <td className="scale">0%</td> 
-                        </tr>
-                        <tr>
-                            <td>Saturate</td>
-                            <td><input type="range" min="0" max="100" defaultValue="20" className="slider" id="saturate"/> </td>
-                            <td className="scale">20%</td> 
-                        </tr>
-                        <tr>
-                            <td>blur</td>
-                            <td><input type="range" min="0" max="50" defaultValue="0" className="slider" id="blur"/> </td>
-                            <td className="scale">0%</td> 
-                        </tr>
-
-                    </table> 
-                    <button onClick = {() =>this.filterReset()}>Reset</button>  
-                </div>
-                </div>
-                <button type="button" className="btn btn-success" id ="update" type="submit" onClick={() =>this.updateImage(this.props.image.id)} > Save changes </button> 
+                 
             </div>
         )
     }

@@ -273,6 +273,7 @@ app.post('/upload', (req, res) =>{
                newImage.src = req.file.location;
                newImage.dates = dateTime.toLocaleString();
                newImage.mongoId = req.user.id || req.user._id;
+               newImage.filter = "filter:none;"
                newImage.save();               
            }
        }

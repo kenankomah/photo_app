@@ -1,72 +1,23 @@
 body{
-    width:100%;
-    height:100%;
-    margin:0px;
-    padding: 0px;
+  width:100%;
+  height:100%;
+  margin:0px;
+  padding: 0px;
 }
 
 .picture-grid{
-    position: relative;
-    top:170px;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    justify-items: center;
-    grid-gap: 5px;
-    grid-row-gap:0px;
+  position: relative;
+  top:170px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  justify-items: center;
+  grid-gap: 5px;
+  grid-row-gap:0px;
 }
 
 
 
 .grid-box img {
-    max-height: 100%;
-    max-width: 100%;
-    width: auto;
-    height: auto;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-  }
-
-
-  .grid-box {
-    height: 195px; /*can be anything*/
-    width: 234px; /*can be anything*/
-    display: inline-block;
-    vertical-align: top; /*not required*/
-    background-color:rgb(255, 255, 255);
-    position: relative;
-    margin-left: 0px;
-    margin-top: 27px;
-    box-shadow: 5px 10px 5px #888888;
-    border-radius: 5px;
-    border: 0.5px solid rgb(218, 215, 215);
-  }
-
-
-
-  /*apply this only non-mobile screens*/
-
-  @media only screen and (min-width: 600px) {
-    .picture-grid{
-        margin: 0 auto;
-        max-width: 50%
-    }
-  }
-
-
-.grid-box img:hover {
-    opacity: 0.70;
-    /* cursor: pointer; */
- } 
-
-
-
- /*********************styles for the filter page******************/
-
- .filter-box img {
   max-height: 100%;
   max-width: 100%;
   width: auto;
@@ -80,122 +31,226 @@ body{
 }
 
 
-.filter-box {
-  height: 336px; /*can be anything*/
-  width: 365px; /*can be anything*/
+.grid-box {
+  height: 195px; /*can be anything*/
+  width: 234px; /*can be anything*/
   display: inline-block;
   vertical-align: top; /*not required*/
   background-color:rgb(255, 255, 255);
   position: relative;
-  margin-left: 113px;
+  margin-left: 0px;
   margin-top: 27px;
   box-shadow: 5px 10px 5px #888888;
   border-radius: 5px;
   border: 0.5px solid rgb(218, 215, 215);
-  top:100px;
 }
 
 
-#sliders{
+
+/*apply this only non-mobile screens*/
+
+@media only screen and (min-width: 600px) {
+  .picture-grid{
+      margin: 0 auto;
+      max-width: 50%
+  }
+}
+
+
+.grid-box img:hover {
+  opacity: 0.70;
+  /* cursor: pointer; */
+} 
+
+
+
+/*********************styles for the filter page******************/
+
+.filter-box img {
+max-height: 100%;
+max-width: 100%;
+width: auto;
+height: auto;
+position: absolute;
+top: 0;
+bottom: 0;
+left: 0;
+right: 0;
+margin: auto;
+}
+
+
+.filter-box {
+  height: 336px; /*can be anything*/
+  width: 430px; /*can be anything*
+  /display: inline-block;vertical-align: top; /*not required*/
+  background-color:rgb(255, 255, 255);
   position: relative;
-  top: -235px;
-  left: 513px;
-  background: beige;
-  border: 0.5px solid rgb(218, 215, 215);
-  width: 430px;
-  height: 336px;
+  margin-left: 56px;
+  margin-top: 27px;
+  box-shadow: 5px 10px 5px #888888;
   border-radius: 5px;
+  border: 0.5px solid rgb(218, 215, 215);
+  top: 22px;
 }
+
+
+#sliders{position: relative;top: -313px;left: 513px;background: beige;border: 0.5px solid rgb(218, 215, 215);width: 430px;height: 336px;border-radius: 5px;}
 
 .slider{
-  display: block;
-  margin: 0px auto;
-  width: 200px;
+display: block;
+margin: 0px auto;
+width: 200px !important;
+position: relative;
+left: 15px;
 }
 
-#filter-box{
-  text-align: center;
-}
+#filter-box{text-align: center;padding-top: 30px;font-weight: bold;font-size: 18px;}
 
 #filter-table{
-  margin: 0 auto; 
+margin: 0 auto; 
 }
 
 
 #filter-table td{
-  width: 94px;
-  height: 30px;
-  /* text-align: center; */
+width: 94px;
+height: 30px;
+/* text-align: center; */
 }
 
 
 #filter-container{
-  margin: 0 auto;
-  border: 0.5px solid rgb(218, 215, 215);
-  width: 1000px;
-  top: 230px;
-  position: relative;
-  background: aliceblue;
-  border-radius: 5px;
-  height: 600px;
+margin: 0 auto;
+border: 0.5px solid rgb(218, 215, 215);
+width: 1000px;
+top: 230px;
+position: relative;
+background: aliceblue;
+border-radius: 5px;
+height: 600px;
 }
 
 /* slider styles */
 .slider {
-  -webkit-appearance: none;
-  width: 200px;
-  height: 6px;
-  background: #d3d3d3;
-  outline: none;
-  opacity: 0.7;
-  -webkit-transition: .2s;
-  transition: opacity .2s;
-  border-radius:30px;
-  margin-bottom: 0px;
+-webkit-appearance: none;
+width: 200px;
+height: 6px;
+background: #d3d3d3;
+outline: none;
+opacity: 0.7;
+-webkit-transition: .2s;
+transition: opacity .2s;
+border-radius:30px;
+margin-bottom: 0px;
 }
 
 .slider:hover {
-  opacity: 1;
+opacity: 1;
 }
 
 .slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 20px;
-  height: 20px;
-  background: #4CAF50;
-  cursor: pointer;
-  border-radius:100%;
+-webkit-appearance: none;
+appearance: none;
+width: 20px;
+height: 20px;
+background: #4CAF50;
+cursor: pointer;
+border-radius:100%;
 }
 
 .slider::-moz-range-thumb {
-  width: 25px;
-  height: 25px;
-  background: #4CAF50;
-  cursor: pointer;    
+width: 25px;
+height: 25px;
+background: #4CAF50;
+cursor: pointer;    
 }
 
 .scale{
-  text-align: center;
+text-align: right;
 }
 
 #sliders button{
-  position: relative;
-  top:20px;
-  background-color: #4CAF50;
-  border: none;
-  color: white;
-  padding: 10px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
+position: relative;
+top:20px;
+background-color: #4CAF50;
+border: none;
+color: white;
+padding: 10px 32px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 16px;
+margin: 4px 2px;
+cursor: pointer;
 }
 
 #back-to-main{
-   position: relative;
-   top:167px;
+ position: relative;
+ top: -86px;
 }
+
+#update {
+  position: relative;
+  display: block;
+  top: -265px;
+  width: 122px;
+  height: 20px;
+  margin: 0 auto;
+}
+
+#reset {
+  position: relative;
+  display: block;
+  top: 8px;
+  width: 90px;
+  height: 20px;
+  margin: 0 auto;
+}
+
+
+
+@media only screen and (max-width: 1000px) {
+  #reset {
+    top:-5px
+  }
+  
+  #sliders{
+    position:re1ative;
+    top:90px !important;
+    left:10px;
+  }
+
+  #filter-container{
+    width:500px;
+    height: 932px;
+  }
+
+  .filter-box {
+    width:400px;
+    margin:0 auto;
+  }
+
+  #sliders {
+   width:400px;
+   margin:0 auto !important;
+   left:0px;
+  }
+
+  #update{
+    display:block;
+    top: 120px;
+    margin: 0 auto;
+  }
+
+  .scale{
+    text-align:center;
+  } 
+  
+  .filter-name{
+    text-align:center;
+  } 
+}
+
+
+
 

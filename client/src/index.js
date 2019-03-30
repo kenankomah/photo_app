@@ -40,7 +40,10 @@ ImagesReducer().payload
       d.setTime(d.getTime() + 24*60*60*1000);
       d.toGMTString();
 
-      document.cookie = "gallery_session=true; expires=" + d.toGMTString() + "; path=/";
+      
+      if(!document.cookie.includes("gallery_session=true")){
+         document.cookie = "gallery_session=true; expires=" + d.toGMTString() + "; path=/";
+      }
 
       //localStorage.setItem('loggedIn',true);
       const reducers = combineReducers({

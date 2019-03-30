@@ -69,7 +69,7 @@ class ImageDetail extends Component {
 
   imageSlider(direction){
     let imageSrc = document.getElementById("detail-img").src;
-    console.log(this.returnIndex(imageSrc));
+    //console.log(this.returnIndex(imageSrc));
     let index = this.returnIndex(imageSrc);    
     this.props.images.length; 
     
