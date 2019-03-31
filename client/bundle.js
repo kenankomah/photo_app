@@ -124,7 +124,9 @@
 	    d.setTime(d.getTime() + 24 * 60 * 60 * 1000);
 	    d.toGMTString();
 
-	    document.cookie = "gallery_session=true; expires=" + d.toGMTString() + "; path=/";
+	    if (!document.cookie.includes("gallery_session=true")) {
+	      document.cookie = "gallery_session=true; expires=" + d.toGMTString() + "; path=/";
+	    }
 
 	    //localStorage.setItem('loggedIn',true);
 	    var reducers = (0, _redux.combineReducers)({
@@ -27064,7 +27066,7 @@
 
 	exports.default = function () {
 		// const request = fetch('/images',{ credentials: 'include' })
-		var request = fetch('http://localhost:5000/images', { credentials: 'include' }).then(function (res) {
+		var request = fetch('/images', { credentials: 'include' }).then(function (res) {
 			return res.json();
 		}).catch(function (error) {
 			console.log(error);
@@ -27084,7 +27086,7 @@
 	});
 
 	exports.default = function () {
-	  var request = fetch('http://localhost:5000/mongoid', { credentials: 'include' }).then(function (res) {
+	  var request = fetch('/mongoid', { credentials: 'include' }).then(function (res) {
 	    return res.json();
 	  }).catch(function (error) {
 	    console.log(error);
@@ -27206,7 +27208,7 @@
 
 	        var fd = new FormData();
 	        fd.append('myImage', _this.state.selectedFile, _this.state.selectedFile.name);
-	        _axios2.default.post('http://localhost:5000/upload', fd, {
+	        _axios2.default.post('/upload', fd, {
 	          onUploadProgress: function onUploadProgress(progressEvent) {
 	            // console.log('Upload progress: ' + ((progressEvent.loaded * 100)/progressEvent.total) + '%');
 	          },
@@ -29024,7 +29026,7 @@
 	                                { style: { textAlign: "center" } },
 	                                _react2.default.createElement(
 	                                    'a',
-	                                    { onClick: this.loggout, href: 'http://localhost:5000/auth/logout' },
+	                                    { onClick: this.loggout, href: '/auth/logout' },
 	                                    _react2.default.createElement(
 	                                        'svg',
 	                                        { className: 'sign_out_icon', x: '0px', y: '0px', viewBox: '0 0 1000 1000', 'enable-background': 'new 0 0 1000 1000' },
@@ -29058,7 +29060,7 @@
 	//export default Profile;
 
 	function mapStateToProps(state) {
-	    console.log(state.activeUser);
+	    //console.log(state.activeUser);
 	    return {
 	        activeUser: state.activeUser
 	    };
@@ -29226,7 +29228,7 @@
 	          })
 	        };
 
-	        return fetch('http://localhost:5000/image/' + id, options).then(function (res) {
+	        return fetch('/image/' + id, options).then(function (res) {
 	          return res.json();
 	        }).then(function (res) {
 	          return console.log(res);
@@ -29236,35 +29238,6 @@
 	      };
 	      window.location.assign('/');
 	      newPost();
-	    }
-	  }, {
-	    key: 'updateImage',
-	    value: function updateImage() {
-	      var post = {
-	        filter: 'grayscale(100%)'
-
-	        //alert("sfsf");
-	      };var update = function update() {
-	        var options = {
-	          method: 'PUT',
-	          // method:'POST',
-	          body: JSON.stringify(post),
-	          headers: new Headers({
-	            'Content-Type': 'application/json'
-	          })
-	        };
-
-	        return fetch('http://localhost:5000/image/' + "5c1185fdfc8d7200132183bd", options)
-	        //return fetch('http://localhost:5000/auth/login', options)
-	        .then(function (res) {
-	          return res.json();
-	        }).then(function (res) {
-	          return console.log(res);
-	        }).catch(function (error) {
-	          return console.log(error);
-	        });
-	      };
-	      update(post);
 	    }
 	  }, {
 	    key: 'returnIndex',
@@ -29279,12 +29252,18 @@
 	    key: 'updateSource',
 	    value: function updateSource(index) {
 	      document.getElementById("detail-img").src = this.props.images[index].src;
+
+	      var select_image = {
+	        type: 'IMAGE_SELECTED',
+	        payload: this.props.images[index]
+	      };
+	      this.props.selectImage(select_image);
 	    }
 	  }, {
 	    key: 'imageSlider',
 	    value: function imageSlider(direction) {
 	      var imageSrc = document.getElementById("detail-img").src;
-	      console.log(this.returnIndex(imageSrc));
+	      //console.log(this.returnIndex(imageSrc));
 	      var index = this.returnIndex(imageSrc);
 	      this.props.images.length;
 
@@ -29332,6 +29311,8 @@
 	      if (!this.props.image) {
 	        window.location.assign('/');
 	      }
+
+	      //console.log("image_testttttttttttttttttt",this.props.image);
 
 	      return _react2.default.createElement(
 	        'div',
@@ -29426,14 +29407,24 @@
 	}(_react.Component);
 
 	function mapStateToProps(state) {
-	  //console.log(state);
+	  //console.log(state.activeImage);
 	  return {
 	    image: state.activeImage,
 	    images: state.images
 	  };
 	}
 
-	exports.default = (0, _reactRedux.connect)(mapStateToProps)(ImageDetail);
+	function mapDispatchToProps(dispatch) {
+	  return {
+	    selectImage: function selectImage(selectImg) {
+	      return dispatch(selectImg);
+	    }
+	  };
+	}
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(ImageDetail);
+
+	//export default connect(mapStateToProps)(ImageDetail);
 
 /***/ }),
 /* 289 */
@@ -30934,7 +30925,11 @@
 
 	var _profile2 = _interopRequireDefault(_profile);
 
+	var _reactRouter = __webpack_require__(198);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -30979,9 +30974,9 @@
 	            document.querySelectorAll('#filter-table td')[2].innerText = grayscale.value + "%";
 	            document.querySelectorAll('#filter-table td')[5].innerText = invert.value + "%";
 	            document.querySelectorAll('#filter-table td')[8].innerText = sepia.value + "%";
-	            document.querySelectorAll('#filter-table td')[11].innerText = Math.ceil(contrast.value / 2) + "%";
+	            document.querySelectorAll('#filter-table td')[11].innerText = (contrast.value / 2).toFixed(0) + "%";
 	            document.querySelectorAll('#filter-table td')[14].innerText = brightness.value + "%";
-	            document.querySelectorAll('#filter-table td')[17].innerText = Math.ceil(huerotate.value / 3.6) + " %";
+	            document.querySelectorAll('#filter-table td')[17].innerText = (huerotate.value / 3.6).toFixed(0) + "%";
 	            document.querySelectorAll('#filter-table td')[20].innerText = saturate.value + "%";
 	            document.querySelectorAll('#filter-table td')[23].innerText = blur.value * 2 + "%";
 	        }
@@ -30991,13 +30986,14 @@
 
 	        // document.querySelector('button').addEventListener("click", function(){
 	        value: function filterReset() {
+	            console.log(this.props.image);
 	            var img = document.querySelector('#filter-container img');
 	            document.querySelectorAll('#filter-table td')[2].innerText = 0 + "%";
 	            document.querySelectorAll('#filter-table td')[5].innerText = 0 + "%";
 	            document.querySelectorAll('#filter-table td')[8].innerText = 0 + "%";
 	            document.querySelectorAll('#filter-table td')[11].innerText = 50 + "%";
 	            document.querySelectorAll('#filter-table td')[14].innerText = 50 + "%";
-	            document.querySelectorAll('#filter-table td')[17].innerText = 0 + " %";
+	            document.querySelectorAll('#filter-table td')[17].innerText = 0 + "%";
 	            document.querySelectorAll('#filter-table td')[20].innerText = 20 + "%";
 	            document.querySelectorAll('#filter-table td')[23].innerText = 0 + "%";
 
@@ -31014,13 +31010,67 @@
 
 	            // })
 	        }
+	    }, {
+	        key: 'updateImage',
+	        value: function updateImage(imageId) {
+	            var imgfilter = document.querySelector('#filter-container img').style.filter || "filter:none;";
 
-	        //addFilter();
+	            var post = {
+	                filter: imgfilter
+	            };
 
+	            var update = function update() {
+	                var options = {
+	                    method: 'PUT',
+	                    body: JSON.stringify(post),
+	                    headers: new Headers({
+	                        'Content-Type': 'application/json'
+	                    })
+	                };
+
+	                return fetch('/image/' + imageId, options).then(function (res) {
+	                    return res.json();
+	                }).then(function (res) {
+	                    return console.log(res);
+	                }).catch(function (error) {
+	                    return console.log(error);
+	                });
+	            };
+	            update();
+	            setTimeout(function () {
+	                window.location.assign('/');
+	            }, 1000);
+	        }
+	    }, {
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            var filter = this.props.image.filter;
+
+	            if (filter.split(' ').length > 1) {
+	                document.querySelectorAll('#filter-table td')[2].innerText = filter.split(' ')[0].replace(/[^0-9.]/g, "") + "%";
+	                document.querySelectorAll('#filter-table td')[5].innerText = filter.split(' ')[1].replace(/[^0-9.]/g, "") + "%";
+	                document.querySelectorAll('#filter-table td')[8].innerText = filter.split(' ')[2].replace(/[^0-9.]/g, "") + "%";
+	                document.querySelectorAll('#filter-table td')[11].innerText = filter.split(' ')[3].replace(/[^0-9.]/g, "") / 2 + "%";
+	                document.querySelectorAll('#filter-table td')[14].innerText = filter.split(' ')[4].replace(/[^0-9.]/g, "") / 2 * 100 + "%";
+	                document.querySelectorAll('#filter-table td')[17].innerText = (filter.split(' ')[5].replace(/[^0-9.]/g, "") / 360 * 100).toFixed(0) + "%";
+	                document.querySelectorAll('#filter-table td')[20].innerText = (filter.split(' ')[6].replace(/[^0-9.]/g, "") / 5 * 100).toFixed(0) + "%";
+	                document.querySelectorAll('#filter-table td')[23].innerText = filter.split(' ')[7].replace(/[^0-9.]/g, "") * 20 + "%";
+
+	                document.querySelectorAll("input[type=range]")[0].value = filter.split(' ')[0].replace(/[^0-9.]/g, "");
+	                document.querySelectorAll("input[type=range]")[1].value = filter.split(' ')[1].replace(/[^0-9.]/g, "");
+	                document.querySelectorAll("input[type=range]")[2].value = filter.split(' ')[2].replace(/[^0-9.]/g, "");
+	                document.querySelectorAll("input[type=range]")[3].value = filter.split(' ')[3].replace(/[^0-9.]/g, "");
+	                document.querySelectorAll("input[type=range]")[4].value = filter.split(' ')[4].replace(/[^0-9.]/g, "") / 2 * 100;
+	                document.querySelectorAll("input[type=range]")[5].value = filter.split(' ')[5].replace(/[^0-9.]/g, "");
+	                document.querySelectorAll("input[type=range]")[6].value = filter.split(' ')[6].replace(/[^0-9.]/g, "") / 5 * 100;
+	                document.querySelectorAll("input[type=range]")[7].value = filter.split(' ')[7].replace(/[^0-9.]/g, "") * 10;
+	            }
+	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _this2 = this;
+	            var _this2 = this,
+	                _React$createElement;
 
 	            return _react2.default.createElement(
 	                'div',
@@ -31035,9 +31085,25 @@
 	                    'div',
 	                    { id: 'filter-container' },
 	                    _react2.default.createElement(
+	                        _reactRouter.Link,
+	                        { to: '/list' },
+	                        _react2.default.createElement(
+	                            'button',
+	                            { className: 'center-block btn btn-primary', id: 'back-to-main' },
+	                            ' Back to main image'
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'button',
+	                        { className: 'btn btn-success', id: 'reset', onClick: function onClick() {
+	                                return _this2.filterReset();
+	                            } },
+	                        'Reset'
+	                    ),
+	                    _react2.default.createElement(
 	                        'div',
 	                        { className: 'filter-box' },
-	                        _react2.default.createElement('img', { src: this.props.image.src }),
+	                        _react2.default.createElement('img', { src: this.props.image.src, style: { filter: this.props.image.filter } }),
 	                        ' ',
 	                        _react2.default.createElement('br', null),
 	                        _react2.default.createElement('br', null)
@@ -31060,7 +31126,7 @@
 	                                null,
 	                                _react2.default.createElement(
 	                                    'td',
-	                                    null,
+	                                    { className: 'filter-name' },
 	                                    'Grayscale'
 	                                ),
 	                                _react2.default.createElement(
@@ -31079,7 +31145,7 @@
 	                                null,
 	                                _react2.default.createElement(
 	                                    'td',
-	                                    null,
+	                                    { className: 'filter-name' },
 	                                    'Invert'
 	                                ),
 	                                _react2.default.createElement(
@@ -31099,7 +31165,7 @@
 	                                null,
 	                                _react2.default.createElement(
 	                                    'td',
-	                                    null,
+	                                    { className: 'filter-name' },
 	                                    'Sepia'
 	                                ),
 	                                _react2.default.createElement(
@@ -31119,7 +31185,7 @@
 	                                null,
 	                                _react2.default.createElement(
 	                                    'td',
-	                                    null,
+	                                    { className: 'filter-name' },
 	                                    'Contrast'
 	                                ),
 	                                _react2.default.createElement(
@@ -31139,7 +31205,7 @@
 	                                null,
 	                                _react2.default.createElement(
 	                                    'td',
-	                                    null,
+	                                    { className: 'filter-name' },
 	                                    'Brightness'
 	                                ),
 	                                _react2.default.createElement(
@@ -31159,7 +31225,7 @@
 	                                null,
 	                                _react2.default.createElement(
 	                                    'td',
-	                                    null,
+	                                    { className: 'filter-name' },
 	                                    'Huerotate'
 	                                ),
 	                                _react2.default.createElement(
@@ -31179,7 +31245,7 @@
 	                                null,
 	                                _react2.default.createElement(
 	                                    'td',
-	                                    null,
+	                                    { className: 'filter-name' },
 	                                    'Saturate'
 	                                ),
 	                                _react2.default.createElement(
@@ -31199,7 +31265,7 @@
 	                                null,
 	                                _react2.default.createElement(
 	                                    'td',
-	                                    null,
+	                                    { className: 'filter-name' },
 	                                    'blur'
 	                                ),
 	                                _react2.default.createElement(
@@ -31214,14 +31280,14 @@
 	                                    '0%'
 	                                )
 	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'button',
-	                            { onClick: function onClick() {
-	                                    return _this2.filterReset();
-	                                } },
-	                            'Reset'
 	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'button',
+	                        (_React$createElement = { type: 'button', className: 'btn btn-primary', id: 'update' }, _defineProperty(_React$createElement, 'type', 'submit'), _defineProperty(_React$createElement, 'onClick', function onClick() {
+	                            return _this2.updateImage(_this2.props.image.id);
+	                        }), _React$createElement),
+	                        ' Save changes '
 	                    )
 	                )
 	            );
@@ -31287,7 +31353,7 @@
 	                    { className: 'login-form' },
 	                    _react2.default.createElement(
 	                        'form',
-	                        { action: 'http://localhost:5000/auth/login', method: 'post' },
+	                        { action: '/auth/login', method: 'post' },
 	                        _react2.default.createElement(
 	                            'h2',
 	                            { className: 'text-center' },
@@ -31298,7 +31364,7 @@
 	                            { className: 'text-center social-btn' },
 	                            _react2.default.createElement(
 	                                'a',
-	                                { href: 'http://localhost:5000/auth/google', id: 'google', className: 'btn btn-danger btn-block' },
+	                                { href: '/auth/google', id: 'google', className: 'btn btn-danger btn-block' },
 	                                _react2.default.createElement('i', { className: 'fa fa-google' }),
 	                                ' Sign in with ',
 	                                _react2.default.createElement(
@@ -31309,7 +31375,7 @@
 	                            ),
 	                            _react2.default.createElement(
 	                                'a',
-	                                { href: 'http://localhost:5000/auth/twitter', id: 'twitter', className: 'btn btn-info btn-block' },
+	                                { href: '/auth/twitter', id: 'twitter', className: 'btn btn-info btn-block' },
 	                                _react2.default.createElement('i', { className: 'fa fa-twitter' }),
 	                                ' Sign in with ',
 	                                _react2.default.createElement(
@@ -31320,7 +31386,7 @@
 	                            ),
 	                            _react2.default.createElement(
 	                                'a',
-	                                { href: 'http://localhost:5000/auth/github', id: 'github', className: 'btn btn-primary btn-block' },
+	                                { href: '/auth/github', id: 'github', className: 'btn btn-primary btn-block' },
 	                                _react2.default.createElement('i', { className: 'fa fa-github' }),
 	                                ' Sign in with ',
 	                                _react2.default.createElement(
