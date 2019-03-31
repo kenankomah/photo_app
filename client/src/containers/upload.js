@@ -1,10 +1,32 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router';
+import {connect} from 'react-redux';
+import ImagesReducer from '../reducers/reducer_images';
 
 class FileUpload extends Component {
   state = {
     selectedFile:null
+  }
+
+  imageData = () => {
+    ImagesReducer().payload
+   .then(posts => {
+       const arr = [];
+       posts.map( el => {
+       arr.push({src:el.src, dates:el.dates, id:el._id, mongoId:el.mongoId, filter: el.filter});
+     })
+   //load is an action
+    const load =  {
+       type:'IMAGE_LIST',
+       payload: arr
+    }
+
+     this.props.actionArr(load);
+     //console.log(load.payload)
+
+   });
+
   }
 
   showMessage = mode =>{
@@ -109,6 +131,7 @@ class FileUpload extends Component {
             this.filerClearer();
             // console.log(this.state.selectedFile);
             console.log(res.data.msg);
+            this.imageData();
         }).catch(error => console.log(error));
     } else{
       messagePanel.innerHTML = "Select an image before uploading";      
@@ -186,4 +209,19 @@ class FileUpload extends Component {
   }
 }
 
-export default FileUpload;
+function mapStateToProps(state) {
+  return {
+    images: state.images      
+  };
+}
+
+
+function mapDispatchToProps(dispatch){ 
+   return {
+          actionArr : function (actionArr) {return dispatch(actionArr)}       
+    }
+  }
+
+export default connect(mapStateToProps, mapDispatchToProps)(FileUpload);
+
+//export default FileUpload;

@@ -273,7 +273,7 @@ app.post('/upload', (req, res) =>{
                newImage.src = req.file.location;
                newImage.dates = dateTime.toLocaleString();
                newImage.mongoId = req.user.id || req.user._id;
-               newImage.filter = "filter:none;"
+               newImage.filter = "grayscale(0%) invert(0%) sepia(0%) contrast(100%) brightness(1) hue-rotate(0deg) saturate(1) blur(0px)";
                newImage.save();               
            }
        }

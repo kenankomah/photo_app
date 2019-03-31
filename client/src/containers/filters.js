@@ -71,7 +71,7 @@ class ImageFilter extends Component {
      }
 
       updateImage(imageId){
-        const imgfilter = document.querySelector('#filter-container img').style.filter || "filter:none;";
+        const imgfilter = document.querySelector('#filter-container img').style.filter; 
 
         const post = {
            filter:imgfilter
@@ -96,9 +96,7 @@ class ImageFilter extends Component {
       }
 
       componentDidMount(){
-        const filter = this.props.image.filter;
-        
-        if(filter.split(' ').length > 1){
+          const filter = this.props.image.filter;
             document.querySelectorAll('#filter-table td')[2].innerText = filter.split(' ')[0].replace(/[^0-9.]/g,"") + "%";
             document.querySelectorAll('#filter-table td')[5].innerText = filter.split(' ')[1].replace(/[^0-9.]/g,"") + "%";
             document.querySelectorAll('#filter-table td')[8].innerText = filter.split(' ')[2].replace(/[^0-9.]/g,"") + "%";
@@ -117,9 +115,8 @@ class ImageFilter extends Component {
             document.querySelectorAll("input[type=range]")[5].value = filter.split(' ')[5].replace(/[^0-9.]/g,"");
             document.querySelectorAll("input[type=range]")[6].value = (filter.split(' ')[6].replace(/[^0-9.]/g,"")/5)*100;
             document.querySelectorAll("input[type=range]")[7].value = filter.split(' ')[7].replace(/[^0-9.]/g,"") * 10;
-        }   
-      }
-    
+          
+     }   
 
  
     render(){
@@ -206,5 +203,8 @@ function mapStateToProps(state) {
 
 
 export default connect(mapStateToProps)(ImageFilter);
+
+
+
 
 

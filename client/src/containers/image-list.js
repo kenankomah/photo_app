@@ -8,14 +8,11 @@ import IdExport from '../reducers/id_export';
 import Upload from './upload';
 import Profile from './profile';
 import Footer from './footer';
-
-IdExport();
  
 class ImageList extends Component {
 
    renderList(){
-
-   return this.props.images.map((image) => {
+    return this.props.images.map((image) => {
       const select_image = {
         type:'IMAGE_SELECTED',
         payload: image
@@ -32,18 +29,8 @@ class ImageList extends Component {
     });
   }
 
-  // redirect(){
-  //   window.location.assign('http://localhost:8000/upload_image');
-  // }
-
-  // loggout(){
-  //   localStorage.removeItem('loggedIn');
-  // } 
-
-  render(){
-  //console.log(this.props.activeUser)  
-    const test2 = () => {
-      IdExport().payload
+  componentDidMount(){
+     IdExport().payload
      .then(activeUserInfo => {
          const userData =  {
             type:'USER_DATA',
@@ -51,31 +38,24 @@ class ImageList extends Component {
          }
          this.props.userDetails(userData);
       });
-    }
-
-   test2();
-
-   const test = () => {
-     ImagesReducer().payload
-    .then(posts => {
+ 
+    ImagesReducer().payload
+      .then(posts => {
         const arr = [];
         posts.map( el => {
         arr.push({src:el.src, dates:el.dates, id:el._id, mongoId:el.mongoId, filter: el.filter});
-      })
+      });
+
     //load is an action
      const load =  {
         type:'IMAGE_LIST',
         payload: arr
      }
-
-      this.props.actionArr(load);
-      //console.log(load.payload)
-
+      this.props.actionArr(load);      
     });
-
-   }
-   test();
-  
+  }
+   
+  render(){  
      return (
        <div id="home">
         <span></span>
@@ -89,7 +69,7 @@ class ImageList extends Component {
           {this.renderList()}
         </div> 
         {/* <div id="pillar"></div> */}
-        <Footer />   
+        {/* <Footer />    */}
       </div>
     )
   }
