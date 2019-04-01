@@ -26907,8 +26907,6 @@
 	//import { selectImage } from '../actions/index';
 
 
-	(0, _id_export2.default)();
-
 	var ImageList = function (_Component) {
 	  _inherits(ImageList, _Component);
 
@@ -26943,51 +26941,36 @@
 	        );
 	      });
 	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this3 = this;
 
-	    // redirect(){
-	    //   window.location.assign('http://localhost:8000/upload_image');
-	    // }
+	      (0, _id_export2.default)().payload.then(function (activeUserInfo) {
+	        var userData = {
+	          type: 'USER_DATA',
+	          payload: activeUserInfo
+	        };
+	        _this3.props.userDetails(userData);
+	      });
 
-	    // loggout(){
-	    //   localStorage.removeItem('loggedIn');
-	    // } 
+	      (0, _reducer_images2.default)().payload.then(function (posts) {
+	        var arr = [];
+	        posts.map(function (el) {
+	          arr.push({ src: el.src, dates: el.dates, id: el._id, mongoId: el.mongoId, filter: el.filter });
+	        });
 
+	        //load is an action
+	        var load = {
+	          type: 'IMAGE_LIST',
+	          payload: arr
+	        };
+	        _this3.props.actionArr(load);
+	      });
+	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this3 = this;
-
-	      //console.log(this.props.activeUser)  
-	      var test2 = function test2() {
-	        (0, _id_export2.default)().payload.then(function (activeUserInfo) {
-	          var userData = {
-	            type: 'USER_DATA',
-	            payload: activeUserInfo
-	          };
-	          _this3.props.userDetails(userData);
-	        });
-	      };
-
-	      test2();
-
-	      var test = function test() {
-	        (0, _reducer_images2.default)().payload.then(function (posts) {
-	          var arr = [];
-	          posts.map(function (el) {
-	            arr.push({ src: el.src, dates: el.dates, id: el._id, mongoId: el.mongoId, filter: el.filter });
-	          });
-	          //load is an action
-	          var load = {
-	            type: 'IMAGE_LIST',
-	            payload: arr
-	          };
-
-	          _this3.props.actionArr(load);
-	          //console.log(load.payload)
-	        });
-	      };
-	      test();
-
 	      return _react2.default.createElement(
 	        'div',
 	        { id: 'home' },
@@ -27007,8 +26990,7 @@
 	          'div',
 	          { className: 'picture-grid' },
 	          this.renderList()
-	        ),
-	        _react2.default.createElement(_footer2.default, null)
+	        )
 	      );
 	    }
 	  }]);
@@ -27119,6 +27101,12 @@
 
 	var _reactRouter = __webpack_require__(198);
 
+	var _reactRedux = __webpack_require__(160);
+
+	var _reducer_images = __webpack_require__(257);
+
+	var _reducer_images2 = _interopRequireDefault(_reducer_images);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -27143,6 +27131,21 @@
 
 	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = FileUpload.__proto__ || Object.getPrototypeOf(FileUpload)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
 	      selectedFile: null
+	    }, _this.imageData = function () {
+	      (0, _reducer_images2.default)().payload.then(function (posts) {
+	        var arr = [];
+	        posts.map(function (el) {
+	          arr.push({ src: el.src, dates: el.dates, id: el._id, mongoId: el.mongoId, filter: el.filter });
+	        });
+	        //load is an action
+	        var load = {
+	          type: 'IMAGE_LIST',
+	          payload: arr
+	        };
+
+	        _this.props.actionArr(load);
+	        //console.log(load.payload)
+	      });
 	    }, _this.showMessage = function (mode) {
 	      var el = void 0;
 	      if (mode === "message") {
@@ -27225,6 +27228,7 @@
 	          _this.filerClearer();
 	          // console.log(this.state.selectedFile);
 	          console.log(res.data.msg);
+	          _this.imageData();
 	        }).catch(function (error) {
 	          return console.log(error);
 	        });
@@ -27377,7 +27381,23 @@
 	  return FileUpload;
 	}(_react.Component);
 
-	exports.default = FileUpload;
+	function mapStateToProps(state) {
+	  return {
+	    images: state.images
+	  };
+	}
+
+	function mapDispatchToProps(dispatch) {
+	  return {
+	    actionArr: function actionArr(_actionArr) {
+	      return dispatch(_actionArr);
+	    }
+	  };
+	}
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(FileUpload);
+
+	//export default FileUpload;
 
 /***/ }),
 /* 260 */
@@ -29376,26 +29396,21 @@
 	          this.props.image.dates.split(" ")[1],
 	          _react2.default.createElement('br', null),
 	          _react2.default.createElement(
-	            'svg',
-	            { className: 'icon_bin', onClick: function onClick() {
+	            'button',
+	            { onClick: function onClick() {
 	                return _this2.submit(_this2.props.image.id);
-	              }, x: '0px', y: '0px',
-	              viewBox: '0 0 512 512', 'enable-background': 'new 0 0 512 512' },
-	            _react2.default.createElement('rect', { x: '166.4', y: '230.4', width: '25.6', height: '204.8' }),
-	            _react2.default.createElement('rect', { x: '243.2', y: '230.4', width: '25.6', height: '204.8' }),
-	            _react2.default.createElement('rect', { x: '320', y: '230.4', width: '25.6', height: '204.8' }),
-	            _react2.default.createElement('path', { d: 'M422.4,51.2H320V25.6C320,11.46,308.54,0,294.4,0h-76.8C203.46,0,192,11.46,192,25.6v25.6H89.6\r C75.46,51.2,64,62.66,64,76.8V128c0,14.14,11.46,25.6,25.6,25.6v332.8c0,14.14,11.46,25.6,25.6,25.6h281.6\r c14.14,0,25.6-11.46,25.6-25.6V153.6c14.14,0,25.6-11.46,25.6-25.6V76.8C448,62.66,436.54,51.2,422.4,51.2z M217.6,25.6h76.8v25.6\r h-76.8V25.6z M396.8,486.4H115.2V153.6h281.6V486.4z M422.4,128H89.6V76.8h332.8V128z' })
+	              }, className: 'btn btn-primary ' },
+	            _react2.default.createElement('i', { className: 'fa fa-trash' }),
+	            ' Delete Image'
 	          ),
 	          _react2.default.createElement(
 	            _reactRouter.Link,
 	            { to: '/filters' },
 	            _react2.default.createElement(
-	              'svg',
-	              { version: '1.1', id: 'icon_edit', xmlns: 'http://www.w3.org/2000/svg', x: '0px', y: '0px',
-	                viewBox: '0 0 490.273 490.273', 'enable-background': 'new 0 0 490.273 490.273;' },
-	              _react2.default.createElement('path', { d: 'M313.548,152.387l-230.8,230.9c-6.7,6.7-6.7,17.6,0,24.3c3.3,3.3,7.7,5,12.1,5s8.8-1.7,12.1-5l230.8-230.8\r c6.7-6.7,6.7-17.6,0-24.3C331.148,145.687,320.248,145.687,313.548,152.387z' }),
-	              _react2.default.createElement('path', { d: 'M431.148,191.887c4.4,0,8.8-1.7,12.1-5l25.2-25.2c29.1-29.1,29.1-76.4,0-105.4l-34.4-34.4\r c-14.1-14.1-32.8-21.8-52.7-21.8c-19.9,0-38.6,7.8-52.7,21.8l-25.2,25.2c-6.7,6.7-6.7,17.6,0,24.3l115.6,115.6\r C422.348,190.187,426.748,191.887,431.148,191.887z M352.948,45.987c7.6-7.6,17.7-11.8,28.5-11.8c10.7,0,20.9,4.2,28.5,11.8\r l34.4,34.4c15.7,15.7,15.7,41.2,0,56.9l-13.2,13.2l-91.4-91.4L352.948,45.987z' }),
-	              _react2.default.createElement('path', { d: 'M162.848,467.187l243.5-243.5c6.7-6.7,6.7-17.6,0-24.3s-17.6-6.7-24.3,0l-239.3,239.5l-105.6,14.2l14.2-105.6\r l228.6-228.6c6.7-6.7,6.7-17.6,0-24.3c-6.7-6.7-17.6-6.7-24.3,0l-232.6,232.8c-2.7,2.7-4.4,6.1-4.9,9.8l-18,133.6\r c-0.7,5.3,1.1,10.6,4.9,14.4c3.2,3.2,7.6,5,12.1,5c0.8,0,1.5-0.1,2.3-0.2l133.6-18\r C156.748,471.587,160.248,469.887,162.848,467.187z' })
+	              'button',
+	              { className: 'btn btn-primary' },
+	              _react2.default.createElement('i', { className: 'fa fa-edit' }),
+	              ' Add Filters'
 	            )
 	          )
 	        )
@@ -31013,7 +31028,7 @@
 	    }, {
 	        key: 'updateImage',
 	        value: function updateImage(imageId) {
-	            var imgfilter = document.querySelector('#filter-container img').style.filter || "filter:none;";
+	            var imgfilter = document.querySelector('#filter-container img').style.filter;
 
 	            var post = {
 	                filter: imgfilter
@@ -31045,26 +31060,23 @@
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
 	            var filter = this.props.image.filter;
+	            document.querySelectorAll('#filter-table td')[2].innerText = filter.split(' ')[0].replace(/[^0-9.]/g, "") + "%";
+	            document.querySelectorAll('#filter-table td')[5].innerText = filter.split(' ')[1].replace(/[^0-9.]/g, "") + "%";
+	            document.querySelectorAll('#filter-table td')[8].innerText = filter.split(' ')[2].replace(/[^0-9.]/g, "") + "%";
+	            document.querySelectorAll('#filter-table td')[11].innerText = filter.split(' ')[3].replace(/[^0-9.]/g, "") / 2 + "%";
+	            document.querySelectorAll('#filter-table td')[14].innerText = filter.split(' ')[4].replace(/[^0-9.]/g, "") / 2 * 100 + "%";
+	            document.querySelectorAll('#filter-table td')[17].innerText = (filter.split(' ')[5].replace(/[^0-9.]/g, "") / 360 * 100).toFixed(0) + "%";
+	            document.querySelectorAll('#filter-table td')[20].innerText = (filter.split(' ')[6].replace(/[^0-9.]/g, "") / 5 * 100).toFixed(0) + "%";
+	            document.querySelectorAll('#filter-table td')[23].innerText = filter.split(' ')[7].replace(/[^0-9.]/g, "") * 20 + "%";
 
-	            if (filter.split(' ').length > 1) {
-	                document.querySelectorAll('#filter-table td')[2].innerText = filter.split(' ')[0].replace(/[^0-9.]/g, "") + "%";
-	                document.querySelectorAll('#filter-table td')[5].innerText = filter.split(' ')[1].replace(/[^0-9.]/g, "") + "%";
-	                document.querySelectorAll('#filter-table td')[8].innerText = filter.split(' ')[2].replace(/[^0-9.]/g, "") + "%";
-	                document.querySelectorAll('#filter-table td')[11].innerText = filter.split(' ')[3].replace(/[^0-9.]/g, "") / 2 + "%";
-	                document.querySelectorAll('#filter-table td')[14].innerText = filter.split(' ')[4].replace(/[^0-9.]/g, "") / 2 * 100 + "%";
-	                document.querySelectorAll('#filter-table td')[17].innerText = (filter.split(' ')[5].replace(/[^0-9.]/g, "") / 360 * 100).toFixed(0) + "%";
-	                document.querySelectorAll('#filter-table td')[20].innerText = (filter.split(' ')[6].replace(/[^0-9.]/g, "") / 5 * 100).toFixed(0) + "%";
-	                document.querySelectorAll('#filter-table td')[23].innerText = filter.split(' ')[7].replace(/[^0-9.]/g, "") * 20 + "%";
-
-	                document.querySelectorAll("input[type=range]")[0].value = filter.split(' ')[0].replace(/[^0-9.]/g, "");
-	                document.querySelectorAll("input[type=range]")[1].value = filter.split(' ')[1].replace(/[^0-9.]/g, "");
-	                document.querySelectorAll("input[type=range]")[2].value = filter.split(' ')[2].replace(/[^0-9.]/g, "");
-	                document.querySelectorAll("input[type=range]")[3].value = filter.split(' ')[3].replace(/[^0-9.]/g, "");
-	                document.querySelectorAll("input[type=range]")[4].value = filter.split(' ')[4].replace(/[^0-9.]/g, "") / 2 * 100;
-	                document.querySelectorAll("input[type=range]")[5].value = filter.split(' ')[5].replace(/[^0-9.]/g, "");
-	                document.querySelectorAll("input[type=range]")[6].value = filter.split(' ')[6].replace(/[^0-9.]/g, "") / 5 * 100;
-	                document.querySelectorAll("input[type=range]")[7].value = filter.split(' ')[7].replace(/[^0-9.]/g, "") * 10;
-	            }
+	            document.querySelectorAll("input[type=range]")[0].value = filter.split(' ')[0].replace(/[^0-9.]/g, "");
+	            document.querySelectorAll("input[type=range]")[1].value = filter.split(' ')[1].replace(/[^0-9.]/g, "");
+	            document.querySelectorAll("input[type=range]")[2].value = filter.split(' ')[2].replace(/[^0-9.]/g, "");
+	            document.querySelectorAll("input[type=range]")[3].value = filter.split(' ')[3].replace(/[^0-9.]/g, "");
+	            document.querySelectorAll("input[type=range]")[4].value = filter.split(' ')[4].replace(/[^0-9.]/g, "") / 2 * 100;
+	            document.querySelectorAll("input[type=range]")[5].value = filter.split(' ')[5].replace(/[^0-9.]/g, "");
+	            document.querySelectorAll("input[type=range]")[6].value = filter.split(' ')[6].replace(/[^0-9.]/g, "") / 5 * 100;
+	            document.querySelectorAll("input[type=range]")[7].value = filter.split(' ')[7].replace(/[^0-9.]/g, "") * 10;
 	        }
 	    }, {
 	        key: 'render',
