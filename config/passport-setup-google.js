@@ -23,7 +23,8 @@ passport.use(
      //options for the google strat
      callbackURL:'/auth/google/redirect',
      clientID:process.env.clientID,
-     clientSecret:process.env.clientSecret
+     clientSecret:process.env.clientSecret,
+     userProfileURL: 'https://www.googleapis.com/oauth2/v3/userinfo'
   }, (accessToken, refreshToken, profile, done) => {
     //passport callback function
     //check if user already exists in database
