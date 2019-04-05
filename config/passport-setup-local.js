@@ -2,8 +2,7 @@ const localStrategy = require('passport-local').Strategy;
 const User = require('../models/user-local-model');
 let passport = require('passport');
 
-//module.exports = function(passport){
-     
+//module.exports = function(passport){     
 
     //adds user to session
     //done is a verified callback

@@ -23,8 +23,7 @@ class FileUpload extends Component {
     }
 
      this.props.actionArr(load);
-     //console.log(load.payload)
-
+  
    });
 
   }

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-//import { selectImage } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import ImagesReducer from '../reducers/reducer_images';
@@ -68,8 +67,7 @@ class ImageList extends Component {
         <div className="picture-grid">
           {this.renderList()}
         </div> 
-        {/* <div id="pillar"></div> */}
-        {/* <Footer />    */}
+       
       </div>
     )
   }
@@ -77,29 +75,22 @@ class ImageList extends Component {
 
 //the actionCreator actionArr dispatches the array arr to the application state and then mapStateToProps adds to the props
 function mapStateToProps(state) {
-  //console.log(state.activeUser)
   return {
     images: state.images,
     activeUser: state.activeUser
   };
 }
 
-//const selectImg = selectImage();
 
-//console.log(selectImg);
 
 //Anything returned from this function will end up as props on the ImageList container
-function mapDispatchToProps(dispatch){ //second selectImage is the one thatwas imported above.
-  //Whenever selectImage is called the result should be passed to all of our reducers
-  //return bindActionCreators({ selectImage: selectImage, actionArr : actionArr }, dispatch);
+function mapDispatchToProps(dispatch){ 
    return {
       selectImage: function (selectImg) {return dispatch(selectImg)},
       actionArr : function (actionArr) {return dispatch(actionArr)},
       userDetails : function (userDetails) {return dispatch(userDetails)}
     }
   }
-//the dispatch gets the results of the selectImage (i.e. the action) call and spits it back out to all the reducers in the application.
-//To promote ImageList from a component to a container - it needs to know about this new dispatch method, selectImage.
-//To make it available as a prop.
+
 export default connect(mapStateToProps, mapDispatchToProps)(ImageList);
-//Highly recommends referencing the react-redux documentation
+

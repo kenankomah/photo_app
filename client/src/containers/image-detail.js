@@ -5,8 +5,7 @@ import { Link } from 'react-router';
 import Upload from './upload';
 import Profile from './profile';
 import Footer from './footer';
-import { confirmAlert } from 'react-confirm-alert'; // Import
-//import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
+import { confirmAlert } from 'react-confirm-alert'; 
 
 
 class ImageDetail extends Component {
@@ -69,7 +68,6 @@ class ImageDetail extends Component {
 
   imageSlider(direction){
     let imageSrc = document.getElementById("detail-img").src;
-    //console.log(this.returnIndex(imageSrc));
     let index = this.returnIndex(imageSrc);    
     this.props.images.length; 
     
@@ -108,15 +106,12 @@ class ImageDetail extends Component {
     //code below runs when the component is rendered
     this.controlButtons();
     this.imageSlider();
-    //document.querySelector('footer').style.top =  "412px";//(window.innerHeight - 110)  + "px";
   }
 
   render(){
     if(!this.props.image){
       window.location.assign('/');
     }
-
-    //console.log("image_testttttttttttttttttt",this.props.image);
 
     return (
       <div id="detail-container">
@@ -162,14 +157,13 @@ class ImageDetail extends Component {
             </Link>
          </div>
 
-                  {/* <Footer/> */}
+                  
                 </div>
               );
             }
           }
 
 function mapStateToProps(state) {
-  //console.log(state.activeImage);
   return {
     image: state.activeImage,
     images: state.images
@@ -182,8 +176,4 @@ function mapDispatchToProps(dispatch){
    }   
 }
 
-
 export default connect(mapStateToProps, mapDispatchToProps)(ImageDetail);
-
-//export default connect(mapStateToProps)(ImageDetail);
-

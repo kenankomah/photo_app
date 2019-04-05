@@ -23,27 +23,16 @@ const passport = require('passport');
 const passportSetup_local = require('./config/passport-setup-local');
 const passportSetup = require('./config/passport-setup-google');
 const passportSetup_twitter = require('./config/passport-setup-twitter');
- const passportSetup_github = require('./config/passport-setup-github');
+const passportSetup_github = require('./config/passport-setup-github');
 
-
-// app.post('/authent/login', (req, res) =>{
-//   console.log("testtesttesttest")
-// });
 
 const cookieSession = require('cookie-session');
 
-//console.log(passport); 
 
-
-//require('./config/passport-setup-local')(passport);
 //for passport local
 var createError = require('http-errors');//
 var session = require('express-session');//
 var logger = require('morgan');//
-
-// view engine setup
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'ejs');
 
 
 const port = process.env.PORT || 5000; 
@@ -85,7 +74,6 @@ app.get('/images/:id',function(req, res){
 
 //image update
 app.put('/image/:id', function(req, res){
-  //console.log(req.body.filter)
    Image.findOneAndUpdate({
      _id:req.params.id
    },
@@ -172,17 +160,6 @@ app.delete('/image/:id', function(req, res){
 
 
 /****************************************************************** OAuth Login system code ****************************************************************************/
-
-// set up view engine
-
-
-//SECRET MUST BE ADDED TO .ENV!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// app.use(session({
-//   secret:'thesecret',
-//   saveUninitialized:false,
-//   resave: false
-// }))
-
 
 
 //encrypts cookie and sets it's lifespan
@@ -289,10 +266,10 @@ app.use(function (err, req, res, next) {
   //res.status(500).send('Something broke!')
 })
 
-
-// app.use(function (req, res, next) {
-//   res.status(404).send(pageNotFound);
-// })
+// catch 404 errors
+app.use(function (req, res, next) {
+  res.status(404).send(pageNotFound);
+})
 
 
 
@@ -306,11 +283,6 @@ var usersRouter = require('./routes/users');
 var authRouter = require('./routes/auth-routes-local')(passport);
 
 
-
-// view engine setup
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'ejs');
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -318,28 +290,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 
-
-
-
 app.use('/', indexRouter);
 app.use('/users2', usersRouter);
 app.use('/authent', authRouter);
 
-// catch 404 and forward to error handler
-// app.use(function(req, res, next) {
-//   next(createError(404));
-// });
-
-// error handler
-// app.use(function(err, req, res, next) {
-//   // set locals, only providing error in development
-//   res.locals.message = err.message;
-//   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-//   // render the error page
-//   res.status(err.status || 500);
-//   res.render('error');
-// });
 
 
 app.listen(port, function(){

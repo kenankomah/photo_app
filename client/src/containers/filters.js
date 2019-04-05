@@ -42,7 +42,6 @@ class ImageFilter extends Component {
     };
 
     
-    // document.querySelector('button').addEventListener("click", function(){
     filterReset(){
         console.log(this.props.image);
         const img = document.querySelector('#filter-container img');
@@ -186,9 +185,7 @@ class ImageFilter extends Component {
                         
                     </div>
                     <button type="button" className="btn btn-primary" id ="update" type="submit" onClick={() =>this.updateImage(this.props.image.id)} > Save changes </button>
-                </div>
-                
-                 
+                </div>      
             </div>
         )
     }

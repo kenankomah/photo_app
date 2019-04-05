@@ -31,7 +31,6 @@ passport.use(
     User.findOne({userId:profile.id}).then((currentUser)=>{
       if(currentUser){
         //already have the user
-    //s    console.log('user is:' + currentUser);
         done(null, currentUser);
       }else {
         //if not create user in our db

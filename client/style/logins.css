@@ -99,7 +99,7 @@ body, html {
 }
 
 .bg {
-	background-image: url(../src/pics/photo-1502481851512-e9e2529bfbf9.jpg);        
+	background-image: url(../assets/photo-1502481851512-e9e2529bfbf9.jpg);        
 	height: 100%;
 	/* Center and scale the image nicely */
 	background-position: center;

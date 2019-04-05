@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 
 
-//const Profile = () => { 
 
 class Profile extends Component {    
     loggout(){
@@ -40,10 +39,9 @@ class Profile extends Component {
     }       
 }
 
-//export default Profile;
+
 
 function mapStateToProps(state) {
-    //console.log(state.activeUser);
     return {     
       activeUser: state.activeUser
     };
