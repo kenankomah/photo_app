@@ -1,12 +1,6 @@
 const router = require('express').Router();
 const passport = require('passport');
 
-//auth login
-router.get('/login', (req, res) =>{
-  //EJS CODE SO MUST BE UPDATED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
- // res.render('login',{user:req.user});
-});
-
 //auth logout
 router.get('/logout', (req, res)=>{
   console.log({user:req.user});
@@ -14,8 +8,6 @@ router.get('/logout', (req, res)=>{
   req.logout();
   res.redirect('/');
 });
-
-
 
 
 // auth with google
@@ -28,21 +20,6 @@ router.get('/google/redirect', passport.authenticate('google'),(req, res) => {
    res.redirect('/');
 });
 
-
-
-
-
-// auth with facebook
-//router.get('/facebook', passport.authenticate('facebook'));
-
-// callback route for google to redirect to
-// router.get('/facebook/redirect', passport.authenticate('facebook'),(req, res) => {
-//    res.redirect('/');
-// });
-
-
-
-
 // auth with twitter
 router.get('/twitter', passport.authenticate('twitter'));
 
@@ -50,8 +27,6 @@ router.get('/twitter', passport.authenticate('twitter'));
 router.get('/twitter/redirect', passport.authenticate('twitter'),(req, res) => {
    res.redirect('/');
 });
-
-
 
 // auth with GitHub
 router.get('/github', passport.authenticate('github'));

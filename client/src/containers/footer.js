@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 if(document.querySelector("footer")){
     document.querySelector("footer").classList.add("footer-position");
 }
-//alert("it's working!!")
 
 const Footer = ()=> {
     return(

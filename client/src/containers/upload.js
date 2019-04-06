@@ -128,8 +128,6 @@ class FileUpload extends Component {
             messagePanel.innerHTML = "Done!";
            }
             this.filerClearer();
-            // console.log(this.state.selectedFile);
-            console.log(res.data.msg);
             this.imageData();
         }).catch(error => console.log(error));
     } else{
@@ -222,5 +220,3 @@ function mapDispatchToProps(dispatch){
   }
 
 export default connect(mapStateToProps, mapDispatchToProps)(FileUpload);
-
-//export default FileUpload;

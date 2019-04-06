@@ -1,8 +1,7 @@
-var express = require('express');
-var router = express.Router();
-//var UserId = require('./index');
+const express = require('express');
+const router = express.Router();
 
-var loggedin = function(req, res, next){
+const loggedin = function(req, res, next){
     console.log('isAuthenticated');
   //returns a boolean, true if logged in and false if not
   if(req.isAuthenticated()){
@@ -13,7 +12,7 @@ var loggedin = function(req, res, next){
     console.log('isNotAuthenticated');
   }
 }
-console.log('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
+
 
 router.get('/login', function(req, res, next) {
  console.log('loginloginlogin');
@@ -25,11 +24,8 @@ router.get('/signup', function(req, res, next) {
 });
 
 router.get('/profile',loggedin, function(req, res, next) {
-    console.log("profileprofileprofileprofile");
-
-  var ts = Date.now() + 24*60*60*1000;
-  var exp = new Date(ts).toISOString();
- // req.session.cookie.expires =  exp;
+  const ts = Date.now() + 24*60*60*1000;
+  const exp = new Date(ts).toISOString();
   console.log(req.user);
   res.send(req.session);
 });

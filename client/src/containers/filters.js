@@ -65,8 +65,6 @@ class ImageFilter extends Component {
         document.querySelectorAll("input[type=range]")[7].value = 0;
         
         img.style.filter = "none";
-
-    // })
      }
 
       updateImage(imageId){

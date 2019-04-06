@@ -30,9 +30,9 @@ const cookieSession = require('cookie-session');
 
 
 //for passport local
-var createError = require('http-errors');//
-var session = require('express-session');//
-var logger = require('morgan');//
+const createError = require('http-errors');//
+const session = require('express-session');//
+const logger = require('morgan');//
 
 
 const port = process.env.PORT || 5000; 
@@ -142,9 +142,9 @@ app.delete('/image/:id', function(req, res){
       res.send('error deleting')
     }else{
       console.log(image.src);
-      var key = image.src.split('.com/')[1];
+      const key = image.src.split('.com/')[1];
 
-      var params = {
+      const params = {
           Bucket: "image-gallery1", 
           Key: key
       };
@@ -194,7 +194,7 @@ app.get('/images', (req, res)=>{
      }else{
        //filters the images array to only those that have a matching user id    
        if(req.user){
-          var userId = req.user.id || req.user._id
+          const userId = req.user.id || req.user._id
           const filteredImages = images.filter((el)=>{            
           return userId == el.mongoId;
         });
@@ -278,9 +278,9 @@ app.use(function (req, res, next) {
 
 
 
-var indexRouter= require('./routes/index');
-var usersRouter = require('./routes/users');
-var authRouter = require('./routes/auth-routes-local')(passport);
+const indexRouter= require('./routes/index');
+const usersRouter = require('./routes/users');
+const authRouter = require('./routes/auth-routes-local')(passport);
 
 
 app.use(logger('dev'));

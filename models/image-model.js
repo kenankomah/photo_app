@@ -1,7 +1,7 @@
-var mongoose=require('mongoose');
-var Schema=mongoose.Schema;
+const mongoose=require('mongoose');
+const Schema=mongoose.Schema;
 
-var ImageSchema = new Schema({
+const ImageSchema = new Schema({
     src:String,
     dates:String,
     mongoId:String,

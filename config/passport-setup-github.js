@@ -2,7 +2,6 @@ const dotenv = require('dotenv');
 dotenv.config();
 const passport = require('passport');
 const GoogleStrategy = require('passport-github');
-//const keys = require('./keys');
 const User = require('../models/user-models');
 
 passport.serializeUser((user, done)=>{
@@ -30,7 +29,7 @@ passport.use(
     User.findOne({userId:profile.id}).then((currentUser)=>{
       if(currentUser){
         //already have the user
-      //  console.log('user is:' + currentUser);
+        //console.log('user is:' + currentUser);
         done(null, currentUser);
       }else {
         //if not create user in our db

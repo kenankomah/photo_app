@@ -67,8 +67,8 @@ ImagesReducer().payload
   );
 
   if(document.cookie.includes("gallery_session=true")){
-    const loader = <img id="loader" src='../assets/wait.gif'></img>
-    ReactDOM.render(loader, document.querySelector('.app-container'));   
+      const loader = <img id="loader" src='../assets/wait.gif'></img>
+      ReactDOM.render(loader, document.querySelector('.app-container'));   
   }else{
       ReactDOM.render(React.createElement(logins), document.querySelector('.app-container'));
   }
