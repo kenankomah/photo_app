@@ -1,11 +1,23 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-
-import App from './components/app';
+import {Component} from 'react';
+//import App from './components/app';
 import ImageDetail from './containers/image-detail';
 import ImageList from './containers/image-list';
 import Upload from './containers/upload';
 import Filters from './containers/filters';
+
+
+class App extends Component {
+  //this.props.children is used to render any child element in the Router
+  render() {
+    return (
+      <div>
+         {this.props.children}
+      </div>
+    );
+  }
+}
 
 
 export default (

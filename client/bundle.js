@@ -71,55 +71,48 @@
 
 	var _routes2 = _interopRequireDefault(_routes);
 
-	var _logins = __webpack_require__(301);
+	var _logins = __webpack_require__(299);
 
 	var _logins2 = _interopRequireDefault(_logins);
 
-	var _app = __webpack_require__(255);
-
-	var _app2 = _interopRequireDefault(_app);
-
-	var _reducer_images = __webpack_require__(257);
+	var _reducer_images = __webpack_require__(283);
 
 	var _reducer_images2 = _interopRequireDefault(_reducer_images);
 
-	var _reducer_active_image = __webpack_require__(302);
+	var _reducer_active_image = __webpack_require__(300);
 
 	var _reducer_active_image2 = _interopRequireDefault(_reducer_active_image);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	// the function below is a reducer
+	//began on 1/04/2018
 	function returnArray() {
 	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 	  var action = arguments[1];
 
-	  //console.log(action)
 	  if (action.type === 'IMAGE_LIST') {
 	    return action.payload;
 	  }
 	  return state;
 	}
-	//import reducers from './reducers';
-	//began on 1/04/2018
+
+	//import App from './components/app';
 
 
 	function ActiveUser() {
 	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 	  var action = arguments[1];
 
-	  // console.log(action)
 	  if (action.type === 'USER_DATA') {
 	    return action.payload;
 	  }
 	  return state;
 	}
-	console.log((0, _reducer_images2.default)().payload);
+
 	(0, _reducer_images2.default)().payload.then(function (posts) {
 
 	  if (posts) {
-	    //replace local storage with a cookie that has the same life span as Passport's session cookie
-	    //alert("the source");
 	    var d = new Date();
 	    d.setTime(d.getTime() + 24 * 60 * 60 * 1000);
 	    d.toGMTString();
@@ -128,7 +121,6 @@
 	      document.cookie = "gallery_session=true; expires=" + d.toGMTString() + "; path=/";
 	    }
 
-	    //localStorage.setItem('loggedIn',true);
 	    var reducers = (0, _redux.combineReducers)({
 	      images: returnArray,
 	      activeImage: _reducer_active_image2.default,
@@ -138,11 +130,8 @@
 	    document.querySelector('body').classList.remove("bg");
 	    document.querySelector('body').classList.remove("over-flow");
 	    document.querySelector('.overlay').classList.remove("overlay");
-
 	    document.querySelector('body').classList.add("gallery-bg");
-	    // document.querySelector("tr span").parentNode.removeChild(document.querySelector("tr span"));
 
-	    //console.log(reducers);
 	    var createStoreWithMiddleware = (0, _redux.applyMiddleware)()(_redux.createStore);
 	    _reactDom2.default.render(_react2.default.createElement(
 	      _reactRedux.Provider,
@@ -158,12 +147,6 @@
 	  var loader = _react2.default.createElement('img', { id: 'loader', src: '../assets/wait.gif' });
 	  _reactDom2.default.render(loader, document.querySelector('.app-container'));
 	} else {
-	  // const element = <div>
-	  //     <button className="btn"> <a href="http://localhost:5000/auth/google">Sign in with Google</a> </button> <br></br><br></br>
-	  //     <button className="btn"> <a href="http://localhost:5000/auth/github">Sign in with GitHub</a> </button><br></br><br></br>
-	  //     <button className="btn"> <a href="http://localhost:5000/auth/twitter">Sign in with Twitter</a> </button>
-	  // </div>;
-
 	  _reactDom2.default.render(_react2.default.createElement(_logins2.default), document.querySelector('.app-container'));
 	}
 
@@ -26734,65 +26717,74 @@
 	  value: true
 	});
 
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 	var _react = __webpack_require__(2);
 
 	var _react2 = _interopRequireDefault(_react);
 
 	var _reactRouter = __webpack_require__(198);
 
-	var _app = __webpack_require__(255);
-
-	var _app2 = _interopRequireDefault(_app);
-
-	var _imageDetail = __webpack_require__(288);
+	var _imageDetail = __webpack_require__(255);
 
 	var _imageDetail2 = _interopRequireDefault(_imageDetail);
 
-	var _imageList = __webpack_require__(256);
+	var _imageList = __webpack_require__(295);
 
 	var _imageList2 = _interopRequireDefault(_imageList);
 
-	var _upload = __webpack_require__(259);
+	var _upload = __webpack_require__(256);
 
 	var _upload2 = _interopRequireDefault(_upload);
 
-	var _test = __webpack_require__(299);
-
-	var _test2 = _interopRequireDefault(_test);
-
-	var _filters = __webpack_require__(300);
+	var _filters = __webpack_require__(298);
 
 	var _filters2 = _interopRequireDefault(_filters);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	//import PostsShow from './components/posts_show';
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	//console.log(Login);
-	//  <Route path="greet" component={Greeting} /> // gets passed to App as this.props.children
-	//debugger
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	//import App from './components/app';
+
+
+	var App = function (_Component) {
+	  _inherits(App, _Component);
+
+	  function App() {
+	    _classCallCheck(this, App);
+
+	    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+	  }
+
+	  _createClass(App, [{
+	    key: 'render',
+
+	    //this.props.children is used to render any child element in the Router
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        this.props.children
+	      );
+	    }
+	  }]);
+
+	  return App;
+	}(_react.Component);
+
 	exports.default = _react2.default.createElement(
 	  _reactRouter.Route,
-	  { path: '/', component: _app2.default },
+	  { path: '/', component: App },
 	  ' //any child elements are passed to App as this.props.children',
 	  _react2.default.createElement(_reactRouter.IndexRoute, { component: _imageList2.default }),
 	  _react2.default.createElement(_reactRouter.Route, { path: 'list', component: _imageDetail2.default }),
 	  _react2.default.createElement(_reactRouter.Route, { path: 'upload', component: _upload2.default }),
-	  _react2.default.createElement(_reactRouter.Route, { path: 'test', component: _test2.default }),
 	  _react2.default.createElement(_reactRouter.Route, { path: 'filters', component: _filters2.default })
 	);
-
-	// export default (
-	//   <Route path="/" component={App}> //any child elements are passed to App as this.props.children
-	//     <IndexRoute component={Login} />
-	//     <Route path="list" component={ImageDetail} />
-	//     <Route path="images" component={ImageList} />
-	//   </Route>
-	// );
-
-
-	// "/"  refers to the root directory e.g. homepage
-	// this.props.params.id is passed into the PostsShow component as a prop
 
 /***/ }),
 /* 255 */
@@ -26810,13 +26802,19 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _imageList = __webpack_require__(256);
+	var _reactRedux = __webpack_require__(160);
 
-	var _imageList2 = _interopRequireDefault(_imageList);
+	var _reactRouter = __webpack_require__(198);
 
-	var _imageDetail = __webpack_require__(288);
+	var _upload = __webpack_require__(256);
 
-	var _imageDetail2 = _interopRequireDefault(_imageDetail);
+	var _upload2 = _interopRequireDefault(_upload);
+
+	var _profile = __webpack_require__(284);
+
+	var _profile2 = _interopRequireDefault(_profile);
+
+	var _reactConfirmAlert = __webpack_require__(285);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -26824,36 +26822,237 @@
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } //imports the whole React object from the react file
-	//the use of curly braces meansthat we are only importing a single property
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var App = function (_Component) {
-	  _inherits(App, _Component);
+	var ImageDetail = function (_Component) {
+	  _inherits(ImageDetail, _Component);
 
-	  function App() {
-	    _classCallCheck(this, App);
+	  function ImageDetail() {
+	    var _ref;
 
-	    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+	    var _temp, _this, _ret;
+
+	    _classCallCheck(this, ImageDetail);
+
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ImageDetail.__proto__ || Object.getPrototypeOf(ImageDetail)).call.apply(_ref, [this].concat(args))), _this), _this.submit = function (imageId) {
+	      (0, _reactConfirmAlert.confirmAlert)({
+	        title: '',
+	        message: "Are you sure you want to delete this image?",
+	        buttons: [{
+	          label: 'Yes',
+	          onClick: function onClick() {
+	            return _this.deleteImage(imageId);
+	          }
+	        }, {
+	          label: 'No',
+	          onClick: function onClick() {
+	            return console.log('closed');
+	          }
+	        }]
+	      });
+	    }, _temp), _possibleConstructorReturn(_this, _ret);
 	  }
 
-	  _createClass(App, [{
+	  _createClass(ImageDetail, [{
+	    key: 'deleteImage',
+	    value: function deleteImage(id) {
+	      var newPost = function newPost() {
+	        var options = {
+	          method: 'DELETE',
+	          headers: new Headers({
+	            'Content-Type': 'application/json'
+	          })
+	        };
+
+	        return fetch('/image/' + id, options).then(function (res) {
+	          return res.json();
+	        }).then(function (res) {
+	          return console.log(res);
+	        }).catch(function (error) {
+	          return console.log(error);
+	        });
+	      };
+	      window.location.assign('/');
+	      newPost();
+	    }
+	  }, {
+	    key: 'returnIndex',
+	    value: function returnIndex(imageSrc) {
+	      for (var i = 0; i < this.props.images.length; i++) {
+	        if (this.props.images[i].src === imageSrc) {
+	          return i;
+	        }
+	      }
+	    }
+	  }, {
+	    key: 'updateSource',
+	    value: function updateSource(index) {
+	      document.getElementById("detail-img").src = this.props.images[index].src;
+
+	      var select_image = {
+	        type: 'IMAGE_SELECTED',
+	        payload: this.props.images[index]
+	      };
+	      this.props.selectImage(select_image);
+	    }
+	  }, {
+	    key: 'imageSlider',
+	    value: function imageSlider(direction) {
+	      var imageSrc = document.getElementById("detail-img").src;
+	      var index = this.returnIndex(imageSrc);
+	      this.props.images.length;
+
+	      if (direction === "next" && index !== this.props.images.length - 1) {
+	        index++;
+	        this.controlButtons();
+	      } else if (direction === "previous" && index !== 0) {
+	        index--;
+	        this.controlButtons();
+	      }
+
+	      if (index === this.props.images.length - 1) {
+	        document.getElementById("next").classList.add("inactive");
+	      } else if (index === 0) {
+	        document.getElementById("previous").classList.add("inactive");
+	      } else if (document.querySelector(".inactive")) {
+	        document.getElementById("next").classList.remove("inactive");
+	        document.getElementById("previous").classList.remove("inactive");
+	      }
+
+	      this.updateSource(index);
+	    }
+	  }, {
+	    key: 'controlButtons',
+	    value: function controlButtons() {
+	      //fade in animation
+	      document.getElementById("detail-img").animate({
+	        opacity: [0, 1], // [ from, to ]
+	        color: ["#fff", "#000"] // [ from, to ]
+	      }, 750);
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      //code below runs when the component is rendered
+	      this.controlButtons();
+	      this.imageSlider();
+	    }
+	  }, {
 	    key: 'render',
-
-	    //this.props.children is to render any child element in the Router
-
 	    value: function render() {
+	      var _this2 = this;
+
+	      if (!this.props.image) {
+	        window.location.assign('/');
+	      }
+
 	      return _react2.default.createElement(
 	        'div',
-	        null,
-	        this.props.children
+	        { id: 'detail-container' },
+	        _react2.default.createElement('div', { className: 'container details', id: 'img_details' }),
+	        _react2.default.createElement(
+	          'div',
+	          { id: 'nav-bar' },
+	          _react2.default.createElement(_upload2.default, null),
+	          _react2.default.createElement(_profile2.default, null)
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { id: 'button-div' },
+	          _react2.default.createElement(
+	            'svg',
+	            { onClick: function onClick() {
+	                return _this2.imageSlider("previous");
+	              }, id: 'previous', className: 'slide', xmlns: 'http://www.w3.org/2000/svg', x: '0px', y: '0px', viewBox: '0 0 492 492', 'enable-background': 'new 0 0 492 492' },
+	            _react2.default.createElement('path', { d: 'M198.608,246.104L382.664,62.04c5.068-5.056,7.856-11.816,7.856-19.024c0-7.212-2.788-13.968-7.856-19.032l-16.128-16.12\r C361.476,2.792,354.712,0,347.504,0s-13.964,2.792-19.028,7.864L109.328,227.008c-5.084,5.08-7.868,11.868-7.848,19.084\r c-0.02,7.248,2.76,14.028,7.848,19.112l218.944,218.932c5.064,5.072,11.82,7.864,19.032,7.864c7.208,0,13.964-2.792,19.032-7.864\t\tl16.124-16.12c10.492-10.492,10.492-27.572,0-38.06L198.608,246.104z' })
+	          ),
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: '/' },
+	            _react2.default.createElement(
+	              'button',
+	              { className: 'center-block btn btn-primary', id: 'back-home' },
+	              ' Back to gallery'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'svg',
+	            { onClick: function onClick() {
+	                return _this2.imageSlider("next");
+	              }, id: 'next', className: 'slide', xmlns: 'http://www.w3.org/2000/svg', x: '0px', y: '0px', viewBox: '0 0 492.004 492.004', 'enable-background': 'new 0 0 492.004 492.004' },
+	            _react2.default.createElement('path', { d: 'M382.678,226.804L163.73,7.86C158.666,2.792,151.906,0,144.698,0s-13.968,2.792-19.032,7.86l-16.124,16.12\r c-10.492,10.504-10.492,27.576,0,38.064L293.398,245.9l-184.06,184.06c-5.064,5.068-7.86,11.824-7.86,19.028\r c0,7.212,2.796,13.968,7.86,19.04l16.124,16.116c5.068,5.068,11.824,7.86,19.032,7.86s13.968-2.792,19.032-7.86L382.678,265\r c5.076-5.084,7.864-11.872,7.848-19.088C390.542,238.668,387.754,231.884,382.678,226.804z' })
+	          )
+	        ),
+	        _react2.default.createElement('div', { height: '50px;', className: 'span4' }),
+	        _react2.default.createElement('img', { onload: function onload() {
+	            return _this2.controlButtons();
+	          }, className: 'center-block', id: 'detail-img', src: this.props.image.src, style: { filter: this.props.image.filter } }),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'span4 text-center', id: 'date' },
+	          'Added ',
+	          _react2.default.createElement(
+	            'span',
+	            { className: 'time' },
+	            'on'
+	          ),
+	          ':',
+	          this.props.image.dates.split(" ")[0],
+	          ' ',
+	          _react2.default.createElement(
+	            'span',
+	            { className: 'time' },
+	            'at'
+	          ),
+	          ':',
+	          this.props.image.dates.split(" ")[1],
+	          _react2.default.createElement('br', null),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: function onClick() {
+	                return _this2.submit(_this2.props.image.id);
+	              }, className: 'btn btn-primary ' },
+	            _react2.default.createElement('i', { className: 'fa fa-trash' }),
+	            ' Delete Image'
+	          ),
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: '/filters' },
+	            _react2.default.createElement(
+	              'button',
+	              { className: 'btn btn-primary' },
+	              _react2.default.createElement('i', { className: 'fa fa-edit' }),
+	              ' Add Filters'
+	            )
+	          )
+	        )
 	      );
 	    }
 	  }]);
 
-	  return App;
+	  return ImageDetail;
 	}(_react.Component);
 
-	exports.default = App;
+	function mapStateToProps(state) {
+	  return {
+	    image: state.activeImage,
+	    images: state.images
+	  };
+	}
+
+	function mapDispatchToProps(dispatch) {
+	  return {
+	    selectImage: function selectImage(selectImg) {
+	      return dispatch(selectImg);
+	    }
+	  };
+	}
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(ImageDetail);
 
 /***/ }),
 /* 256 */
@@ -26871,231 +27070,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRedux = __webpack_require__(160);
-
-	var _redux = __webpack_require__(166);
-
-	var _reactRouter = __webpack_require__(198);
-
-	var _reducer_images = __webpack_require__(257);
-
-	var _reducer_images2 = _interopRequireDefault(_reducer_images);
-
-	var _id_export = __webpack_require__(258);
-
-	var _id_export2 = _interopRequireDefault(_id_export);
-
-	var _upload = __webpack_require__(259);
-
-	var _upload2 = _interopRequireDefault(_upload);
-
-	var _profile = __webpack_require__(286);
-
-	var _profile2 = _interopRequireDefault(_profile);
-
-	var _footer = __webpack_require__(287);
-
-	var _footer2 = _interopRequireDefault(_footer);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	//import { selectImage } from '../actions/index';
-
-
-	var ImageList = function (_Component) {
-	  _inherits(ImageList, _Component);
-
-	  function ImageList() {
-	    _classCallCheck(this, ImageList);
-
-	    return _possibleConstructorReturn(this, (ImageList.__proto__ || Object.getPrototypeOf(ImageList)).apply(this, arguments));
-	  }
-
-	  _createClass(ImageList, [{
-	    key: 'renderList',
-	    value: function renderList() {
-	      var _this2 = this;
-
-	      return this.props.images.map(function (image) {
-	        var select_image = {
-	          type: 'IMAGE_SELECTED',
-	          payload: image
-	        };
-
-	        return _react2.default.createElement(
-	          'div',
-	          { key: image.src, className: 'grid-box' },
-	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: 'list',
-	              onClick: function onClick() {
-	                return _this2.props.selectImage(select_image);
-	              } },
-	            _react2.default.createElement('img', { src: image.src, style: { filter: image.filter } })
-	          )
-	        );
-	      });
-	    }
-	  }, {
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      var _this3 = this;
-
-	      (0, _id_export2.default)().payload.then(function (activeUserInfo) {
-	        var userData = {
-	          type: 'USER_DATA',
-	          payload: activeUserInfo
-	        };
-	        _this3.props.userDetails(userData);
-	      });
-
-	      (0, _reducer_images2.default)().payload.then(function (posts) {
-	        var arr = [];
-	        posts.map(function (el) {
-	          arr.push({ src: el.src, dates: el.dates, id: el._id, mongoId: el.mongoId, filter: el.filter });
-	        });
-
-	        //load is an action
-	        var load = {
-	          type: 'IMAGE_LIST',
-	          payload: arr
-	        };
-	        _this3.props.actionArr(load);
-	      });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        { id: 'home' },
-	        _react2.default.createElement('span', null),
-	        _react2.default.createElement(
-	          'div',
-	          { id: 'nav-bar' },
-	          _react2.default.createElement(_upload2.default, null),
-	          _react2.default.createElement(_profile2.default, null)
-	        ),
-	        _react2.default.createElement(
-	          'h1',
-	          null,
-	          'Image Gallery'
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'picture-grid' },
-	          this.renderList()
-	        )
-	      );
-	    }
-	  }]);
-
-	  return ImageList;
-	}(_react.Component);
-
-	//the actionCreator actionArr dispatches the array arr to the application state and then mapStateToProps adds to the props
-
-
-	function mapStateToProps(state) {
-	  //console.log(state.activeUser)
-	  return {
-	    images: state.images,
-	    activeUser: state.activeUser
-	  };
-	}
-
-	//const selectImg = selectImage();
-
-	//console.log(selectImg);
-
-	//Anything returned from this function will end up as props on the ImageList container
-	function mapDispatchToProps(dispatch) {
-	  //second selectImage is the one thatwas imported above.
-	  //Whenever selectImage is called the result should be passed to all of our reducers
-	  //return bindActionCreators({ selectImage: selectImage, actionArr : actionArr }, dispatch);
-	  return {
-	    selectImage: function selectImage(selectImg) {
-	      return dispatch(selectImg);
-	    },
-	    actionArr: function actionArr(_actionArr) {
-	      return dispatch(_actionArr);
-	    },
-	    userDetails: function userDetails(_userDetails) {
-	      return dispatch(_userDetails);
-	    }
-	  };
-	}
-	//the dispatch gets the results of the selectImage (i.e. the action) call and spits it back out to all the reducers in the application.
-	//To promote ImageList from a component to a container - it needs to know about this new dispatch method, selectImage.
-	//To make it available as a prop.
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(ImageList);
-	//Highly recommends referencing the react-redux documentation
-
-/***/ }),
-/* 257 */
-/***/ (function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	exports.default = function () {
-		// const request = fetch('/images',{ credentials: 'include' })
-		var request = fetch('/images', { credentials: 'include' }).then(function (res) {
-			return res.json();
-		}).catch(function (error) {
-			console.log(error);
-		});
-		//	console.log({payload:request});
-		return { payload: request };
-	};
-
-/***/ }),
-/* 258 */
-/***/ (function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	exports.default = function () {
-	  var request = fetch('/mongoid', { credentials: 'include' }).then(function (res) {
-	    return res.json();
-	  }).catch(function (error) {
-	    console.log(error);
-	    if (error.message === "Failed to fetch" && (document.querySelector("h1") || document.querySelector(".center-block"))) {
-	      window.location.reload();
-	    }
-	  });
-	  return { payload: request };
-	};
-
-/***/ }),
-/* 259 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _axios = __webpack_require__(260);
+	var _axios = __webpack_require__(257);
 
 	var _axios2 = _interopRequireDefault(_axios);
 
@@ -27103,7 +27078,7 @@
 
 	var _reactRedux = __webpack_require__(160);
 
-	var _reducer_images = __webpack_require__(257);
+	var _reducer_images = __webpack_require__(283);
 
 	var _reducer_images2 = _interopRequireDefault(_reducer_images);
 
@@ -27144,7 +27119,6 @@
 	        };
 
 	        _this.props.actionArr(load);
-	        //console.log(load.payload)
 	      });
 	    }, _this.showMessage = function (mode) {
 	      var el = void 0;
@@ -27226,8 +27200,6 @@
 	            messagePanel.innerHTML = "Done!";
 	          }
 	          _this.filerClearer();
-	          // console.log(this.state.selectedFile);
-	          console.log(res.data.msg);
 	          _this.imageData();
 	        }).catch(function (error) {
 	          return console.log(error);
@@ -27397,24 +27369,22 @@
 
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(FileUpload);
 
-	//export default FileUpload;
-
 /***/ }),
-/* 260 */
+/* 257 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(261);
+	module.exports = __webpack_require__(258);
 
 /***/ }),
-/* 261 */
+/* 258 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(262);
-	var bind = __webpack_require__(263);
-	var Axios = __webpack_require__(265);
-	var defaults = __webpack_require__(266);
+	var utils = __webpack_require__(259);
+	var bind = __webpack_require__(260);
+	var Axios = __webpack_require__(262);
+	var defaults = __webpack_require__(263);
 
 	/**
 	 * Create an instance of Axios
@@ -27447,15 +27417,15 @@
 	};
 
 	// Expose Cancel & CancelToken
-	axios.Cancel = __webpack_require__(283);
-	axios.CancelToken = __webpack_require__(284);
-	axios.isCancel = __webpack_require__(280);
+	axios.Cancel = __webpack_require__(280);
+	axios.CancelToken = __webpack_require__(281);
+	axios.isCancel = __webpack_require__(277);
 
 	// Expose all/spread
 	axios.all = function all(promises) {
 	  return Promise.all(promises);
 	};
-	axios.spread = __webpack_require__(285);
+	axios.spread = __webpack_require__(282);
 
 	module.exports = axios;
 
@@ -27464,13 +27434,13 @@
 
 
 /***/ }),
-/* 262 */
+/* 259 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var bind = __webpack_require__(263);
-	var isBuffer = __webpack_require__(264);
+	var bind = __webpack_require__(260);
+	var isBuffer = __webpack_require__(261);
 
 	/*global toString:true*/
 
@@ -27773,7 +27743,7 @@
 
 
 /***/ }),
-/* 263 */
+/* 260 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -27790,7 +27760,7 @@
 
 
 /***/ }),
-/* 264 */
+/* 261 */
 /***/ (function(module, exports) {
 
 	/*!
@@ -27817,15 +27787,15 @@
 
 
 /***/ }),
-/* 265 */
+/* 262 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var defaults = __webpack_require__(266);
-	var utils = __webpack_require__(262);
-	var InterceptorManager = __webpack_require__(277);
-	var dispatchRequest = __webpack_require__(278);
+	var defaults = __webpack_require__(263);
+	var utils = __webpack_require__(259);
+	var InterceptorManager = __webpack_require__(274);
+	var dispatchRequest = __webpack_require__(275);
 
 	/**
 	 * Create a new instance of Axios
@@ -27902,13 +27872,13 @@
 
 
 /***/ }),
-/* 266 */
+/* 263 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var utils = __webpack_require__(262);
-	var normalizeHeaderName = __webpack_require__(267);
+	var utils = __webpack_require__(259);
+	var normalizeHeaderName = __webpack_require__(264);
 
 	var DEFAULT_CONTENT_TYPE = {
 	  'Content-Type': 'application/x-www-form-urlencoded'
@@ -27924,10 +27894,10 @@
 	  var adapter;
 	  if (typeof XMLHttpRequest !== 'undefined') {
 	    // For browsers use XHR adapter
-	    adapter = __webpack_require__(268);
+	    adapter = __webpack_require__(265);
 	  } else if (typeof process !== 'undefined') {
 	    // For node use HTTP adapter
-	    adapter = __webpack_require__(268);
+	    adapter = __webpack_require__(265);
 	  }
 	  return adapter;
 	}
@@ -28005,12 +27975,12 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
-/* 267 */
+/* 264 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(262);
+	var utils = __webpack_require__(259);
 
 	module.exports = function normalizeHeaderName(headers, normalizedName) {
 	  utils.forEach(headers, function processHeader(value, name) {
@@ -28023,18 +27993,18 @@
 
 
 /***/ }),
-/* 268 */
+/* 265 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var utils = __webpack_require__(262);
-	var settle = __webpack_require__(269);
-	var buildURL = __webpack_require__(272);
-	var parseHeaders = __webpack_require__(273);
-	var isURLSameOrigin = __webpack_require__(274);
-	var createError = __webpack_require__(270);
-	var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(275);
+	var utils = __webpack_require__(259);
+	var settle = __webpack_require__(266);
+	var buildURL = __webpack_require__(269);
+	var parseHeaders = __webpack_require__(270);
+	var isURLSameOrigin = __webpack_require__(271);
+	var createError = __webpack_require__(267);
+	var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(272);
 
 	module.exports = function xhrAdapter(config) {
 	  return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -28131,7 +28101,7 @@
 	    // This is only done if running in a standard browser environment.
 	    // Specifically not if we're in a web worker, or react-native.
 	    if (utils.isStandardBrowserEnv()) {
-	      var cookies = __webpack_require__(276);
+	      var cookies = __webpack_require__(273);
 
 	      // Add xsrf header
 	      var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -28210,12 +28180,12 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
-/* 269 */
+/* 266 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var createError = __webpack_require__(270);
+	var createError = __webpack_require__(267);
 
 	/**
 	 * Resolve or reject a Promise based on response status.
@@ -28242,12 +28212,12 @@
 
 
 /***/ }),
-/* 270 */
+/* 267 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var enhanceError = __webpack_require__(271);
+	var enhanceError = __webpack_require__(268);
 
 	/**
 	 * Create an Error with the specified message, config, error code, request and response.
@@ -28266,7 +28236,7 @@
 
 
 /***/ }),
-/* 271 */
+/* 268 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -28293,12 +28263,12 @@
 
 
 /***/ }),
-/* 272 */
+/* 269 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(262);
+	var utils = __webpack_require__(259);
 
 	function encode(val) {
 	  return encodeURIComponent(val).
@@ -28365,12 +28335,12 @@
 
 
 /***/ }),
-/* 273 */
+/* 270 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(262);
+	var utils = __webpack_require__(259);
 
 	// Headers whose duplicates are ignored by node
 	// c.f. https://nodejs.org/api/http.html#http_message_headers
@@ -28424,12 +28394,12 @@
 
 
 /***/ }),
-/* 274 */
+/* 271 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(262);
+	var utils = __webpack_require__(259);
 
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -28498,7 +28468,7 @@
 
 
 /***/ }),
-/* 275 */
+/* 272 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -28540,12 +28510,12 @@
 
 
 /***/ }),
-/* 276 */
+/* 273 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(262);
+	var utils = __webpack_require__(259);
 
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -28599,12 +28569,12 @@
 
 
 /***/ }),
-/* 277 */
+/* 274 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(262);
+	var utils = __webpack_require__(259);
 
 	function InterceptorManager() {
 	  this.handlers = [];
@@ -28657,17 +28627,17 @@
 
 
 /***/ }),
-/* 278 */
+/* 275 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(262);
-	var transformData = __webpack_require__(279);
-	var isCancel = __webpack_require__(280);
-	var defaults = __webpack_require__(266);
-	var isAbsoluteURL = __webpack_require__(281);
-	var combineURLs = __webpack_require__(282);
+	var utils = __webpack_require__(259);
+	var transformData = __webpack_require__(276);
+	var isCancel = __webpack_require__(277);
+	var defaults = __webpack_require__(263);
+	var isAbsoluteURL = __webpack_require__(278);
+	var combineURLs = __webpack_require__(279);
 
 	/**
 	 * Throws a `Cancel` if cancellation has been requested.
@@ -28749,12 +28719,12 @@
 
 
 /***/ }),
-/* 279 */
+/* 276 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(262);
+	var utils = __webpack_require__(259);
 
 	/**
 	 * Transform the data for a request or a response
@@ -28775,7 +28745,7 @@
 
 
 /***/ }),
-/* 280 */
+/* 277 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -28786,7 +28756,7 @@
 
 
 /***/ }),
-/* 281 */
+/* 278 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -28806,7 +28776,7 @@
 
 
 /***/ }),
-/* 282 */
+/* 279 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -28826,7 +28796,7 @@
 
 
 /***/ }),
-/* 283 */
+/* 280 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -28851,12 +28821,12 @@
 
 
 /***/ }),
-/* 284 */
+/* 281 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Cancel = __webpack_require__(283);
+	var Cancel = __webpack_require__(280);
 
 	/**
 	 * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -28914,7 +28884,7 @@
 
 
 /***/ }),
-/* 285 */
+/* 282 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -28947,7 +28917,26 @@
 
 
 /***/ }),
-/* 286 */
+/* 283 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	exports.default = function () {
+		var request = fetch('/images', { credentials: 'include' }).then(function (res) {
+			return res.json();
+		}).catch(function (error) {
+			console.log(error);
+		});
+		return { payload: request };
+	};
+
+/***/ }),
+/* 284 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28975,8 +28964,6 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	//const Profile = () => { 
 
 	var Profile = function (_Component) {
 	    _inherits(Profile, _Component);
@@ -29077,10 +29064,7 @@
 	    return Profile;
 	}(_react.Component);
 
-	//export default Profile;
-
 	function mapStateToProps(state) {
-	    //console.log(state.activeUser);
 	    return {
 	        activeUser: state.activeUser
 	    };
@@ -29089,360 +29073,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Profile);
 
 /***/ }),
-/* 287 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	if (document.querySelector("footer")) {
-	    document.querySelector("footer").classList.add("footer-position");
-	}
-	//alert("it's working!!")
-
-	var Footer = function Footer() {
-	    return _react2.default.createElement(
-	        "footer",
-	        null,
-	        _react2.default.createElement(
-	            "table",
-	            { id: "footer_icons" },
-	            _react2.default.createElement(
-	                "tbody",
-	                null,
-	                _react2.default.createElement(
-	                    "tr",
-	                    null,
-	                    _react2.default.createElement(
-	                        "td",
-	                        null,
-	                        _react2.default.createElement(
-	                            "a",
-	                            { href: "https://github.com/kenankomah/photo_app" },
-	                            _react2.default.createElement(
-	                                "svg",
-	                                { className: "github_icon", role: "img", viewBox: "0 0 24 24" },
-	                                _react2.default.createElement("path", { d: "M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" })
-	                            )
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        "td",
-	                        null,
-	                        _react2.default.createElement(
-	                            "a",
-	                            { href: "https://www.linkedin.com/in/ken-ankomah-95565117/" },
-	                            _react2.default.createElement(
-	                                "svg",
-	                                { className: "linkedin_icon", height: "67px", id: "Layer_1", style: { enablebackground: "new 0 0 67 67" }, version: "1.1", viewBox: "0 0 67 67", width: "67px" },
-	                                _react2.default.createElement("path", { d: "M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" })
-	                            )
-	                        )
-	                    )
-	                )
-	            )
-	        )
-	    );
-	};
-
-	exports.default = Footer;
-
-/***/ }),
-/* 288 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRedux = __webpack_require__(160);
-
-	var _redux = __webpack_require__(166);
-
-	var _reactRouter = __webpack_require__(198);
-
-	var _upload = __webpack_require__(259);
-
-	var _upload2 = _interopRequireDefault(_upload);
-
-	var _profile = __webpack_require__(286);
-
-	var _profile2 = _interopRequireDefault(_profile);
-
-	var _footer = __webpack_require__(287);
-
-	var _footer2 = _interopRequireDefault(_footer);
-
-	var _reactConfirmAlert = __webpack_require__(289);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	// Import
-	//import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
-
-
-	var ImageDetail = function (_Component) {
-	  _inherits(ImageDetail, _Component);
-
-	  function ImageDetail() {
-	    var _ref;
-
-	    var _temp, _this, _ret;
-
-	    _classCallCheck(this, ImageDetail);
-
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
-
-	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ImageDetail.__proto__ || Object.getPrototypeOf(ImageDetail)).call.apply(_ref, [this].concat(args))), _this), _this.submit = function (imageId) {
-	      (0, _reactConfirmAlert.confirmAlert)({
-	        title: '',
-	        message: "Are you sure you want to delete this image?",
-	        buttons: [{
-	          label: 'Yes',
-	          onClick: function onClick() {
-	            return _this.deleteImage(imageId);
-	          }
-	        }, {
-	          label: 'No',
-	          onClick: function onClick() {
-	            return console.log('closed');
-	          }
-	        }]
-	      });
-	    }, _temp), _possibleConstructorReturn(_this, _ret);
-	  }
-
-	  _createClass(ImageDetail, [{
-	    key: 'deleteImage',
-	    value: function deleteImage(id) {
-	      var newPost = function newPost() {
-	        var options = {
-	          method: 'DELETE',
-	          headers: new Headers({
-	            'Content-Type': 'application/json'
-	          })
-	        };
-
-	        return fetch('/image/' + id, options).then(function (res) {
-	          return res.json();
-	        }).then(function (res) {
-	          return console.log(res);
-	        }).catch(function (error) {
-	          return console.log(error);
-	        });
-	      };
-	      window.location.assign('/');
-	      newPost();
-	    }
-	  }, {
-	    key: 'returnIndex',
-	    value: function returnIndex(imageSrc) {
-	      for (var i = 0; i < this.props.images.length; i++) {
-	        if (this.props.images[i].src === imageSrc) {
-	          return i;
-	        }
-	      }
-	    }
-	  }, {
-	    key: 'updateSource',
-	    value: function updateSource(index) {
-	      document.getElementById("detail-img").src = this.props.images[index].src;
-
-	      var select_image = {
-	        type: 'IMAGE_SELECTED',
-	        payload: this.props.images[index]
-	      };
-	      this.props.selectImage(select_image);
-	    }
-	  }, {
-	    key: 'imageSlider',
-	    value: function imageSlider(direction) {
-	      var imageSrc = document.getElementById("detail-img").src;
-	      //console.log(this.returnIndex(imageSrc));
-	      var index = this.returnIndex(imageSrc);
-	      this.props.images.length;
-
-	      if (direction === "next" && index !== this.props.images.length - 1) {
-	        index++;
-	        this.controlButtons();
-	      } else if (direction === "previous" && index !== 0) {
-	        index--;
-	        this.controlButtons();
-	      }
-
-	      if (index === this.props.images.length - 1) {
-	        document.getElementById("next").classList.add("inactive");
-	      } else if (index === 0) {
-	        document.getElementById("previous").classList.add("inactive");
-	      } else if (document.querySelector(".inactive")) {
-	        document.getElementById("next").classList.remove("inactive");
-	        document.getElementById("previous").classList.remove("inactive");
-	      }
-
-	      this.updateSource(index);
-	    }
-	  }, {
-	    key: 'controlButtons',
-	    value: function controlButtons() {
-	      //fade in animation
-	      document.getElementById("detail-img").animate({
-	        opacity: [0, 1], // [ from, to ]
-	        color: ["#fff", "#000"] // [ from, to ]
-	      }, 750);
-	    }
-	  }, {
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      //code below runs when the component is rendered
-	      this.controlButtons();
-	      this.imageSlider();
-	      //document.querySelector('footer').style.top =  "412px";//(window.innerHeight - 110)  + "px";
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _this2 = this;
-
-	      if (!this.props.image) {
-	        window.location.assign('/');
-	      }
-
-	      //console.log("image_testttttttttttttttttt",this.props.image);
-
-	      return _react2.default.createElement(
-	        'div',
-	        { id: 'detail-container' },
-	        _react2.default.createElement('div', { className: 'container details', id: 'img_details' }),
-	        _react2.default.createElement(
-	          'div',
-	          { id: 'nav-bar' },
-	          _react2.default.createElement(_upload2.default, null),
-	          _react2.default.createElement(_profile2.default, null)
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { id: 'button-div' },
-	          _react2.default.createElement(
-	            'svg',
-	            { onClick: function onClick() {
-	                return _this2.imageSlider("previous");
-	              }, id: 'previous', className: 'slide', xmlns: 'http://www.w3.org/2000/svg', x: '0px', y: '0px', viewBox: '0 0 492 492', 'enable-background': 'new 0 0 492 492' },
-	            _react2.default.createElement('path', { d: 'M198.608,246.104L382.664,62.04c5.068-5.056,7.856-11.816,7.856-19.024c0-7.212-2.788-13.968-7.856-19.032l-16.128-16.12\r C361.476,2.792,354.712,0,347.504,0s-13.964,2.792-19.028,7.864L109.328,227.008c-5.084,5.08-7.868,11.868-7.848,19.084\r c-0.02,7.248,2.76,14.028,7.848,19.112l218.944,218.932c5.064,5.072,11.82,7.864,19.032,7.864c7.208,0,13.964-2.792,19.032-7.864\t\tl16.124-16.12c10.492-10.492,10.492-27.572,0-38.06L198.608,246.104z' })
-	          ),
-	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: '/' },
-	            _react2.default.createElement(
-	              'button',
-	              { className: 'center-block btn btn-primary', id: 'back-home' },
-	              ' Back to gallery'
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'svg',
-	            { onClick: function onClick() {
-	                return _this2.imageSlider("next");
-	              }, id: 'next', className: 'slide', xmlns: 'http://www.w3.org/2000/svg', x: '0px', y: '0px', viewBox: '0 0 492.004 492.004', 'enable-background': 'new 0 0 492.004 492.004' },
-	            _react2.default.createElement('path', { d: 'M382.678,226.804L163.73,7.86C158.666,2.792,151.906,0,144.698,0s-13.968,2.792-19.032,7.86l-16.124,16.12\r c-10.492,10.504-10.492,27.576,0,38.064L293.398,245.9l-184.06,184.06c-5.064,5.068-7.86,11.824-7.86,19.028\r c0,7.212,2.796,13.968,7.86,19.04l16.124,16.116c5.068,5.068,11.824,7.86,19.032,7.86s13.968-2.792,19.032-7.86L382.678,265\r c5.076-5.084,7.864-11.872,7.848-19.088C390.542,238.668,387.754,231.884,382.678,226.804z' })
-	          )
-	        ),
-	        _react2.default.createElement('div', { height: '50px;', className: 'span4' }),
-	        _react2.default.createElement('img', { onload: function onload() {
-	            return _this2.controlButtons();
-	          }, className: 'center-block', id: 'detail-img', src: this.props.image.src, style: { filter: this.props.image.filter } }),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'span4 text-center', id: 'date' },
-	          'Added ',
-	          _react2.default.createElement(
-	            'span',
-	            { className: 'time' },
-	            'on'
-	          ),
-	          ':',
-	          this.props.image.dates.split(" ")[0],
-	          ' ',
-	          _react2.default.createElement(
-	            'span',
-	            { className: 'time' },
-	            'at'
-	          ),
-	          ':',
-	          this.props.image.dates.split(" ")[1],
-	          _react2.default.createElement('br', null),
-	          _react2.default.createElement(
-	            'button',
-	            { onClick: function onClick() {
-	                return _this2.submit(_this2.props.image.id);
-	              }, className: 'btn btn-primary ' },
-	            _react2.default.createElement('i', { className: 'fa fa-trash' }),
-	            ' Delete Image'
-	          ),
-	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: '/filters' },
-	            _react2.default.createElement(
-	              'button',
-	              { className: 'btn btn-primary' },
-	              _react2.default.createElement('i', { className: 'fa fa-edit' }),
-	              ' Add Filters'
-	            )
-	          )
-	        )
-	      );
-	    }
-	  }]);
-
-	  return ImageDetail;
-	}(_react.Component);
-
-	function mapStateToProps(state) {
-	  //console.log(state.activeImage);
-	  return {
-	    image: state.activeImage,
-	    images: state.images
-	  };
-	}
-
-	function mapDispatchToProps(dispatch) {
-	  return {
-	    selectImage: function selectImage(selectImg) {
-	      return dispatch(selectImg);
-	    }
-	  };
-	}
-
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(ImageDetail);
-
-	//export default connect(mapStateToProps)(ImageDetail);
-
-/***/ }),
-/* 289 */
+/* 285 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29462,7 +29093,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _propTypes = __webpack_require__(290);
+	var _propTypes = __webpack_require__(286);
 
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -29673,7 +29304,7 @@
 	}
 
 /***/ }),
-/* 290 */
+/* 286 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -29684,36 +29315,36 @@
 	 */
 
 	if (process.env.NODE_ENV !== 'production') {
-	  var ReactIs = __webpack_require__(291);
+	  var ReactIs = __webpack_require__(287);
 
 	  // By explicitly using `prop-types` you are opting into new development behavior.
 	  // http://fb.me/prop-types-in-prod
 	  var throwOnDirectAccess = true;
-	  module.exports = __webpack_require__(294)(ReactIs.isElement, throwOnDirectAccess);
+	  module.exports = __webpack_require__(290)(ReactIs.isElement, throwOnDirectAccess);
 	} else {
 	  // By explicitly using `prop-types` you are opting into new production behavior.
 	  // http://fb.me/prop-types-in-prod
-	  module.exports = __webpack_require__(298)();
+	  module.exports = __webpack_require__(294)();
 	}
 
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
-/* 291 */
+/* 287 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
 	if (process.env.NODE_ENV === 'production') {
-	  module.exports = __webpack_require__(292);
+	  module.exports = __webpack_require__(288);
 	} else {
-	  module.exports = __webpack_require__(293);
+	  module.exports = __webpack_require__(289);
 	}
 
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
-/* 292 */
+/* 288 */
 /***/ (function(module, exports) {
 
 	/** @license React v16.8.1
@@ -29734,7 +29365,7 @@
 
 
 /***/ }),
-/* 293 */
+/* 289 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/** @license React v16.8.1
@@ -29968,7 +29599,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
-/* 294 */
+/* 290 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -29980,11 +29611,11 @@
 
 	'use strict';
 
-	var ReactIs = __webpack_require__(291);
-	var assign = __webpack_require__(295);
+	var ReactIs = __webpack_require__(287);
+	var assign = __webpack_require__(291);
 
-	var ReactPropTypesSecret = __webpack_require__(296);
-	var checkPropTypes = __webpack_require__(297);
+	var ReactPropTypesSecret = __webpack_require__(292);
+	var checkPropTypes = __webpack_require__(293);
 
 	var has = Function.call.bind(Object.prototype.hasOwnProperty);
 	var printWarning = function() {};
@@ -30560,7 +30191,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
-/* 295 */
+/* 291 */
 /***/ (function(module, exports) {
 
 	/*
@@ -30656,7 +30287,7 @@
 
 
 /***/ }),
-/* 296 */
+/* 292 */
 /***/ (function(module, exports) {
 
 	/**
@@ -30674,7 +30305,7 @@
 
 
 /***/ }),
-/* 297 */
+/* 293 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -30689,7 +30320,7 @@
 	var printWarning = function() {};
 
 	if (process.env.NODE_ENV !== 'production') {
-	  var ReactPropTypesSecret = __webpack_require__(296);
+	  var ReactPropTypesSecret = __webpack_require__(292);
 	  var loggedTypeFailures = {};
 	  var has = Function.call.bind(Object.prototype.hasOwnProperty);
 
@@ -30783,7 +30414,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
-/* 298 */
+/* 294 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -30795,7 +30426,7 @@
 
 	'use strict';
 
-	var ReactPropTypesSecret = __webpack_require__(296);
+	var ReactPropTypesSecret = __webpack_require__(292);
 
 	function emptyFunction() {}
 	function emptyFunctionWithReset() {}
@@ -30853,13 +30484,13 @@
 
 
 /***/ }),
-/* 299 */
+/* 295 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -30867,6 +30498,32 @@
 	var _react = __webpack_require__(2);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(160);
+
+	var _redux = __webpack_require__(166);
+
+	var _reactRouter = __webpack_require__(198);
+
+	var _reducer_images = __webpack_require__(283);
+
+	var _reducer_images2 = _interopRequireDefault(_reducer_images);
+
+	var _id_export = __webpack_require__(296);
+
+	var _id_export2 = _interopRequireDefault(_id_export);
+
+	var _upload = __webpack_require__(256);
+
+	var _upload2 = _interopRequireDefault(_upload);
+
+	var _profile = __webpack_require__(284);
+
+	var _profile2 = _interopRequireDefault(_profile);
+
+	var _footer = __webpack_require__(297);
+
+	var _footer2 = _interopRequireDefault(_footer);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -30876,46 +30533,215 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Login = function (_Component) {
-	    _inherits(Login, _Component);
+	var ImageList = function (_Component) {
+	  _inherits(ImageList, _Component);
 
-	    function Login() {
-	        _classCallCheck(this, Login);
+	  function ImageList() {
+	    _classCallCheck(this, ImageList);
 
-	        return _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).apply(this, arguments));
+	    return _possibleConstructorReturn(this, (ImageList.__proto__ || Object.getPrototypeOf(ImageList)).apply(this, arguments));
+	  }
+
+	  _createClass(ImageList, [{
+	    key: 'renderList',
+	    value: function renderList() {
+	      var _this2 = this;
+
+	      return this.props.images.map(function (image) {
+	        var select_image = {
+	          type: 'IMAGE_SELECTED',
+	          payload: image
+	        };
+
+	        return _react2.default.createElement(
+	          'div',
+	          { key: image.src, className: 'grid-box' },
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: 'list',
+	              onClick: function onClick() {
+	                return _this2.props.selectImage(select_image);
+	              } },
+	            _react2.default.createElement('img', { src: image.src, style: { filter: image.filter } })
+	          )
+	        );
+	      });
 	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this3 = this;
 
-	    _createClass(Login, [{
-	        key: "render",
-	        value: function render() {
-	            return _react2.default.createElement(
-	                "div",
-	                { className: "container" },
-	                _react2.default.createElement(
-	                    "h1",
-	                    null,
-	                    "Test"
-	                ),
-	                _react2.default.createElement(
-	                    "button",
-	                    { className: "btn" },
-	                    _react2.default.createElement(
-	                        "a",
-	                        { href: "#" },
-	                        "image list"
-	                    )
-	                )
-	            );
-	        }
-	    }]);
+	      (0, _id_export2.default)().payload.then(function (activeUserInfo) {
+	        var userData = {
+	          type: 'USER_DATA',
+	          payload: activeUserInfo
+	        };
+	        _this3.props.userDetails(userData);
+	      });
 
-	    return Login;
+	      (0, _reducer_images2.default)().payload.then(function (posts) {
+	        var arr = [];
+	        posts.map(function (el) {
+	          arr.push({ src: el.src, dates: el.dates, id: el._id, mongoId: el.mongoId, filter: el.filter });
+	        });
+
+	        //load is an action
+	        var load = {
+	          type: 'IMAGE_LIST',
+	          payload: arr
+	        };
+	        _this3.props.actionArr(load);
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { id: 'home' },
+	        _react2.default.createElement('span', null),
+	        _react2.default.createElement(
+	          'div',
+	          { id: 'nav-bar' },
+	          _react2.default.createElement(_upload2.default, null),
+	          _react2.default.createElement(_profile2.default, null)
+	        ),
+	        _react2.default.createElement(
+	          'h1',
+	          null,
+	          'Image Gallery'
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'picture-grid' },
+	          this.renderList()
+	        )
+	      );
+	    }
+	  }]);
+
+	  return ImageList;
 	}(_react.Component);
 
-	exports.default = Login;
+	//the actionCreator actionArr dispatches the array arr to the application state and then mapStateToProps adds to the props
+
+
+	function mapStateToProps(state) {
+	  return {
+	    images: state.images,
+	    activeUser: state.activeUser
+	  };
+	}
+
+	//Anything returned from this function will end up as props on the ImageList container
+	function mapDispatchToProps(dispatch) {
+	  return {
+	    selectImage: function selectImage(selectImg) {
+	      return dispatch(selectImg);
+	    },
+	    actionArr: function actionArr(_actionArr) {
+	      return dispatch(_actionArr);
+	    },
+	    userDetails: function userDetails(_userDetails) {
+	      return dispatch(_userDetails);
+	    }
+	  };
+	}
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(ImageList);
 
 /***/ }),
-/* 300 */
+/* 296 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	exports.default = function () {
+	  var request = fetch('/mongoid', { credentials: 'include' }).then(function (res) {
+	    return res.json();
+	  }).catch(function (error) {
+	    console.log(error);
+	    if (error.message === "Failed to fetch" && (document.querySelector("h1") || document.querySelector(".center-block"))) {
+	      window.location.reload();
+	    }
+	  });
+	  return { payload: request };
+	};
+
+/***/ }),
+/* 297 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	if (document.querySelector("footer")) {
+	    document.querySelector("footer").classList.add("footer-position");
+	}
+
+	var Footer = function Footer() {
+	    return _react2.default.createElement(
+	        "footer",
+	        null,
+	        _react2.default.createElement(
+	            "table",
+	            { id: "footer_icons" },
+	            _react2.default.createElement(
+	                "tbody",
+	                null,
+	                _react2.default.createElement(
+	                    "tr",
+	                    null,
+	                    _react2.default.createElement(
+	                        "td",
+	                        null,
+	                        _react2.default.createElement(
+	                            "a",
+	                            { href: "https://github.com/kenankomah/photo_app" },
+	                            _react2.default.createElement(
+	                                "svg",
+	                                { className: "github_icon", role: "img", viewBox: "0 0 24 24" },
+	                                _react2.default.createElement("path", { d: "M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" })
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        "td",
+	                        null,
+	                        _react2.default.createElement(
+	                            "a",
+	                            { href: "https://www.linkedin.com/in/ken-ankomah-95565117/" },
+	                            _react2.default.createElement(
+	                                "svg",
+	                                { className: "linkedin_icon", height: "67px", id: "Layer_1", style: { enablebackground: "new 0 0 67 67" }, version: "1.1", viewBox: "0 0 67 67", width: "67px" },
+	                                _react2.default.createElement("path", { d: "M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" })
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        )
+	    );
+	};
+
+	exports.default = Footer;
+
+/***/ }),
+/* 298 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30932,11 +30758,11 @@
 
 	var _reactRedux = __webpack_require__(160);
 
-	var _upload = __webpack_require__(259);
+	var _upload = __webpack_require__(256);
 
 	var _upload2 = _interopRequireDefault(_upload);
 
-	var _profile = __webpack_require__(286);
+	var _profile = __webpack_require__(284);
 
 	var _profile2 = _interopRequireDefault(_profile);
 
@@ -30997,9 +30823,6 @@
 	        }
 	    }, {
 	        key: 'filterReset',
-
-
-	        // document.querySelector('button').addEventListener("click", function(){
 	        value: function filterReset() {
 	            console.log(this.props.image);
 	            var img = document.querySelector('#filter-container img');
@@ -31022,8 +30845,6 @@
 	            document.querySelectorAll("input[type=range]")[7].value = 0;
 
 	            img.style.filter = "none";
-
-	            // })
 	        }
 	    }, {
 	        key: 'updateImage',
@@ -31318,7 +31139,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(ImageFilter);
 
 /***/ }),
-/* 301 */
+/* 299 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31420,7 +31241,7 @@
 	exports.default = Logins;
 
 /***/ }),
-/* 302 */
+/* 300 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -31433,7 +31254,6 @@
 	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
 	  var action = arguments[1];
 
-	  //console.log(action);
 	  switch (action.type) {
 	    case 'IMAGE_SELECTED':
 	      return action.payload;

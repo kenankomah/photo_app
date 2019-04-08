@@ -7,7 +7,7 @@ import { Router, browserHistory } from 'react-router';
 import routes from './routes';
 import logins from './logins';
 
-import App from './components/app';
+//import App from './components/app';
 import { combineReducers } from 'redux';
 import ImagesReducer from './reducers/reducer_images';
 import ActiveImage from './reducers/reducer_active_image';
