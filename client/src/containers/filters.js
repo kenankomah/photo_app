@@ -5,6 +5,7 @@ import Profile from './profile';
 import { Link } from 'react-router';
 
 
+
 class ImageFilter extends Component {
 
     addFilter(){ 
@@ -93,26 +94,25 @@ class ImageFilter extends Component {
       }
 
       componentDidMount(){
-          const filter = this.props.image.filter;
-            document.querySelectorAll('#filter-table td')[2].innerText = filter.split(' ')[0].replace(/[^0-9.]/g,"") + "%";
-            document.querySelectorAll('#filter-table td')[5].innerText = filter.split(' ')[1].replace(/[^0-9.]/g,"") + "%";
-            document.querySelectorAll('#filter-table td')[8].innerText = filter.split(' ')[2].replace(/[^0-9.]/g,"") + "%";
-            document.querySelectorAll('#filter-table td')[11].innerText = filter.split(' ')[3].replace(/[^0-9.]/g,"")/2 + "%";
-            document.querySelectorAll('#filter-table td')[14].innerText = (filter.split(' ')[4].replace(/[^0-9.]/g,"")/2)*100 + "%";
-            document.querySelectorAll('#filter-table td')[17].innerText =  ((filter.split(' ')[5].replace(/[^0-9.]/g,"")/360)*100).toFixed(0) + "%";
-            document.querySelectorAll('#filter-table td')[20].innerText = ((filter.split(' ')[6].replace(/[^0-9.]/g,"")/5)*100).toFixed(0) + "%";
-            document.querySelectorAll('#filter-table td')[23].innerText = filter.split(' ')[7].replace(/[^0-9.]/g,"") * 20 + "%";
+        const filter = this.props.image.filter;
+        document.querySelectorAll('#filter-table td')[2].innerText = filter.split(' ')[0].replace(/[^0-9.]/g,"") + "%";
+        document.querySelectorAll('#filter-table td')[5].innerText = filter.split(' ')[1].replace(/[^0-9.]/g,"") + "%";
+        document.querySelectorAll('#filter-table td')[8].innerText = filter.split(' ')[2].replace(/[^0-9.]/g,"") + "%";
+        document.querySelectorAll('#filter-table td')[11].innerText = filter.split(' ')[3].replace(/[^0-9.]/g,"")/2 + "%";
+        document.querySelectorAll('#filter-table td')[14].innerText = (filter.split(' ')[4].replace(/[^0-9.]/g,"")/2)*100 + "%";
+        document.querySelectorAll('#filter-table td')[17].innerText =  ((filter.split(' ')[5].replace(/[^0-9.]/g,"")/360)*100).toFixed(0) + "%";
+        document.querySelectorAll('#filter-table td')[20].innerText = ((filter.split(' ')[6].replace(/[^0-9.]/g,"")/5)*100).toFixed(0) + "%";
+        document.querySelectorAll('#filter-table td')[23].innerText = filter.split(' ')[7].replace(/[^0-9.]/g,"") * 20 + "%";
 
 
-            document.querySelectorAll("input[type=range]")[0].value = filter.split(' ')[0].replace(/[^0-9.]/g,"");
-            document.querySelectorAll("input[type=range]")[1].value = filter.split(' ')[1].replace(/[^0-9.]/g,"");
-            document.querySelectorAll("input[type=range]")[2].value = filter.split(' ')[2].replace(/[^0-9.]/g,"");
-            document.querySelectorAll("input[type=range]")[3].value = filter.split(' ')[3].replace(/[^0-9.]/g,"");
-            document.querySelectorAll("input[type=range]")[4].value = (filter.split(' ')[4].replace(/[^0-9.]/g,"")/2)*100;
-            document.querySelectorAll("input[type=range]")[5].value = filter.split(' ')[5].replace(/[^0-9.]/g,"");
-            document.querySelectorAll("input[type=range]")[6].value = (filter.split(' ')[6].replace(/[^0-9.]/g,"")/5)*100;
-            document.querySelectorAll("input[type=range]")[7].value = filter.split(' ')[7].replace(/[^0-9.]/g,"") * 10;
-          
+        document.querySelectorAll("input[type=range]")[0].value = filter.split(' ')[0].replace(/[^0-9.]/g,"");
+        document.querySelectorAll("input[type=range]")[1].value = filter.split(' ')[1].replace(/[^0-9.]/g,"");
+        document.querySelectorAll("input[type=range]")[2].value = filter.split(' ')[2].replace(/[^0-9.]/g,"");
+        document.querySelectorAll("input[type=range]")[3].value = filter.split(' ')[3].replace(/[^0-9.]/g,"");
+        document.querySelectorAll("input[type=range]")[4].value = (filter.split(' ')[4].replace(/[^0-9.]/g,"")/2)*100;
+        document.querySelectorAll("input[type=range]")[5].value = filter.split(' ')[5].replace(/[^0-9.]/g,"");
+        document.querySelectorAll("input[type=range]")[6].value = (filter.split(' ')[6].replace(/[^0-9.]/g,"")/5)*100;
+        document.querySelectorAll("input[type=range]")[7].value = filter.split(' ')[7].replace(/[^0-9.]/g,"") * 10;
      }   
 
  

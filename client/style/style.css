@@ -149,3 +149,7 @@ img{
 	top: 30px;
 	left: 24px;
 }
+
+button{
+	z-index: 100000;
+}
